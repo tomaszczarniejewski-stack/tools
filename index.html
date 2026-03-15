@@ -72,6 +72,27 @@
       line-height: 1.4;
     }
 
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .buttons a button {
+      background: #ffdd00;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .buttons a button:hover {
+      opacity: 0.9;
+    }
+
     footer {
       margin-top: 40px;
       font-size: 14px;
@@ -89,9 +110,18 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    .logo {
+      display: block;
+      margin: 0 auto 20px auto;
+      max-width: 300px;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Logo -->
+  <img src="Tomas free online tools.png" alt="Tomas Free Online Tools Logo" class="logo">
 
   <h1>Tomas Free Online Tools</h1>
 
@@ -113,90 +143,33 @@
   </div>
 
   <div class="tool-list">
-    <div class="tool-item">
-      <a href="hook-generator/">YouTube Hook Generator</a>
-      <p class="description">Generate catchy hooks for your YouTube videos instantly.</p>
-    </div>
-    <div class="tool-item">
-      <a href="username-generator/">Username Generator</a>
-      <p class="description">Create unique usernames for social media and gaming.</p>
-    </div>
-    <div class="tool-item">
-      <a href="diet-calculator/">Diet Calculator</a>
-      <p class="description">Calculate calories and macros for your diet plan.</p>
-    </div>
-    <div class="tool-item">
-      <a href="story-generator/">Random Story Generator</a>
-      <p class="description">Generate creative random story ideas instantly.</p>
-    </div>
-    <div class="tool-item">
-      <a href="caption-generator/">Caption Generator</a>
-      <p class="description">Generate captions for social media posts quickly.</p>
-    </div>
-    <div class="tool-item">
-      <a href="base64-encoder-decoder/">Base64 Encoder/Decoder</a>
-      <p class="description">Encode or decode Base64 text instantly.</p>
-    </div>
-    <div class="tool-item">
-      <a href="blog-title-generator/">Blog Title Generator</a>
-      <p class="description">Generate catchy blog post titles automatically.</p>
-    </div>
-    <div class="tool-item">
-      <a href="call-to-action-generator/">Call-to-Action Generator</a>
-      <p class="description">Create effective CTA texts for marketing and ads.</p>
-    </div>
-    <div class="tool-item">
-      <a href="faq-generator/">FAQ Generator</a>
-      <p class="description">Generate FAQ sections for websites in seconds.</p>
-    </div>
-    <div class="tool-item">
-      <a href="hashtag-generator/">Hashtag Generator</a>
-      <p class="description">Generate hashtags for social media posts fast.</p>
-    </div>
-    <div class="tool-item">
-      <a href="keyword-idea-generator/">Keyword Idea Generator</a>
-      <p class="description">Find keyword ideas for SEO and content marketing.</p>
-    </div>
-    <div class="tool-item">
-      <a href="lorem-ipsum-generator/">Lorem Ipsum Generator</a>
-      <p class="description">Generate placeholder text for your projects.</p>
-    </div>
-    <div class="tool-item">
-      <a href="meta-description-generator/">Meta Description Generator</a>
-      <p class="description">Create SEO-friendly meta descriptions quickly.</p>
-    </div>
-    <div class="tool-item">
-      <a href="meta-title-generator/">Meta Title Generator</a>
-      <p class="description">Generate SEO-friendly meta titles for your pages.</p>
-    </div>
-    <div class="tool-item">
-      <a href="password-strength-checker/">Password Strength Checker</a>
-      <p class="description">Check the strength of your passwords instantly.</p>
-    </div>
-    <div class="tool-item">
-      <a href="random-color-generator/">Random Color Generator</a>
-      <p class="description">Generate random colors with hex codes for design.</p>
-    </div>
-    <div class="tool-item">
-      <a href="random-name-picker/">Random Name Picker</a>
-      <p class="description">Pick random names from a list quickly.</p>
-    </div>
-    <div class="tool-item">
-      <a href="random-number-generator/">Random Number Generator</a>
-      <p class="description">Generate random numbers instantly.</p>
-    </div>
-    <div class="tool-item">
-      <a href="slug-generator/">Slug Generator</a>
-      <p class="description">Generate URL-friendly slugs for your pages.</p>
-    </div>
-    <div class="tool-item">
-      <a href="text-case-converter/">Text Case Converter</a>
-      <p class="description">Convert text to uppercase, lowercase, or title case.</p>
-    </div>
-    <div class="tool-item">
-      <a href="word-counter/">Word Counter</a>
-      <p class="description">Count words and characters quickly for your text.</p>
-    </div>
+    <!-- First 20 tools -->
+    <div class="tool-item"><a href="hook-generator/">YouTube Hook Generator</a><p class="description">Generate catchy hooks for your YouTube videos instantly.</p></div>
+    <div class="tool-item"><a href="username-generator/">Username Generator</a><p class="description">Create unique usernames for social media and gaming.</p></div>
+    <div class="tool-item"><a href="diet-calculator/">Diet Calculator</a><p class="description">Calculate calories and macros for your diet plan.</p></div>
+    <div class="tool-item"><a href="story-generator/">Random Story Generator</a><p class="description">Generate creative random story ideas instantly.</p></div>
+    <div class="tool-item"><a href="caption-generator/">Caption Generator</a><p class="description">Generate captions for social media posts quickly.</p></div>
+    <div class="tool-item"><a href="base64-encoder-decoder/">Base64 Encoder/Decoder</a><p class="description">Encode or decode Base64 text instantly.</p></div>
+    <div class="tool-item"><a href="blog-title-generator/">Blog Title Generator</a><p class="description">Generate catchy blog post titles automatically.</p></div>
+    <div class="tool-item"><a href="call-to-action-generator/">Call-to-Action Generator</a><p class="description">Create effective CTA texts for marketing and ads.</p></div>
+    <div class="tool-item"><a href="faq-generator/">FAQ Generator</a><p class="description">Generate FAQ sections for websites in seconds.</p></div>
+    <div class="tool-item"><a href="hashtag-generator/">Hashtag Generator</a><p class="description">Generate hashtags for social media posts fast.</p></div>
+    <div class="tool-item"><a href="keyword-idea-generator/">Keyword Idea Generator</a><p class="description">Find keyword ideas for SEO and content marketing.</p></div>
+    <div class="tool-item"><a href="lorem-ipsum-generator/">Lorem Ipsum Generator</a><p class="description">Generate placeholder text for your projects.</p></div>
+    <div class="tool-item"><a href="meta-description-generator/">Meta Description Generator</a><p class="description">Create SEO-friendly meta descriptions quickly.</p></div>
+    <div class="tool-item"><a href="meta-title-generator/">Meta Title Generator</a><p class="description">Generate SEO-friendly meta titles for your pages.</p></div>
+    <div class="tool-item"><a href="password-strength-checker/">Password Strength Checker</a><p class="description">Check the strength of your passwords instantly.</p></div>
+    <div class="tool-item"><a href="random-color-generator/">Random Color Generator</a><p class="description">Generate random colors with hex codes for design.</p></div>
+    <div class="tool-item"><a href="random-name-picker/">Random Name Picker</a><p class="description">Pick random names from a list quickly.</p></div>
+    <div class="tool-item"><a href="random-number-generator/">Random Number Generator</a><p class="description">Generate random numbers instantly.</p></div>
+    <div class="tool-item"><a href="slug-generator/">Slug Generator</a><p class="description">Generate URL-friendly slugs for your pages.</p></div>
+    <div class="tool-item"><a href="text-case-converter/">Text Case Converter</a><p class="description">Convert text to uppercase, lowercase, or title case.</p></div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <a href="page2.html"><button>More Tools</button></a>
+    <a href="https://buymeacoffee.com/Tomas.Free.Online.Tools" target="_blank"><button>Support me on Buy Me a Coffee</button></a>
   </div>
 
   <footer>
