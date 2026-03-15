@@ -4,141 +4,384 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Call to Action Generator</title>
-  <meta name="description" content="Generate call to action text for landing pages, ads, websites, tools, and product pages." />
+  <meta
+    name="description"
+    content="Generate strong call to action text for landing pages, ads, websites, tools, and product pages."
+  />
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+      --soft-border: #e9ecef;
+      --blue: #0d6efd;
+      --blue-hover: #0b5ed7;
+      --dark-btn: #111111;
+      --dark-btn-hover: #333333;
+      --yellow: #ffd400;
+      --yellow-hover: #f2c900;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --success: #2f6f44;
+      --error: #b42318;
+    }
+
     body {
+      margin: 0;
+      padding: 24px 16px 40px;
+      background: var(--bg);
+      color: var(--text);
       font-family: Arial, sans-serif;
-      max-width: 900px;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
       margin: 0 auto;
-      padding: 24px;
-      line-height: 1.5;
-      background: #f7f7f7;
-      color: #222;
     }
-    .box {
-      background: #fff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
     }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .tool-box {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
     h1 {
-      margin-top: 0;
+      margin: 0 0 10px;
       font-size: 32px;
+      line-height: 1.2;
+      color: var(--text);
     }
-    p {
-      color: #444;
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
     }
+
+    .field {
+      margin-top: 16px;
+    }
+
     label {
       display: block;
-      margin-top: 16px;
-      margin-bottom: 6px;
-      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
     }
-    input, select, button, textarea {
+
+    input,
+    select,
+    textarea {
       width: 100%;
-      padding: 12px;
+      padding: 13px 14px;
       font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fafafa;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      font-family: Arial, sans-serif;
     }
+
     textarea {
       resize: vertical;
-      min-height: 90px;
+      min-height: 100px;
     }
-    button {
-      margin-top: 18px;
-      background: #111;
-      color: #fff;
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
       border: none;
+      border-radius: 12px;
+      background: var(--dark-btn);
+      color: #ffffff;
       cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
     }
-    button:hover {
-      background: #333;
+
+    .primary-btn:hover {
+      background: var(--dark-btn-hover);
+      transform: translateY(-1px);
     }
+
+    .status {
+      margin-top: 14px;
+      min-height: 22px;
+      font-size: 14px;
+      color: var(--success);
+    }
+
     .result {
       margin-top: 24px;
-      padding: 18px;
-      background: #f1f5f9;
-      border-radius: 8px;
-      border: 1px solid #dbe2ea;
+      padding: 20px;
+      background: #f8f9fb;
+      border: 1px solid #dfe3ea;
+      border-radius: 14px;
       display: none;
     }
-    .cta-box {
-      background: #fff;
-      border: 1px solid #d0d7de;
-      border-radius: 8px;
-      padding: 14px;
-      margin-top: 12px;
+
+    .result-title {
+      margin: 0 0 16px;
       font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
     }
+
+    .cta-item + .cta-item {
+      margin-top: 14px;
+    }
+
+    .cta-box {
+      background: #ffffff;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 17px;
+      color: var(--text);
+      word-break: break-word;
+    }
+
     .copy-btn {
       margin-top: 10px;
-      background: #2563eb;
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
     }
+
     .copy-btn:hover {
-      background: #1d4ed8;
+      background: var(--blue-hover);
+      transform: translateY(-1px);
     }
+
     .small {
       font-size: 14px;
-      color: #666;
-      margin-top: 10px;
+      color: #666666;
+      margin: 18px 0 0;
     }
-    a {
-      color: #2563eb;
+
+    .support-wrap {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111111;
       text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
-    a:hover {
-      text-decoration: underline;
+
+    .coffee-btn:hover {
+      background: var(--yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 12px 32px;
+      }
+
+      .tool-box {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .copy-btn,
+      .coffee-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <p><a href="../">⬅ Back to tools</a></p>
+  <div class="page">
+    <a class="back-link" href="../">⬅ Back to tools</a>
 
-    <h1>Call to Action Generator</h1>
-    <p>Generate call to action text for landing pages, websites, tools, ads, and product pages.</p>
+    <div class="tool-box">
+      <h1>Call to Action Generator</h1>
+      <p class="intro">
+        Generate strong CTA text for landing pages, ads, websites, tools, and product pages.
+      </p>
 
-    <label for="product">Product, service, or offer</label>
-    <input id="product" type="text" placeholder="e.g. AI headline generator" />
+      <div class="field">
+        <label for="product">Product, service, or offer</label>
+        <input id="product" type="text" placeholder="e.g. AI headline generator" />
+      </div>
 
-    <label for="audience">Audience</label>
-    <input id="audience" type="text" placeholder="e.g. marketers, creators, freelancers" />
+      <div class="field">
+        <label for="audience">Audience</label>
+        <input id="audience" type="text" placeholder="e.g. marketers, creators, freelancers" />
+      </div>
 
-    <label for="benefit">Main benefit</label>
-    <textarea id="benefit" placeholder="e.g. save time and generate better headlines in seconds"></textarea>
+      <div class="field">
+        <label for="benefit">Main benefit</label>
+        <textarea id="benefit" placeholder="e.g. save time and generate better headlines in seconds"></textarea>
+      </div>
 
-    <label for="style">CTA style</label>
-    <select id="style">
-      <option value="direct">Direct</option>
-      <option value="friendly">Friendly</option>
-      <option value="urgent">Urgent</option>
-      <option value="sales">Sales-focused</option>
-      <option value="simple">Simple</option>
-    </select>
+      <div class="grid-2">
+        <div class="field">
+          <label for="style">CTA style</label>
+          <select id="style">
+            <option value="direct">Direct</option>
+            <option value="friendly">Friendly</option>
+            <option value="urgent">Urgent</option>
+            <option value="sales">Sales-focused</option>
+            <option value="simple">Simple</option>
+          </select>
+        </div>
 
-    <button onclick="generateCTA()">Generate CTA</button>
+        <div class="field">
+          <label for="goal">CTA goal</label>
+          <select id="goal">
+            <option value="clicks">More clicks</option>
+            <option value="signups">Signups</option>
+            <option value="sales">Sales</option>
+            <option value="leads">Lead generation</option>
+            <option value="engagement">Engagement</option>
+          </select>
+        </div>
+      </div>
 
-    <div class="result" id="result">
-      <strong>Generated CTA text:</strong>
+      <div class="field">
+        <label for="format">CTA format</label>
+        <select id="format">
+          <option value="mixed">Mixed</option>
+          <option value="button">Short button CTA</option>
+          <option value="sentence">Longer sentence CTA</option>
+        </select>
+      </div>
 
-      <div class="cta-box" id="cta1"></div>
-      <button class="copy-btn" onclick="copyText('cta1')">Copy #1</button>
+      <button class="primary-btn" onclick="generateCTA()">Generate CTA</button>
 
-      <div class="cta-box" id="cta2"></div>
-      <button class="copy-btn" onclick="copyText('cta2')">Copy #2</button>
+      <div class="status" id="status"></div>
 
-      <div class="cta-box" id="cta3"></div>
-      <button class="copy-btn" onclick="copyText('cta3')">Copy #3</button>
+      <div class="result" id="result">
+        <p class="result-title">Generated CTA text:</p>
 
-      <div class="cta-box" id="cta4"></div>
-      <button class="copy-btn" onclick="copyText('cta4')">Copy #4</button>
+        <div class="cta-item">
+          <div class="cta-box" id="cta1"></div>
+          <button class="copy-btn" onclick="copyText('cta1')">Copy #1</button>
+        </div>
 
-      <div class="cta-box" id="cta5"></div>
-      <button class="copy-btn" onclick="copyText('cta5')">Copy #5</button>
+        <div class="cta-item">
+          <div class="cta-box" id="cta2"></div>
+          <button class="copy-btn" onclick="copyText('cta2')">Copy #2</button>
+        </div>
 
-      <p class="small">Tip: the strongest CTA usually combines action + clear benefit.</p>
+        <div class="cta-item">
+          <div class="cta-box" id="cta3"></div>
+          <button class="copy-btn" onclick="copyText('cta3')">Copy #3</button>
+        </div>
+
+        <div class="cta-item">
+          <div class="cta-box" id="cta4"></div>
+          <button class="copy-btn" onclick="copyText('cta4')">Copy #4</button>
+        </div>
+
+        <div class="cta-item">
+          <div class="cta-box" id="cta5"></div>
+          <button class="copy-btn" onclick="copyText('cta5')">Copy #5</button>
+        </div>
+
+        <div class="cta-item">
+          <div class="cta-box" id="cta6"></div>
+          <button class="copy-btn" onclick="copyText('cta6')">Copy #6</button>
+        </div>
+
+        <div class="cta-item">
+          <div class="cta-box" id="cta7"></div>
+          <button class="copy-btn" onclick="copyText('cta7')">Copy #7</button>
+        </div>
+
+        <div class="cta-item">
+          <div class="cta-box" id="cta8"></div>
+          <button class="copy-btn" onclick="copyText('cta8')">Copy #8</button>
+        </div>
+
+        <div class="cta-item">
+          <div class="cta-box" id="cta9"></div>
+          <button class="copy-btn" onclick="copyText('cta9')">Copy #9</button>
+        </div>
+
+        <div class="cta-item">
+          <div class="cta-box" id="cta10"></div>
+          <button class="copy-btn" onclick="copyText('cta10')">Copy #10</button>
+        </div>
+
+        <p class="small">Tip: the best CTA usually combines action, benefit, and low friction.</p>
+      </div>
+
+      <div class="support-wrap">
+        <a
+          class="coffee-btn"
+          href="https://www.buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
     </div>
   </div>
 
@@ -152,76 +395,181 @@
       return text.charAt(0).toUpperCase() + text.slice(1);
     }
 
+    function setStatus(message, isError = false) {
+      const status = document.getElementById("status");
+      status.textContent = message;
+      status.style.color = isError ? "#b42318" : "#2f6f44";
+    }
+
+    function uniquePush(arr, value) {
+      if (value && !arr.includes(value)) {
+        arr.push(value);
+      }
+    }
+
     function generateCTA() {
       const product = cleanText(document.getElementById("product").value);
       const audience = cleanText(document.getElementById("audience").value);
       const benefit = cleanText(document.getElementById("benefit").value);
       const style = document.getElementById("style").value;
+      const goal = document.getElementById("goal").value;
+      const format = document.getElementById("format").value;
 
       if (!product) {
-        alert("Please enter a product, service, or offer.");
+        document.getElementById("result").style.display = "none";
+        setStatus("Please enter a product, service, or offer.", true);
         return;
       }
 
       const audiencePart = audience ? ` for ${audience}` : "";
-      const benefitPart = benefit ? benefit : "get better results faster";
+      const benefitPart = benefit || "get better results faster";
 
-      let ctas = [];
-
-      if (style === "direct") {
-        ctas = [
-          `Try ${product} now`,
-          `Start using ${product} today`,
-          `Get started with ${product}`,
-          `Use ${product} to ${benefitPart}`,
-          `Create better results with ${product}`
-        ];
-      } else if (style === "friendly") {
-        ctas = [
-          `Give ${product} a try`,
-          `See how ${product} can help you`,
-          `Start with ${product} and save time`,
-          `Try ${product}${audiencePart}`,
-          `Make things easier with ${product}`
-        ];
-      } else if (style === "urgent") {
-        ctas = [
-          `Start now and ${benefitPart}`,
-          `Try ${product} before you miss out`,
-          `Get instant results with ${product}`,
-          `Don’t wait - start using ${product} today`,
-          `Take action now with ${product}`
-        ];
-      } else if (style === "sales") {
-        ctas = [
-          `Boost your results with ${product}`,
-          `Get more value with ${product}`,
-          `Use ${product} to ${benefitPart}`,
-          `Unlock faster growth with ${product}`,
-          `Choose ${product} and move faster`
-        ];
-      } else {
-        ctas = [
+      const buttonBase = {
+        clicks: [
           `Try ${product}`,
+          `See ${product} in action`,
+          `Explore ${product}`,
           `Start now`,
-          `Get started today`,
-          `Use ${product}`,
-          `See results faster`
-        ];
+          `Get started`
+        ],
+        signups: [
+          `Sign up for ${product}`,
+          `Create your account`,
+          `Join now`,
+          `Start free`,
+          `Get started today`
+        ],
+        sales: [
+          `Buy ${product} now`,
+          `Get ${product} today`,
+          `Unlock ${product}`,
+          `Claim your offer`,
+          `Start using ${product}`
+        ],
+        leads: [
+          `Request a demo`,
+          `Get your free quote`,
+          `Book a call`,
+          `Talk to our team`,
+          `Contact us today`
+        ],
+        engagement: [
+          `Learn more`,
+          `See how it works`,
+          `Discover ${product}`,
+          `Try it today`,
+          `Find out more`
+        ]
+      };
+
+      const sentenceBase = {
+        direct: [
+          `Start using ${product} to ${benefitPart}.`,
+          `Try ${product} today and ${benefitPart}.`,
+          `Get started with ${product}${audiencePart}.`,
+          `Use ${product} to move faster and smarter.`,
+          `Choose ${product} and improve results today.`
+        ],
+        friendly: [
+          `Give ${product} a try and see how easy it can be.`,
+          `Start with ${product} and make things simpler.`,
+          `See how ${product} can help you ${benefitPart}.`,
+          `Try ${product}${audiencePart} and save time.`,
+          `Get started with ${product} in just a few clicks.`
+        ],
+        urgent: [
+          `Start now and ${benefitPart} before you miss out.`,
+          `Don’t wait — try ${product} today.`,
+          `Take action now and get faster results with ${product}.`,
+          `Get instant value from ${product} right now.`,
+          `Make your move today with ${product}.`
+        ],
+        sales: [
+          `Boost performance with ${product} and ${benefitPart}.`,
+          `Use ${product} to unlock more growth, faster.`,
+          `Get more value from every click with ${product}.`,
+          `Choose ${product} and turn effort into better results.`,
+          `Upgrade your workflow with ${product} today.`
+        ],
+        simple: [
+          `Try ${product} today.`,
+          `Start now with ${product}.`,
+          `Use ${product} to ${benefitPart}.`,
+          `Get started in minutes.`,
+          `See results faster with ${product}.`
+        ]
+      };
+
+      const goalLines = {
+        clicks: [
+          `Click now and see what ${product} can do.`,
+          `Discover why more people are choosing ${product}.`
+        ],
+        signups: [
+          `Join today and start using ${product} in minutes.`,
+          `Create your account and get started right away.`
+        ],
+        sales: [
+          `Get started today and unlock the full value of ${product}.`,
+          `Choose ${product} now and start seeing results faster.`
+        ],
+        leads: [
+          `Reach out today and see if ${product} is the right fit.`,
+          `Talk to us and learn how ${product} can help your business.`
+        ],
+        engagement: [
+          `Learn more about ${product} and how it works.`,
+          `See why ${product} is worth a closer look.`
+        ]
+      };
+
+      let allCtas = [];
+
+      if (format === "button" || format === "mixed") {
+        buttonBase[goal].forEach(item => uniquePush(allCtas, capitalize(item)));
       }
 
-      document.getElementById("cta1").textContent = capitalize(ctas[0]);
-      document.getElementById("cta2").textContent = capitalize(ctas[1]);
-      document.getElementById("cta3").textContent = capitalize(ctas[2]);
-      document.getElementById("cta4").textContent = capitalize(ctas[3]);
-      document.getElementById("cta5").textContent = capitalize(ctas[4]);
+      if (format === "sentence" || format === "mixed") {
+        sentenceBase[style].forEach(item => uniquePush(allCtas, capitalize(item)));
+        goalLines[goal].forEach(item => uniquePush(allCtas, capitalize(item)));
+      }
+
+      if (style === "friendly" && format !== "button") {
+        uniquePush(allCtas, capitalize(`See how ${product} can help ${audience || "you"} today.`));
+      }
+
+      if (style === "urgent" && format !== "button") {
+        uniquePush(allCtas, capitalize(`Act now and use ${product} to ${benefitPart}.`));
+      }
+
+      if (allCtas.length < 10) {
+        uniquePush(allCtas, capitalize(`Try ${product}${audiencePart} and ${benefitPart}.`));
+        uniquePush(allCtas, capitalize(`Start with ${product} today.`));
+        uniquePush(allCtas, capitalize(`Use ${product} to get results faster.`));
+      }
+
+      allCtas = allCtas.slice(0, 10);
+
+      for (let i = 0; i < 10; i++) {
+        document.getElementById(`cta${i + 1}`).textContent = allCtas[i] || "";
+      }
+
       document.getElementById("result").style.display = "block";
+      setStatus("CTA ideas generated successfully.");
     }
 
     function copyText(id) {
-      const text = document.getElementById(id).textContent;
+      const text = document.getElementById(id).textContent.trim();
+
+      if (!text) {
+        setStatus("Nothing to copy yet.", true);
+        return;
+      }
+
       navigator.clipboard.writeText(text).then(() => {
-        alert("Copied to clipboard.");
+        setStatus("Copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
       });
     }
   </script>
