@@ -1,140 +1,617 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Text Case Converter</title>
-<meta name="description" content="Convert text to uppercase, lowercase, title case, or sentence case instantly.">
-<style>
-*{box-sizing:border-box}
-body{
-font-family:Arial,sans-serif;
-max-width:900px;
-margin:0 auto;
-padding:24px;
-background:#f7f7f7;
-color:#222
-}
-.box{
-background:#fff;
-padding:24px;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,.08)
-}
-h1{margin-top:0;font-size:32px}
-p{color:#444}
-textarea{
-width:100%;
-min-height:180px;
-padding:12px;
-font-size:16px;
-border:1px solid #ccc;
-border-radius:8px;
-resize:vertical
-}
-.buttons{
-margin-top:16px;
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px
-}
-button{
-padding:12px;
-font-size:16px;
-background:#111;
-color:#fff;
-border:none;
-border-radius:8px;
-cursor:pointer
-}
-button:hover{background:#333}
-.result{
-margin-top:24px;
-background:#f1f5f9;
-border:1px solid #dbe2ea;
-border-radius:8px;
-padding:16px;
-word-break:break-word
-}
-.copy-btn{
-margin-top:12px;
-background:#2563eb
-}
-.copy-btn:hover{background:#1d4ed8}
-a{
-color:#2563eb;
-text-decoration:none
-}
-a:hover{text-decoration:underline}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Text Case Converter</title>
+  <meta name="description" content="Convert text to uppercase, lowercase, title case, sentence case, and more instantly." />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background: #f5f5f5;
+      color: #222;
+      font-family: Arial, sans-serif;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      padding: 28px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #0d6efd;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #111;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 22px;
+      color: #111;
+    }
+
+    h3 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      color: #111;
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: #555;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    textarea,
+    button {
+      width: 100%;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      border-radius: 12px;
+    }
+
+    textarea {
+      border: 1px solid #d7d7d7;
+      padding: 14px;
+      background: #fff;
+      color: #222;
+      outline: none;
+      resize: vertical;
+      min-height: 180px;
+    }
+
+    textarea:focus {
+      border-color: #999;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+      margin-bottom: 18px;
+    }
+
+    .stat-box {
+      background: #f8f9fb;
+      border: 1px solid #e6e6e6;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 13px 18px;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: #111;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #222;
+    }
+
+    .btn-copy {
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .btn-copy:hover {
+      background: #0b5ed7;
+    }
+
+    .btn-secondary {
+      background: #ececec;
+      color: #111;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e2e2;
+    }
+
+    .results,
+    .history {
+      margin-top: 26px;
+      padding: 20px;
+      border-radius: 16px;
+      background: #f8f9fb;
+      border: 1px solid #e6e6e6;
+    }
+
+    .result-box {
+      background: #fff;
+      border: 1px solid #dde2e7;
+      border-radius: 14px;
+      padding: 16px;
+      min-height: 120px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.6;
+      color: #222;
+    }
+
+    .result-placeholder {
+      color: #777;
+    }
+
+    .message {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .message.success {
+      background: #eef7ee;
+      color: #1f7a1f;
+      border: 1px solid #cce7cc;
+    }
+
+    .message.error {
+      background: #fff1f1;
+      color: #b42318;
+      border: 1px solid #f1c0c0;
+    }
+
+    .tip-text {
+      margin-top: 16px;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.55;
+    }
+
+    .history {
+      display: none;
+    }
+
+    .history-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .history-item {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .history-mode {
+      font-size: 13px;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .history-text {
+      background: #f4f6f8;
+      border: 1px solid #dde2e7;
+      border-radius: 10px;
+      padding: 12px;
+      line-height: 1.6;
+      word-break: break-word;
+      white-space: pre-wrap;
+      margin-bottom: 10px;
+    }
+
+    .coffee-wrap {
+      margin-top: 28px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      background: #ffd400;
+      color: #111;
+      font-weight: bold;
+      padding: 14px 18px;
+      border-radius: 12px;
+      transition: 0.2s ease;
+    }
+
+    .coffee-btn:hover {
+      filter: brightness(0.97);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 760px) {
+      .button-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .tool-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .button-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page">
+    <div class="tool-box">
+      <a class="back-link" href="../">⬅ Back to tools</a>
 
-<div class="box">
+      <h1>Text Case Converter</h1>
+      <p class="description">Convert text to uppercase, lowercase, title case, sentence case, and other useful formats instantly.</p>
 
-<p><a href="../">⬅ Back to tools</a></p>
+      <div class="field">
+        <label for="text">Your text</label>
+        <textarea id="text" placeholder="Paste or type your text here..." oninput="updateInputStats()"></textarea>
+      </div>
 
-<h1>Text Case Converter</h1>
-<p>Convert text to uppercase, lowercase, title case, or sentence case.</p>
+      <div class="stats-row">
+        <div class="stat-box" id="inputStats">Input: 0 characters • 0 words</div>
+        <div class="stat-box" id="resultStats">Result: 0 characters • 0 words</div>
+      </div>
 
-<textarea id="text" placeholder="Paste or type your text here..."></textarea>
+      <div class="button-grid">
+        <button class="btn btn-primary" onclick="applyConversion('UPPERCASE', 'uppercase')">UPPERCASE</button>
+        <button class="btn btn-primary" onclick="applyConversion('lowercase', 'lowercase')">lowercase</button>
+        <button class="btn btn-primary" onclick="applyConversion('Title Case', 'title')">Title Case</button>
+        <button class="btn btn-primary" onclick="applyConversion('Sentence case', 'sentence')">Sentence case</button>
+        <button class="btn btn-primary" onclick="applyConversion('Capitalize Each Word', 'capitalize')">Capitalize Each Word</button>
+        <button class="btn btn-primary" onclick="applyConversion('aLtErNaTiNg cAsE', 'alternating')">aLtErNaTiNg cAsE</button>
+        <button class="btn btn-primary" onclick="applyConversion('Remove extra spaces', 'spaces')">Remove extra spaces</button>
+      </div>
 
-<div class="buttons">
-<button onclick="toUpper()">UPPERCASE</button>
-<button onclick="toLower()">lowercase</button>
-<button onclick="toTitle()">Title Case</button>
-<button onclick="toSentence()">Sentence case</button>
-</div>
+      <div class="button-row">
+        <button class="btn btn-copy" onclick="copyResult(this)">Copy Result</button>
+        <button class="btn btn-secondary" onclick="useResultAsInput()">Use Result as Input</button>
+        <button class="btn btn-secondary" onclick="clearAll()">Clear</button>
+      </div>
 
-<div class="result" id="result"></div>
-<button class="copy-btn" onclick="copyText()">Copy Result</button>
+      <div class="message success" id="successMessage"></div>
+      <div class="message error" id="errorMessage"></div>
 
-</div>
+      <div class="results">
+        <h2>Result</h2>
+        <div class="result-box" id="result"><span class="result-placeholder">Your converted text will appear here.</span></div>
+        <p class="tip-text">Tip: use “Remove extra spaces” before copying cleaned text into another app or tool.</p>
+      </div>
 
-<script>
+      <div class="history" id="historySection">
+        <h3>Recent Conversions</h3>
+        <div class="history-list" id="historyList"></div>
+      </div>
 
-function getText(){
-return document.getElementById("text").value
-}
+      <div class="coffee-wrap">
+        <a class="coffee-btn" href="https://buymeacoffee.com/" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
+      </div>
+    </div>
+  </div>
 
-function setResult(text){
-document.getElementById("result").textContent=text
-}
+  <script>
+    const historyItems = [];
+    let currentResult = "";
+    const PLACEHOLDER_HTML = '<span class="result-placeholder">Your converted text will appear here.</span>';
 
-function toUpper(){
-setResult(getText().toUpperCase())
-}
+    function showMessage(type, text) {
+      const successBox = document.getElementById("successMessage");
+      const errorBox = document.getElementById("errorMessage");
 
-function toLower(){
-setResult(getText().toLowerCase())
-}
+      successBox.style.display = "none";
+      successBox.textContent = "";
+      errorBox.style.display = "none";
+      errorBox.textContent = "";
 
-function toTitle(){
-let text=getText().toLowerCase()
-let result=text.replace(/\b\w/g,function(char){
-return char.toUpperCase()
-})
-setResult(result)
-}
+      if (type === "success") {
+        successBox.textContent = text;
+        successBox.style.display = "block";
+        setTimeout(() => {
+          successBox.style.display = "none";
+          successBox.textContent = "";
+        }, 1800);
+      }
 
-function toSentence(){
-let text=getText().toLowerCase()
-let result=text.replace(/(^\s*\w|[.!?]\s*\w)/g,function(c){
-return c.toUpperCase()
-})
-setResult(result)
-}
+      if (type === "error") {
+        errorBox.textContent = text;
+        errorBox.style.display = "block";
+      }
+    }
 
-function copyText(){
-let text=document.getElementById("result").textContent
-if(!text){
-alert("No result to copy")
-return
-}
-navigator.clipboard.writeText(text).then(()=>{alert("Copied")})
-}
+    function getText() {
+      return document.getElementById("text").value;
+    }
 
-</script>
+    function countWords(text) {
+      const trimmed = text.trim();
+      return trimmed ? trimmed.split(/\s+/).length : 0;
+    }
 
+    function updateInputStats() {
+      const text = getText();
+      document.getElementById("inputStats").textContent =
+        `Input: ${text.length} characters • ${countWords(text)} words`;
+    }
+
+    function updateResultStats(text) {
+      document.getElementById("resultStats").textContent =
+        `Result: ${text.length} characters • ${countWords(text)} words`;
+    }
+
+    function setResult(text, modeLabel) {
+      const resultBox = document.getElementById("result");
+      currentResult = text;
+      resultBox.textContent = text;
+      updateResultStats(text);
+      addToHistory(modeLabel, text);
+      showMessage("success", "Text converted successfully.");
+    }
+
+    function toTitleCase(text) {
+      const smallWords = ["a", "an", "and", "as", "at", "but", "by", "for", "in", "of", "on", "or", "the", "to", "up", "with"];
+      return text
+        .toLowerCase()
+        .split(/\n/)
+        .map(line => {
+          const words = line.split(/\s+/).filter(word => word.length > 0);
+          return words.map((word, index) => {
+            const clean = word.toLowerCase();
+            if (index !== 0 && smallWords.includes(clean)) {
+              return clean;
+            }
+            return clean.charAt(0).toUpperCase() + clean.slice(1);
+          }).join(" ");
+        })
+        .join("\n");
+    }
+
+    function toSentenceCase(text) {
+      const lower = text.toLowerCase().replace(/[ \t]+/g, " ");
+      return lower.replace(/(^\s*[a-ząćęłńóśźż]|[.!?]\s+[a-ząćęłńóśźż]|\n\s*[a-ząćęłńóśźż])/g, function(match) {
+        return match.toUpperCase();
+      });
+    }
+
+    function capitalizeEachWord(text) {
+      return text
+        .toLowerCase()
+        .replace(/\b([a-ząćęłńóśźż])/g, function(char) {
+          return char.toUpperCase();
+        });
+    }
+
+    function alternatingCase(text) {
+      let result = "";
+      let upper = true;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        if (/[a-ząćęłńóśźż]/i.test(char)) {
+          result += upper ? char.toUpperCase() : char.toLowerCase();
+          upper = !upper;
+        } else {
+          result += char;
+        }
+      }
+
+      return result;
+    }
+
+    function removeExtraSpaces(text) {
+      return text
+        .replace(/[ \t]+/g, " ")
+        .replace(/\n[ \t]+/g, "\n")
+        .replace(/[ \t]+\n/g, "\n")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+    }
+
+    function applyConversion(label, mode) {
+      const text = getText();
+
+      if (!text.trim()) {
+        showMessage("error", "Please enter some text first.");
+        return;
+      }
+
+      let result = text;
+
+      if (mode === "uppercase") result = text.toUpperCase();
+      if (mode === "lowercase") result = text.toLowerCase();
+      if (mode === "title") result = toTitleCase(text);
+      if (mode === "sentence") result = toSentenceCase(text);
+      if (mode === "capitalize") result = capitalizeEachWord(text);
+      if (mode === "alternating") result = alternatingCase(text);
+      if (mode === "spaces") result = removeExtraSpaces(text);
+
+      setResult(result, label);
+    }
+
+    function copyResult(button) {
+      if (!currentResult) {
+        showMessage("error", "No result to copy yet.");
+        return;
+      }
+
+      const originalText = button.textContent;
+
+      navigator.clipboard.writeText(currentResult).then(() => {
+        button.textContent = "Copied!";
+        showMessage("success", "Result copied to clipboard.");
+
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1200);
+      }).catch(() => {
+        showMessage("error", "Copy failed. Please try again.");
+      });
+    }
+
+    function useResultAsInput() {
+      if (!currentResult) {
+        showMessage("error", "No result available yet.");
+        return;
+      }
+
+      document.getElementById("text").value = currentResult;
+      updateInputStats();
+      showMessage("success", "Result moved to input.");
+    }
+
+    function addToHistory(mode, text) {
+      historyItems.unshift({
+        mode,
+        text
+      });
+
+      if (historyItems.length > 5) {
+        historyItems.pop();
+      }
+
+      renderHistory();
+    }
+
+    function renderHistory() {
+      const historySection = document.getElementById("historySection");
+      const historyList = document.getElementById("historyList");
+
+      if (!historyItems.length) {
+        historySection.style.display = "none";
+        historyList.innerHTML = "";
+        return;
+      }
+
+      historyList.innerHTML = historyItems.map((item, index) => `
+        <div class="history-item">
+          <div class="history-mode">${escapeHtml(item.mode)}</div>
+          <div class="history-text">${escapeHtml(item.text)}</div>
+          <button class="btn btn-copy" onclick="copyHistory(${index}, this)">Copy</button>
+        </div>
+      `).join("");
+
+      historySection.style.display = "block";
+    }
+
+    function copyHistory(index, button) {
+      const item = historyItems[index];
+      const originalText = button.textContent;
+
+      navigator.clipboard.writeText(item.text).then(() => {
+        button.textContent = "Copied!";
+        showMessage("success", "History item copied.");
+
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1200);
+      }).catch(() => {
+        showMessage("error", "Copy failed. Please try again.");
+      });
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function clearAll() {
+      document.getElementById("text").value = "";
+      document.getElementById("result").innerHTML = PLACEHOLDER_HTML;
+      currentResult = "";
+      historyItems.length = 0;
+      renderHistory();
+      updateInputStats();
+      updateResultStats("");
+      document.getElementById("successMessage").style.display = "none";
+      document.getElementById("successMessage").textContent = "";
+      document.getElementById("errorMessage").style.display = "none";
+      document.getElementById("errorMessage").textContent = "";
+    }
+
+    updateInputStats();
+    updateResultStats("");
+  </script>
 </body>
 </html>
