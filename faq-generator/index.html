@@ -4,130 +4,351 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FAQ Generator</title>
-  <meta name="description" content="Generate frequently asked questions and answers for products, services, websites, and online tools." />
+  <meta
+    name="description"
+    content="Generate frequently asked questions and answers for products, services, websites, SaaS pages, blogs, and online tools."
+  />
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+      --soft-border: #e9ecef;
+      --blue: #0d6efd;
+      --blue-hover: #0b5ed7;
+      --dark-btn: #111111;
+      --dark-btn-hover: #333333;
+      --yellow: #ffd400;
+      --yellow-hover: #f2c900;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --success: #2f6f44;
+      --error: #b42318;
+    }
+
     body {
+      margin: 0;
+      padding: 24px 16px 40px;
+      background: var(--bg);
+      color: var(--text);
       font-family: Arial, sans-serif;
-      max-width: 900px;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
       margin: 0 auto;
-      padding: 24px;
-      line-height: 1.5;
-      background: #f7f7f7;
-      color: #222;
     }
-    .box {
-      background: #fff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-    h1 {
-      margin-top: 0;
-      font-size: 32px;
-    }
-    p {
-      color: #444;
-    }
-    label {
-      display: block;
-      margin-top: 16px;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
-    input, select, textarea, button {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-    button {
-      margin-top: 18px;
-      background: #111;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #333;
-    }
-    .result {
-      margin-top: 24px;
-      padding: 18px;
-      background: #f1f5f9;
-      border-radius: 8px;
-      border: 1px solid #dbe2ea;
-      display: none;
-    }
-    .faq-item {
-      background: #fff;
-      border: 1px solid #d0d7de;
-      border-radius: 8px;
-      padding: 14px;
-      margin-top: 12px;
-    }
-    .faq-q {
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    .copy-btn {
-      margin-top: 16px;
-      background: #2563eb;
-    }
-    .copy-btn:hover {
-      background: #1d4ed8;
-    }
-    a {
-      color: #2563eb;
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--blue);
       text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
     }
-    a:hover {
+
+    .back-link:hover {
       text-decoration: underline;
     }
+
+    .tool-box {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .field {
+      margin-top: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fafafa;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      background: var(--dark-btn);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      background: var(--dark-btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .status {
+      margin-top: 14px;
+      min-height: 22px;
+      font-size: 14px;
+      color: var(--success);
+    }
+
+    .result {
+      margin-top: 24px;
+      padding: 20px;
+      background: #f8f9fb;
+      border: 1px solid #dfe3ea;
+      border-radius: 14px;
+      display: none;
+    }
+
+    .result-title {
+      margin: 0 0 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .faq-item + .faq-item {
+      margin-top: 14px;
+    }
+
+    .faq-item {
+      background: #ffffff;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .faq-q {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .faq-a {
+      font-size: 15px;
+      color: #444444;
+    }
+
+    .copy-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .copy-btn,
+    .copy-all-btn {
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .copy-btn:hover,
+    .copy-all-btn:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+    }
+
+    .copy-all-wrap {
+      margin-top: 18px;
+    }
+
     .small {
       font-size: 14px;
-      color: #666;
-      margin-top: 10px;
+      color: #666666;
+      margin: 18px 0 0;
+    }
+
+    .support-wrap {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111111;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .coffee-btn:hover {
+      background: var(--yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 12px 32px;
+      }
+
+      .tool-box {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .copy-btn,
+      .copy-all-btn,
+      .coffee-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <p><a href="../">⬅ Back to tools</a></p>
+  <div class="page">
+    <a class="back-link" href="../">⬅ Back to tools</a>
 
-    <h1>FAQ Generator</h1>
-    <p>Create simple FAQ questions and answers for products, services, blogs, SaaS pages, and tools.</p>
+    <div class="tool-box">
+      <h1>FAQ Generator</h1>
+      <p class="intro">
+        Generate ready-to-use FAQ questions and answers for products, services, websites, SaaS pages, blogs, and online tools.
+      </p>
 
-    <label for="topic">Product, service, or topic</label>
-    <input id="topic" type="text" placeholder="e.g. AI resume builder" />
+      <div class="field">
+        <label for="topic">Product, service, or topic</label>
+        <input id="topic" type="text" placeholder="e.g. AI resume builder" />
+      </div>
 
-    <label for="type">Type</label>
-    <select id="type">
-      <option value="tool">Online Tool</option>
-      <option value="product">Product</option>
-      <option value="service">Service</option>
-      <option value="blog">Blog / Content</option>
-      <option value="app">App / SaaS</option>
-    </select>
+      <div class="grid-2">
+        <div class="field">
+          <label for="type">Type</label>
+          <select id="type">
+            <option value="tool">Online Tool</option>
+            <option value="product">Product</option>
+            <option value="service">Service</option>
+            <option value="blog">Blog / Content</option>
+            <option value="app">App / SaaS</option>
+          </select>
+        </div>
 
-    <label for="audience">Audience</label>
-    <input id="audience" type="text" placeholder="e.g. job seekers, freelancers, small businesses" />
+        <div class="field">
+          <label for="tone">FAQ tone</label>
+          <select id="tone">
+            <option value="simple">Simple</option>
+            <option value="professional">Professional</option>
+            <option value="friendly">Friendly</option>
+            <option value="sales">Sales-focused</option>
+          </select>
+        </div>
+      </div>
 
-    <label for="features">Key features or benefits</label>
-    <textarea id="features" placeholder="e.g. fast, free, easy to use, no signup, customizable templates"></textarea>
+      <div class="field">
+        <label for="audience">Audience</label>
+        <input id="audience" type="text" placeholder="e.g. job seekers, freelancers, small businesses" />
+      </div>
 
-    <button onclick="generateFAQ()">Generate FAQ</button>
+      <div class="field">
+        <label for="features">Key features or benefits</label>
+        <textarea id="features" placeholder="e.g. fast, free, easy to use, no signup, customizable templates"></textarea>
+      </div>
 
-    <div class="result" id="result">
-      <strong>Generated FAQ:</strong>
-      <div id="faqOutput"></div>
-      <button class="copy-btn" onclick="copyFAQ()">Copy All</button>
-      <p class="small">Tip: you can paste this on your tool page and edit the wording later.</p>
+      <button class="primary-btn" onclick="generateFAQ()">Generate FAQ</button>
+
+      <div class="status" id="status"></div>
+
+      <div class="result" id="result">
+        <p class="result-title">Generated FAQ:</p>
+        <div id="faqOutput"></div>
+
+        <div class="copy-all-wrap">
+          <button class="copy-all-btn" onclick="copyFAQ()">Copy All FAQ</button>
+        </div>
+
+        <p class="small">Tip: paste this into your page and then lightly edit wording so it matches your exact offer.</p>
+      </div>
+
+      <div class="support-wrap">
+        <a
+          class="coffee-btn"
+          href="https://www.buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
     </div>
   </div>
 
@@ -136,90 +357,201 @@
       return text.trim().replace(/\s+/g, " ");
     }
 
+    function setStatus(message, isError = false) {
+      const status = document.getElementById("status");
+      status.textContent = message;
+      status.style.color = isError ? "#b42318" : "#2f6f44";
+    }
+
     function capitalize(text) {
       if (!text) return "";
       return text.charAt(0).toUpperCase() + text.slice(1);
     }
 
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getIntroWord(type) {
+      if (type === "product") return "product";
+      if (type === "service") return "service";
+      if (type === "blog") return "resource";
+      if (type === "app") return "app";
+      return "tool";
+    }
+
+    function getToneText(tone, variant, data) {
+      const { topic, introWord, audienceText, featuresText } = data;
+
+      const simple = {
+        what: `${topic} is a ${introWord} designed to help users with ${topic.toLowerCase()} needs${audienceText}. It is made to be ${featuresText}.`,
+        works: `${topic} works by giving users a simple way to solve tasks related to ${topic.toLowerCase()}. The process is designed to be quick and easy to follow.`,
+        who: `${topic} is useful${audienceText ? audienceText : " for beginners, professionals, and anyone looking for a simple solution"}.`,
+        free: `That depends on how the ${introWord} is offered, but many tools like ${topic} include free access, a free version, or basic features at no cost.`,
+        benefits: `The main benefits of ${topic} include saving time, improving convenience, and helping users get results faster. Key strengths include being ${featuresText}.`,
+        experience: `No, most users can start using ${topic} without advanced experience. It should be easy enough for beginners while still useful for more experienced users.`,
+        safe: `${topic} should be used according to its intended purpose. If it handles user input or data, people generally expect it to be simple, reliable, and clear about how it works.`,
+        choose: `${topic} can be a good option if you want a ${introWord} that is ${featuresText} and built to help ${audienceText ? audienceText.replace(" for ", "") : "a wide range of users"}.`
+      };
+
+      const professional = {
+        what: `${topic} is a ${introWord} created to support users with ${topic.toLowerCase()} needs${audienceText}. Its value comes from being ${featuresText}.`,
+        works: `${topic} works by providing a structured way to complete tasks, generate results, or improve workflows related to ${topic.toLowerCase()}.`,
+        who: `${topic} is suitable${audienceText ? audienceText : " for both beginners and experienced users who need a practical solution"}.`,
+        free: `Pricing depends on how the ${introWord} is positioned, but many products in this category offer free access, a trial, or a limited free plan.`,
+        benefits: `The primary benefits of ${topic} include improved efficiency, faster execution, and easier access to useful results. Key advantages include being ${featuresText}.`,
+        experience: `${topic} should be accessible to users without deep prior experience, while still offering value to more advanced users.`,
+        safe: `Users typically expect a ${introWord} like ${topic} to be clear, dependable, and straightforward to use. Trust is usually improved by transparent messaging and simple workflows.`,
+        choose: `${topic} may be a strong choice if you need a ${introWord} that is ${featuresText} and relevant${audienceText}.`
+      };
+
+      const friendly = {
+        what: `${topic} is a ${introWord} that helps people handle ${topic.toLowerCase()} tasks${audienceText}. It is built to be ${featuresText}.`,
+        works: `${topic} works by making the process easier, faster, and more approachable for everyday users.`,
+        who: `${topic} is a good fit${audienceText ? audienceText : " for anyone who wants a simpler way to get the job done"}.`,
+        free: `That depends on the offer, but many tools like ${topic} give users a free version or some level of free access to get started.`,
+        benefits: `People usually choose ${topic} because it can save time, reduce friction, and make it easier to get useful results. It is especially helpful when you want something ${featuresText}.`,
+        experience: `No, you usually do not need advanced experience to get started with ${topic}.`,
+        safe: `Most users want something that feels clear, easy to understand, and reliable. A good experience usually comes from simple design and clear expectations.`,
+        choose: `${topic} can be worth trying if you want something ${featuresText} that helps${audienceText}.`
+      };
+
+      const sales = {
+        what: `${topic} is a ${introWord} built to help users solve ${topic.toLowerCase()} challenges${audienceText}. Its main appeal is that it is ${featuresText}.`,
+        works: `${topic} works by helping users move faster, simplify their workflow, and get better outcomes with less friction.`,
+        who: `${topic} is ideal${audienceText ? audienceText : " for users who want speed, simplicity, and practical results"}.`,
+        free: `Many offers like ${topic} provide a free version, trial access, or starter features so users can test the value before upgrading.`,
+        benefits: `${topic} helps users save time, improve execution, and get results with less effort. Key selling points include being ${featuresText}.`,
+        experience: `No, ${topic} should be easy enough for new users while still being useful for more advanced users who want efficiency.`,
+        safe: `Users are more likely to trust a ${introWord} that is clear, consistent, and easy to understand. Confidence grows when the experience feels simple and transparent.`,
+        choose: `${topic} is a strong option if you want a ${introWord} that is ${featuresText} and designed to deliver faster value${audienceText}.`
+      };
+
+      const toneMap = {
+        simple,
+        professional,
+        friendly,
+        sales
+      };
+
+      return toneMap[tone][variant];
+    }
+
     function generateFAQ() {
       const topic = cleanText(document.getElementById("topic").value);
       const type = document.getElementById("type").value;
+      const tone = document.getElementById("tone").value;
       const audience = cleanText(document.getElementById("audience").value);
       const features = cleanText(document.getElementById("features").value);
 
       if (!topic) {
-        alert("Please enter a product, service, or topic.");
+        document.getElementById("result").style.display = "none";
+        setStatus("Please enter a product, service, or topic.", true);
         return;
       }
 
       const audienceText = audience ? ` for ${audience}` : "";
       const featuresText = features ? features : "easy to use and helpful";
+      const introWord = getIntroWord(type);
 
-      let introWord = "tool";
-      if (type === "product") introWord = "product";
-      if (type === "service") introWord = "service";
-      if (type === "blog") introWord = "resource";
-      if (type === "app") introWord = "app";
+      const data = {
+        topic,
+        introWord,
+        audienceText,
+        featuresText
+      };
 
       const faqs = [
         {
           q: `What is ${topic}?`,
-          a: `${topic} is a ${introWord} designed to help users with ${topic.toLowerCase()} needs${audienceText}. It is focused on being ${featuresText}.`
+          a: getToneText(tone, "what", data)
         },
         {
           q: `How does ${topic} work?`,
-          a: `${topic} works by giving users a simple way to generate, calculate, or improve results related to ${topic.toLowerCase()}. The process is made to be quick and easy.`
+          a: getToneText(tone, "works", data)
         },
         {
           q: `Who should use ${topic}?`,
-          a: `${topic} is useful${audienceText ? audienceText : " for beginners, professionals, and anyone looking for a simple solution"}.`
+          a: getToneText(tone, "who", data)
         },
         {
           q: `Is ${topic} free to use?`,
-          a: `That depends on how the ${introWord} is offered, but many tools like ${topic} include a free version or free basic access for users.`
+          a: getToneText(tone, "free", data)
         },
         {
           q: `What are the main benefits of ${topic}?`,
-          a: `The main benefits of ${topic} include saving time, improving convenience, and giving users a faster way to get results. Key strengths include being ${featuresText}.`
+          a: getToneText(tone, "benefits", data)
         },
         {
           q: `Do I need experience to use ${topic}?`,
-          a: `No, most users can start using ${topic} without advanced experience. It should be simple enough for beginners while still useful for more experienced users.`
+          a: getToneText(tone, "experience", data)
+        },
+        {
+          q: `Is ${topic} easy to use?`,
+          a: getToneText(tone, "safe", data)
+        },
+        {
+          q: `Why choose ${topic}?`,
+          a: getToneText(tone, "choose", data)
         }
       ];
 
       const faqOutput = document.getElementById("faqOutput");
       faqOutput.innerHTML = "";
 
-      faqs.forEach(item => {
+      faqs.forEach((item, index) => {
         const div = document.createElement("div");
         div.className = "faq-item";
         div.innerHTML = `
-          <div class="faq-q">${capitalize(item.q)}</div>
-          <div class="faq-a">${item.a}</div>
+          <div class="faq-q">${escapeHtml(capitalize(item.q))}</div>
+          <div class="faq-a">${escapeHtml(item.a)}</div>
+          <div class="copy-row">
+            <button class="copy-btn" type="button" onclick="copySingleFAQ(${index})">Copy This FAQ</button>
+          </div>
         `;
         faqOutput.appendChild(div);
       });
 
+      window.generatedFAQs = faqs;
       document.getElementById("result").style.display = "block";
+      setStatus("FAQ generated successfully.");
     }
 
-    function copyFAQ() {
-      const items = document.querySelectorAll(".faq-item");
-      if (!items.length) {
-        alert("Generate FAQ first.");
+    function copySingleFAQ(index) {
+      if (!window.generatedFAQs || !window.generatedFAQs[index]) {
+        setStatus("Nothing to copy yet.", true);
         return;
       }
 
-      let text = "";
-      items.forEach(item => {
-        const q = item.querySelector(".faq-q").textContent;
-        const a = item.querySelector(".faq-a").textContent;
-        text += q + "\n" + a + "\n\n";
-      });
+      const item = window.generatedFAQs[index];
+      const text = `${item.q}\n${item.a}`;
 
       navigator.clipboard.writeText(text).then(() => {
-        alert("FAQ copied to clipboard.");
+        setStatus("FAQ copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
+      });
+    }
+
+    function copyFAQ() {
+      if (!window.generatedFAQs || !window.generatedFAQs.length) {
+        setStatus("Generate FAQ first.", true);
+        return;
+      }
+
+      const text = window.generatedFAQs
+        .map(item => `${item.q}\n${item.a}`)
+        .join("\n\n");
+
+      navigator.clipboard.writeText(text).then(() => {
+        setStatus("All FAQ copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
       });
     }
   </script>
