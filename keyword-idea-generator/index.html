@@ -1,266 +1,534 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Keyword Idea Generator</title>
-<meta name="description" content="Generate keyword ideas for SEO, blog posts, tools, and niche websites.">
-<style>
-*{box-sizing:border-box}
-body{
-font-family:Arial,sans-serif;
-max-width:900px;
-margin:0 auto;
-padding:24px;
-background:#f7f7f7;
-color:#222
-}
-.box{
-background:#fff;
-padding:24px;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,.08)
-}
-h1{margin-top:0;font-size:32px}
-p{color:#444}
-label{
-display:block;
-margin-top:16px;
-margin-bottom:6px;
-font-weight:bold
-}
-input,select,button{
-width:100%;
-padding:12px;
-font-size:16px;
-border:1px solid #ccc;
-border-radius:8px
-}
-button{
-margin-top:18px;
-background:#111;
-color:#fff;
-border:none;
-cursor:pointer
-}
-button:hover{background:#333}
-.result{
-margin-top:24px;
-padding:18px;
-background:#f1f5f9;
-border-radius:8px;
-border:1px solid #dbe2ea;
-display:none
-}
-.keyword-box{
-background:#fff;
-border:1px solid #d0d7de;
-border-radius:8px;
-padding:14px;
-margin-top:12px;
-font-family:monospace;
-word-break:break-word
-}
-.copy-btn{
-margin-top:10px;
-background:#2563eb
-}
-.copy-btn:hover{background:#1d4ed8}
-.small{
-font-size:14px;
-color:#666;
-margin-top:10px
-}
-a{
-color:#2563eb;
-text-decoration:none
-}
-a:hover{text-decoration:underline}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keyword Idea Generator</title>
+  <meta name="description" content="Generate keyword ideas for SEO, blog posts, niche websites, tools, and content planning." />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #f5f5f5;
+      color: #222;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      padding: 28px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #111;
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: #555;
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.04s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .generate-btn {
+      background: #111;
+      color: #fff;
+    }
+
+    .generate-btn:hover {
+      background: #222;
+    }
+
+    .copy-all-btn {
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .copy-all-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .result {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .result-title {
+      margin: 0;
+      font-size: 20px;
+      color: #111;
+    }
+
+    .result-subtitle {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .keyword-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .keyword-item {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .keyword-text {
+      font-family: monospace;
+      font-size: 15px;
+      color: #111;
+      word-break: break-word;
+      flex: 1;
+    }
+
+    .copy-btn {
+      background: #0d6efd;
+      color: #fff;
+      white-space: nowrap;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 10px;
+    }
+
+    .copy-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .tip {
+      margin-top: 16px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .coffee-wrap {
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: #ffd400;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: opacity 0.2s ease, transform 0.04s ease;
+    }
+
+    .coffee-btn:hover {
+      opacity: 0.92;
+    }
+
+    .status {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #444;
+      min-height: 20px;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .tool-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .keyword-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .copy-btn {
+        width: 100%;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .generate-btn,
+      .copy-all-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page">
+    <div class="tool-box">
+      <a class="back-link" href="../">⬅ Back to tools</a>
 
-<div class="box">
+      <h1>Keyword Idea Generator</h1>
+      <p class="description">
+        Generate useful keyword ideas for SEO, blog posts, niche sites, tools, and content planning.
+      </p>
 
-<p><a href="../">⬅ Back to tools</a></p>
+      <div class="grid">
+        <div class="field full">
+          <label for="keyword">Main keyword</label>
+          <input id="keyword" type="text" placeholder="e.g. email marketing" />
+        </div>
 
-<h1>Keyword Idea Generator</h1>
-<p>Generate keyword ideas for SEO, niche sites, blog posts, and tools.</p>
+        <div class="field">
+          <label for="type">Keyword type</label>
+          <select id="type">
+            <option value="seo">SEO keywords</option>
+            <option value="questions">Question keywords</option>
+            <option value="longtail">Long tail keywords</option>
+            <option value="commercial">Commercial keywords</option>
+          </select>
+        </div>
 
-<label>Main keyword</label>
-<input id="keyword" placeholder="e.g. email marketing">
+        <div class="field">
+          <label for="angle">Keyword angle</label>
+          <select id="angle">
+            <option value="general">General</option>
+            <option value="beginners">Beginners</option>
+            <option value="business">Business</option>
+            <option value="content">Content creators</option>
+            <option value="tools">Tools / software</option>
+          </select>
+        </div>
+      </div>
 
-<label>Keyword type</label>
-<select id="type">
-<option value="seo">SEO keywords</option>
-<option value="questions">Question keywords</option>
-<option value="longtail">Long tail keywords</option>
-<option value="commercial">Commercial keywords</option>
-</select>
+      <div class="button-row">
+        <button class="generate-btn" onclick="generateKeywords()">Generate Keywords</button>
+        <button class="copy-all-btn" onclick="copyAllKeywords()">Copy All</button>
+      </div>
 
-<button onclick="generate()">Generate Keywords</button>
+      <div class="status" id="status"></div>
 
-<div class="result" id="result">
+      <div class="result" id="result">
+        <div class="result-header">
+          <div>
+            <h2 class="result-title">Keyword ideas</h2>
+            <p class="result-subtitle" id="resultSubtitle">10 suggestions ready to use</p>
+          </div>
+        </div>
 
-<strong>Keyword ideas:</strong>
+        <div class="keyword-list" id="keywordList"></div>
 
-<div class="keyword-box" id="k1"></div>
-<button class="copy-btn" onclick="copy('k1')">Copy #1</button>
+        <p class="tip" id="tipText">
+          Tip: long-tail keywords are usually easier to rank for than broad keywords.
+        </p>
+      </div>
 
-<div class="keyword-box" id="k2"></div>
-<button class="copy-btn" onclick="copy('k2')">Copy #2</button>
+      <div class="coffee-wrap">
+        <a
+          class="coffee-btn"
+          href="https://buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
 
-<div class="keyword-box" id="k3"></div>
-<button class="copy-btn" onclick="copy('k3')">Copy #3</button>
+  <script>
+    function uniqueKeywords(arr) {
+      return [...new Set(arr.map(item => item.trim()).filter(Boolean))];
+    }
 
-<p class="small">Tip: long-tail keywords are usually easier to rank in Google.</p>
+    function applyAngle(keyword, angle) {
+      if (angle === "beginners") return keyword + " for beginners";
+      if (angle === "business") return keyword + " for business";
+      if (angle === "content") return keyword + " for content creators";
+      if (angle === "tools") return keyword + " tools";
+      return keyword;
+    }
 
-</div>
+    function buildKeywords(keyword, type, angle) {
+      const base = keyword.toLowerCase().trim();
+      const angled = applyAngle(base, angle);
+      let keywords = [];
 
-</div>
+      if (type === "seo") {
+        keywords = [
+          base + " tips",
+          base + " ideas",
+          base + " strategy",
+          base + " examples",
+          base + " tutorial",
+          "best " + base,
+          base + " guide",
+          base + " tools",
+          angled + " checklist",
+          base + " mistakes to avoid"
+        ];
+      }
 
-<script>
+      if (type === "questions") {
+        keywords = [
+          "what is " + base,
+          "how does " + base + " work",
+          "why is " + base + " important",
+          "when to use " + base,
+          "who should use " + base,
+          "how to start " + base,
+          "how to improve " + base,
+          "how to use " + angled,
+          "is " + base + " worth it",
+          "what are the benefits of " + base
+        ];
+      }
 
-function generate(){
+      if (type === "longtail") {
+        keywords = [
+          "best " + base + " for beginners",
+          base + " strategy for small business",
+          "simple " + base + " guide",
+          base + " tips for beginners",
+          base + " ideas for startups",
+          "free " + base + " tools",
+          base + " examples for beginners",
+          base + " tutorial step by step",
+          base + " mistakes to avoid",
+          angled + " ideas"
+        ];
+      }
 
-let keyword=document.getElementById("keyword").value.trim().toLowerCase()
-let type=document.getElementById("type").value
+      if (type === "commercial") {
+        keywords = [
+          "best " + base + " tool",
+          base + " software",
+          base + " service",
+          base + " platform",
+          base + " solution",
+          base + " pricing",
+          base + " free tool",
+          base + " generator",
+          base + " app",
+          base + " alternatives"
+        ];
+      }
 
-if(!keyword){
-alert("Enter a keyword")
-return
-}
+      if (angle !== "general") {
+        keywords.push(angled);
+        keywords.push("best " + angled);
+        keywords.push(angled + " examples");
+      }
 
-let set1=[]
-let set2=[]
-let set3=[]
+      return uniqueKeywords(keywords).slice(0, 10);
+    }
 
-if(type==="seo"){
+    function renderKeywords(items, keyword, type, angle) {
+      const list = document.getElementById("keywordList");
+      const subtitle = document.getElementById("resultSubtitle");
+      const tipText = document.getElementById("tipText");
+      list.innerHTML = "";
 
-set1=[
-keyword+" tips",
-keyword+" ideas",
-keyword+" strategy",
-keyword+" examples",
-keyword+" tutorial"
-]
+      items.forEach((item, index) => {
+        const row = document.createElement("div");
+        row.className = "keyword-item";
 
-set2=[
-"best "+keyword,
-keyword+" guide",
-keyword+" tools",
-keyword+" methods",
-keyword+" strategy 2026"
-]
+        const text = document.createElement("div");
+        text.className = "keyword-text";
+        text.id = "keyword-item-" + index;
+        text.textContent = item;
 
-set3=[
-keyword+" for beginners",
-keyword+" for business",
-keyword+" checklist",
-keyword+" mistakes",
-keyword+" trends"
-]
+        const btn = document.createElement("button");
+        btn.className = "copy-btn";
+        btn.textContent = "Copy";
+        btn.onclick = function () {
+          copyText(item);
+        };
 
-}
+        row.appendChild(text);
+        row.appendChild(btn);
+        list.appendChild(row);
+      });
 
-if(type==="questions"){
+      subtitle.textContent =
+        items.length +
+        " suggestions for \"" +
+        keyword +
+        "\" • " +
+        type.replace(/^\w/, c => c.toUpperCase()) +
+        " • " +
+        angle.replace(/^\w/, c => c.toUpperCase());
 
-set1=[
-"what is "+keyword,
-"how does "+keyword+" work",
-"why is "+keyword+" important",
-"when to use "+keyword,
-"who should use "+keyword
-]
+      if (type === "commercial") {
+        tipText.textContent = "Tip: commercial keywords are useful for pages that target buyers, comparisons, or tool searches.";
+      } else if (type === "questions") {
+        tipText.textContent = "Tip: question keywords work well for blog posts, FAQ sections, and YouTube titles.";
+      } else if (type === "longtail") {
+        tipText.textContent = "Tip: long-tail keywords are usually easier to rank for and often match clearer search intent.";
+      } else {
+        tipText.textContent = "Tip: combine broad SEO keywords with specific long-tail pages for better overall traffic potential.";
+      }
+    }
 
-set2=[
-"how to start "+keyword,
-"how to improve "+keyword,
-"how to learn "+keyword,
-"how to use "+keyword,
-"how to master "+keyword
-]
+    function setStatus(message) {
+      document.getElementById("status").textContent = message;
+    }
 
-set3=[
-"is "+keyword+" worth it",
-"can "+keyword+" help business",
-"does "+keyword+" really work",
-"why learn "+keyword,
-"what are "+keyword+" benefits"
-]
+    function generateKeywords() {
+      const keyword = document.getElementById("keyword").value.trim();
+      const type = document.getElementById("type").value;
+      const angle = document.getElementById("angle").value;
 
-}
+      if (!keyword) {
+        alert("Enter a keyword");
+        return;
+      }
 
-if(type==="longtail"){
+      const keywords = buildKeywords(keyword, type, angle);
+      renderKeywords(keywords, keyword, type, angle);
 
-set1=[
-"best "+keyword+" for beginners",
-keyword+" strategy for small business",
-"simple "+keyword+" guide",
-keyword+" tips for beginners",
-keyword+" ideas for startups"
-]
+      document.getElementById("result").style.display = "block";
+      setStatus("Generated " + keywords.length + " keyword ideas.");
+    }
 
-set2=[
-"free "+keyword+" tools",
-keyword+" examples for beginners",
-keyword+" methods for growth",
-keyword+" tips for marketing",
-keyword+" strategy for 2026"
-]
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(function () {
+        setStatus("Copied to clipboard.");
+      }).catch(function () {
+        setStatus("Copy failed. Try again.");
+      });
+    }
 
-set3=[
-keyword+" ideas for content",
-keyword+" plan for beginners",
-keyword+" tricks for growth",
-keyword+" tutorial step by step",
-keyword+" mistakes to avoid"
-]
+    function copyAllKeywords() {
+      const resultBox = document.getElementById("result");
+      if (resultBox.style.display !== "block") {
+        alert("Generate keywords first");
+        return;
+      }
 
-}
+      const items = Array.from(document.querySelectorAll(".keyword-text")).map(el => el.textContent);
+      const text = items.join("\n");
+      copyText(text);
+    }
 
-if(type==="commercial"){
-
-set1=[
-"best "+keyword+" tool",
-keyword+" software",
-keyword+" service",
-keyword+" platform",
-keyword+" solution"
-]
-
-set2=[
-keyword+" pricing",
-keyword+" free tool",
-keyword+" generator",
-keyword+" app",
-keyword+" online tool"
-]
-
-set3=[
-keyword+" comparison",
-keyword+" alternatives",
-keyword+" reviews",
-keyword+" features",
-keyword+" benefits"
-]
-
-}
-
-document.getElementById("k1").textContent=set1.join(", ")
-document.getElementById("k2").textContent=set2.join(", ")
-document.getElementById("k3").textContent=set3.join(", ")
-
-document.getElementById("result").style.display="block"
-
-}
-
-function copy(id){
-let text=document.getElementById(id).textContent
-navigator.clipboard.writeText(text).then(()=>{alert("Copied")})
-}
-
-</script>
-
+    document.getElementById("keyword").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        generateKeywords();
+      }
+    });
+  </script>
 </body>
 </html>
