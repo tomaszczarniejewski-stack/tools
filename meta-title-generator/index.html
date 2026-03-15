@@ -4,145 +4,422 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meta Title Generator</title>
-  <meta name="description" content="Generate SEO-friendly meta titles for blog posts, product pages, landing pages, and online tools." />
+  <meta name="description" content="Generate SEO-friendly meta titles for blog posts, product pages, landing pages, services, and online tools." />
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 0 auto;
+      margin: 0;
       padding: 24px;
-      line-height: 1.5;
-      background: #f7f7f7;
+      background: #f5f5f5;
       color: #222;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
     }
-    .box {
-      background: #fff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
     }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      padding: 28px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
     h1 {
-      margin-top: 0;
-      font-size: 32px;
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #111;
     }
-    p {
-      color: #444;
+
+    .description {
+      margin: 0 0 24px;
+      color: #555;
+      font-size: 16px;
     }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
     label {
       display: block;
-      margin-top: 16px;
-      margin-bottom: 6px;
-      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
     }
-    input, select, button {
+
+    input,
+    select {
       width: 100%;
-      padding: 12px;
+      padding: 13px 14px;
       font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-family: Arial, sans-serif;
     }
+
+    input:focus,
+    select:focus {
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
     button {
-      margin-top: 18px;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.04s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .generate-btn {
       background: #111;
       color: #fff;
-      border: none;
-      cursor: pointer;
     }
-    button:hover {
-      background: #333;
+
+    .generate-btn:hover {
+      background: #222;
     }
-    .result {
-      margin-top: 24px;
-      padding: 18px;
-      background: #f1f5f9;
-      border-radius: 8px;
-      border: 1px solid #dbe2ea;
-      display: none;
+
+    .copy-all-btn {
+      background: #0d6efd;
+      color: #fff;
     }
-    .title-box {
-      background: #fff;
-      border: 1px solid #d0d7de;
-      border-radius: 8px;
-      padding: 14px;
+
+    .copy-all-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .status {
       margin-top: 12px;
-      font-size: 18px;
+      min-height: 20px;
+      font-size: 14px;
+      color: #444;
     }
+
+    .preview-box,
+    .result-box {
+      margin-top: 24px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 20px;
+      color: #111;
+    }
+
+    .google-preview {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .google-title {
+      color: #1a0dab;
+      font-size: 21px;
+      line-height: 1.3;
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+
+    .google-url {
+      color: #188038;
+      font-size: 14px;
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+
+    .google-desc {
+      color: #4d5156;
+      font-size: 14px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .results-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .title-card {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .title-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .title-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .title-length {
+      font-size: 13px;
+      color: #666;
+      background: #f3f4f6;
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .title-text {
+      color: #222;
+      font-size: 17px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .title-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .copy-btn {
-      margin-top: 10px;
-      background: #2563eb;
+      background: #0d6efd;
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 10px;
     }
+
     .copy-btn:hover {
-      background: #1d4ed8;
+      background: #0b5ed7;
     }
+
     .small {
+      margin-top: 14px;
       font-size: 14px;
       color: #666;
-      margin-top: 10px;
     }
-    a {
-      color: #2563eb;
+
+    .coffee-wrap {
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: #ffd400;
+      color: #111;
       text-decoration: none;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: opacity 0.2s ease, transform 0.04s ease;
     }
-    a:hover {
-      text-decoration: underline;
+
+    .coffee-btn:hover {
+      opacity: 0.92;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .tool-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .generate-btn,
+      .copy-all-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <p><a href="../">⬅ Back to tools</a></p>
+  <div class="page">
+    <div class="tool-box">
+      <a class="back-link" href="../">⬅ Back to tools</a>
 
-    <h1>Meta Title Generator</h1>
-    <p>Generate SEO-friendly meta titles for blog posts, product pages, landing pages, and online tools.</p>
+      <h1>Meta Title Generator</h1>
+      <p class="description">
+        Generate SEO-friendly meta titles for blog posts, product pages, landing pages, services, and online tools.
+      </p>
 
-    <label for="keyword">Main keyword</label>
-    <input id="keyword" type="text" placeholder="e.g. AI resume builder" />
+      <div class="grid">
+        <div class="field full">
+          <label for="keyword">Main keyword</label>
+          <input id="keyword" type="text" placeholder="e.g. AI resume builder" />
+        </div>
 
-    <label for="audience">Audience or use case</label>
-    <input id="audience" type="text" placeholder="e.g. job seekers, freelancers, small business" />
+        <div class="field">
+          <label for="audience">Audience or use case</label>
+          <input id="audience" type="text" placeholder="e.g. job seekers, freelancers, small business" />
+        </div>
 
-    <label for="type">Page type</label>
-    <select id="type">
-      <option value="blog">Blog Post</option>
-      <option value="product">Product Page</option>
-      <option value="service">Service Page</option>
-      <option value="landing">Landing Page</option>
-      <option value="tool">Online Tool</option>
-    </select>
+        <div class="field">
+          <label for="type">Page type</label>
+          <select id="type">
+            <option value="blog">Blog Post</option>
+            <option value="product">Product Page</option>
+            <option value="service">Service Page</option>
+            <option value="landing">Landing Page</option>
+            <option value="tool">Online Tool</option>
+          </select>
+        </div>
 
-    <label for="tone">Title style</label>
-    <select id="tone">
-      <option value="seo">SEO / Standard</option>
-      <option value="click">Clickable</option>
-      <option value="simple">Simple</option>
-      <option value="brand">With Brand</option>
-    </select>
+        <div class="field">
+          <label for="length">Title length</label>
+          <select id="length">
+            <option value="short">Short</option>
+            <option value="standard" selected>Standard</option>
+            <option value="long">Longer</option>
+          </select>
+        </div>
 
-    <label for="brand">Brand name (optional)</label>
-    <input id="brand" type="text" placeholder="e.g. ToolHub" />
+        <div class="field">
+          <label for="format">Title format</label>
+          <select id="format">
+            <option value="mixed" selected>Mixed</option>
+            <option value="keyword">Keyword first</option>
+            <option value="benefit">Benefit first</option>
+            <option value="list">List style</option>
+            <option value="question">Question style</option>
+          </select>
+        </div>
 
-    <button onclick="generateTitles()">Generate Meta Titles</button>
+        <div class="field">
+          <label for="tone">Title style</label>
+          <select id="tone">
+            <option value="seo">SEO / Standard</option>
+            <option value="click">Clickable</option>
+            <option value="simple">Simple</option>
+          </select>
+        </div>
 
-    <div class="result" id="result">
-      <strong>Generated titles:</strong>
+        <div class="field">
+          <label for="brandMode">Brand mode</label>
+          <select id="brandMode">
+            <option value="none">No brand</option>
+            <option value="some">Add brand to some titles</option>
+            <option value="all">Add brand to all titles</option>
+          </select>
+        </div>
 
-      <div class="title-box" id="title1"></div>
-      <button class="copy-btn" onclick="copyText('title1')">Copy #1</button>
+        <div class="field">
+          <label for="brand">Brand name (optional)</label>
+          <input id="brand" type="text" placeholder="e.g. ToolHub" />
+        </div>
 
-      <div class="title-box" id="title2"></div>
-      <button class="copy-btn" onclick="copyText('title2')">Copy #2</button>
+        <div class="field">
+          <label for="urlSlug">Preview URL slug</label>
+          <input id="urlSlug" type="text" placeholder="e.g. ai-resume-builder" />
+        </div>
+      </div>
 
-      <div class="title-box" id="title3"></div>
-      <button class="copy-btn" onclick="copyText('title3')">Copy #3</button>
+      <div class="button-row">
+        <button class="generate-btn" onclick="generateTitles()">Generate Meta Titles</button>
+        <button class="copy-all-btn" onclick="copyAll()">Copy All</button>
+      </div>
 
-      <div class="title-box" id="title4"></div>
-      <button class="copy-btn" onclick="copyText('title4')">Copy #4</button>
+      <div class="status" id="status"></div>
 
-      <div class="title-box" id="title5"></div>
-      <button class="copy-btn" onclick="copyText('title5')">Copy #5</button>
+      <div class="preview-box" id="previewBox" style="display:none;">
+        <h2 class="section-title">Google preview</h2>
+        <div class="google-preview">
+          <div class="google-title" id="previewTitle"></div>
+          <div class="google-url" id="previewUrl"></div>
+          <div class="google-desc" id="previewDesc"></div>
+        </div>
+      </div>
 
-      <p class="small" id="lengthInfo"></p>
+      <div class="result-box" id="resultBox" style="display:none;">
+        <h2 class="section-title">Generated results</h2>
+        <div class="results-list" id="resultsList"></div>
+        <p class="small">
+          Tip: a good meta title should be clear, specific, and strong enough to earn the click without becoming spammy.
+        </p>
+      </div>
+
+      <div class="coffee-wrap">
+        <a
+          class="coffee-btn"
+          href="https://buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
     </div>
   </div>
 
@@ -156,103 +433,439 @@
       return text.charAt(0).toUpperCase() + text.slice(1);
     }
 
-    function shorten(text, max = 60) {
-      if (text.length <= max) return text;
-      return text.slice(0, max - 1).trim() + "…";
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+    }
+
+    function getMaxLength(lengthType) {
+      if (lengthType === "short") return 45;
+      if (lengthType === "long") return 70;
+      return 60;
+    }
+
+    function shortenSmart(text, maxLength) {
+      if (text.length <= maxLength) return text;
+      let trimmed = text.slice(0, maxLength + 1);
+      const lastSpace = trimmed.lastIndexOf(" ");
+      if (lastSpace > 20) {
+        trimmed = trimmed.slice(0, lastSpace);
+      } else {
+        trimmed = trimmed.slice(0, maxLength - 1);
+      }
+      return trimmed.trim().replace(/[|:\-–—,]+$/, "") + "…";
     }
 
     function addBrand(title, brand) {
       if (!brand) return title;
-      return `${title} | ${brand}`;
+      return title + " | " + brand;
+    }
+
+    function applyTone(title, tone) {
+      let result = title;
+
+      if (tone === "click") {
+        result = result
+          .replace(/^Best /, "Top ")
+          .replace(/^Guide to /, "What to Know About ")
+          .replace(/^Why /, "Why ")
+          .replace("Made Simple", "That Works")
+          .replace("Online Tool", "Tool You Should Try");
+      }
+
+      if (tone === "simple") {
+        result = result
+          .replace("Complete Guide", "Guide")
+          .replace("Features, Benefits and Pricing", "Overview")
+          .replace("What to Know About", "Guide to")
+          .replace("Best", "Top");
+      }
+
+      return result;
+    }
+
+    function getSnippetText(type, keyword) {
+      const base = capitalize(keyword);
+
+      if (type === "blog") {
+        return "Learn more with practical tips, examples, and clear takeaways.";
+      }
+      if (type === "product") {
+        return "Explore features, benefits, and reasons to choose this solution.";
+      }
+      if (type === "service") {
+        return "Discover the service, key benefits, and how it helps you get results.";
+      }
+      if (type === "landing") {
+        return "See the main value, benefits, and the next step in one simple page.";
+      }
+      return "Use the tool online and get useful results quickly and easily.";
+    }
+
+    function buildMixedTitles(keyword, audience, type) {
+      const k = capitalize(keyword);
+      const audiencePart = audience ? " for " + audience : "";
+
+      if (type === "blog") {
+        return [
+          k + ": Complete Guide" + audiencePart,
+          "How to Improve " + k,
+          "Best " + k + " Tips and Ideas",
+          k + " Examples and Best Practices",
+          "Why " + k + " Matters" + audiencePart,
+          "Guide to " + k + audiencePart,
+          "Top " + k + " Strategies",
+          k + " Made Simple"
+        ];
+      }
+
+      if (type === "product") {
+        return [
+          k + " - Features, Benefits and Pricing",
+          "Best " + k + audiencePart,
+          k + " for Better Results",
+          "Try " + k + " Today",
+          k + " That Saves Time",
+          "Why Choose " + k,
+          k + " Solution for Faster Work",
+          k + " Overview and Key Benefits"
+        ];
+      }
+
+      if (type === "service") {
+        return [
+          k + " Services" + audiencePart,
+          "Professional " + k + " Solutions",
+          k + " Experts" + audiencePart,
+          "Trusted " + k + " Service",
+          k + " Help for Faster Results",
+          "Why Choose " + k + " Services",
+          k + " Support That Delivers",
+          "Reliable " + k + " for Better Outcomes"
+        ];
+      }
+
+      if (type === "landing") {
+        return [
+          k + audiencePart + " - Get Started",
+          k + " Made Simple",
+          "Discover " + k + " Today",
+          k + " That Saves Time",
+          "Start Using " + k + " Now",
+          "Why " + k + " Works",
+          k + " for Better Results",
+          "Try " + k + " Today"
+        ];
+      }
+
+      return [
+        "Free " + k + " Tool",
+        k + " Generator Online",
+        "Best Free " + k + " Tool",
+        k + " Tool" + audiencePart,
+        "Generate " + k + " Instantly",
+        k + " Online Tool for Fast Results",
+        "Try the " + k + " Tool",
+        k + " Made Simple"
+      ];
+    }
+
+    function buildKeywordTitles(keyword, audience, type) {
+      const k = capitalize(keyword);
+      const audiencePart = audience ? " for " + audience : "";
+
+      if (type === "tool") {
+        return [
+          k + " Tool",
+          k + " Generator",
+          k + " Generator Online",
+          "Free " + k + " Tool",
+          "Best " + k + " Tool",
+          k + " Tool" + audiencePart,
+          k + " Online Tool",
+          k + " Generator Free"
+        ];
+      }
+
+      return [
+        k + audiencePart,
+        k + " Guide",
+        k + " Services",
+        k + " Solution",
+        k + " for Better Results",
+        k + " Made Simple",
+        k + " Overview",
+        k + " Explained"
+      ];
+    }
+
+    function buildBenefitTitles(keyword, audience, type) {
+      const k = capitalize(keyword);
+      const audiencePart = audience ? " for " + audience : "";
+
+      if (type === "blog") {
+        return [
+          "Improve Results with " + k,
+          "Learn " + k + " the Easy Way",
+          "Get Better at " + k,
+          "Use " + k + " to Save Time",
+          "Make " + k + " Simpler" + audiencePart,
+          "Boost Performance with " + k,
+          "Understand " + k + " Faster",
+          "Better Outcomes with " + k
+        ];
+      }
+
+      if (type === "tool") {
+        return [
+          "Generate Better Results with " + k,
+          "Save Time with " + k,
+          "Create Faster with " + k,
+          "Use " + k + " to Work Smarter",
+          "Get Quick Results with " + k,
+          "Simplify Work with " + k,
+          "Make Tasks Easier with " + k,
+          "Create More Efficiently with " + k
+        ];
+      }
+
+      return [
+        "Get Better Results with " + k,
+        "Save Time with " + k,
+        "Simplify Work with " + k,
+        "Improve Efficiency with " + k,
+        "Work Smarter with " + k,
+        "Better Performance with " + k,
+        "Make Progress Faster with " + k,
+        "A Simpler Way to Use " + k + audiencePart
+      ];
+    }
+
+    function buildListTitles(keyword, audience, type) {
+      const k = capitalize(keyword);
+      const audiencePart = audience ? " for " + audience : "";
+
+      if (type === "blog") {
+        return [
+          "7 " + k + " Tips That Work",
+          "10 Best " + k + " Ideas",
+          "5 " + k + " Mistakes to Avoid",
+          "9 " + k + " Examples to Learn From",
+          "8 Ways to Improve " + k,
+          "12 " + k + " Best Practices",
+          "6 Smart " + k + " Strategies",
+          "11 " + k + " Tips" + audiencePart
+        ];
+      }
+
+      if (type === "tool") {
+        return [
+          "7 Ways to Use the " + k + " Tool",
+          "5 Reasons to Try " + k,
+          "8 Benefits of " + k,
+          "10 " + k + " Ideas to Generate",
+          "6 Smart Uses for " + k,
+          "9 Reasons to Use " + k,
+          "5 Quick Wins with " + k,
+          "7 " + k + " Use Cases"
+        ];
+      }
+
+      return [
+        "7 Reasons to Choose " + k,
+        "5 Benefits of " + k,
+        "8 Ways " + k + " Helps",
+        "10 " + k + " Use Cases",
+        "6 Reasons " + k + " Works",
+        "9 Benefits of Using " + k,
+        "5 Smart Ways to Use " + k,
+        "7 " + k + " Advantages" + audiencePart
+      ];
+    }
+
+    function buildQuestionTitles(keyword, audience, type) {
+      const k = capitalize(keyword);
+      const audiencePart = audience ? " for " + audience : "";
+
+      if (type === "blog") {
+        return [
+          "What Is " + k + "?",
+          "How Does " + k + " Work?",
+          "Why Is " + k + " Important?",
+          "Is " + k + " Worth It?",
+          "How Can You Improve " + k + "?",
+          "What Are the Benefits of " + k + "?",
+          "Who Should Use " + k + audiencePart + "?",
+          "How Do You Start with " + k + "?"
+        ];
+      }
+
+      if (type === "tool") {
+        return [
+          "What Is the Best " + k + " Tool?",
+          "How Does " + k + " Work?",
+          "Why Use a " + k + " Tool?",
+          "Is " + k + " Free to Use?",
+          "How Fast Can You Generate " + k + "?",
+          "What Can You Create with " + k + "?",
+          "Why Try " + k + " Online?",
+          "Who Should Use " + k + "?"
+        ];
+      }
+
+      return [
+        "What Is " + k + "?",
+        "Why Choose " + k + "?",
+        "How Does " + k + " Help?",
+        "Is " + k + " Right for You?",
+        "What Makes " + k + " Useful?",
+        "Who Needs " + k + audiencePart + "?",
+        "How Can " + k + " Improve Results?",
+        "Why Does " + k + " Matter?"
+      ];
+    }
+
+    function getTitlesByFormat(format, keyword, audience, type) {
+      if (format === "keyword") return buildKeywordTitles(keyword, audience, type);
+      if (format === "benefit") return buildBenefitTitles(keyword, audience, type);
+      if (format === "list") return buildListTitles(keyword, audience, type);
+      if (format === "question") return buildQuestionTitles(keyword, audience, type);
+      return buildMixedTitles(keyword, audience, type);
+    }
+
+    function applyBrandMode(titles, mode, brand) {
+      if (!brand || mode === "none") return titles.slice();
+
+      return titles.map(function(title, index) {
+        if (mode === "all") {
+          return addBrand(title, brand);
+        }
+
+        if (mode === "some" && index < 3) {
+          return addBrand(title, brand);
+        }
+
+        return title;
+      });
     }
 
     function generateTitles() {
       const keyword = cleanText(document.getElementById("keyword").value);
       const audience = cleanText(document.getElementById("audience").value);
       const type = document.getElementById("type").value;
+      const length = document.getElementById("length").value;
+      const format = document.getElementById("format").value;
       const tone = document.getElementById("tone").value;
+      const brandMode = document.getElementById("brandMode").value;
       const brand = cleanText(document.getElementById("brand").value);
+      const urlSlugInput = cleanText(document.getElementById("urlSlug").value);
 
       if (!keyword) {
-        alert("Please enter a main keyword.");
+        setStatus("Enter a main keyword.");
         return;
       }
 
-      const audiencePart = audience ? ` for ${audience}` : "";
-      let titles = [];
+      const maxLength = getMaxLength(length);
+      let titles = getTitlesByFormat(format, keyword, audience, type);
 
-      if (type === "blog") {
-        titles = [
-          `${capitalize(keyword)}: Complete Guide${audiencePart}`,
-          `${capitalize(keyword)} Tips and Best Practices`,
-          `How to Improve ${capitalize(keyword)}${audiencePart}`,
-          `${capitalize(keyword)} Examples and Ideas`,
-          `Best ${capitalize(keyword)} Strategies in 2026`
-        ];
-      } else if (type === "product") {
-        titles = [
-          `${capitalize(keyword)} - Features, Benefits and Pricing`,
-          `Best ${capitalize(keyword)}${audiencePart}`,
-          `${capitalize(keyword)} for Better Results`,
-          `Try ${capitalize(keyword)} Today`,
-          `${capitalize(keyword)} - Simple and Effective Solution`
-        ];
-      } else if (type === "service") {
-        titles = [
-          `${capitalize(keyword)} Services${audiencePart}`,
-          `Professional ${capitalize(keyword)} Solutions`,
-          `${capitalize(keyword)} Experts${audiencePart}`,
-          `Trusted ${capitalize(keyword)} Services`,
-          `${capitalize(keyword)} Help for Faster Results`
-        ];
-      } else if (type === "landing") {
-        titles = [
-          `${capitalize(keyword)}${audiencePart} - Get Started`,
-          `${capitalize(keyword)} Made Simple`,
-          `Discover ${capitalize(keyword)} Today`,
-          `${capitalize(keyword)} That Saves Time`,
-          `Start Using ${capitalize(keyword)} Now`
-        ];
-      } else {
-        titles = [
-          `Free ${capitalize(keyword)} Tool`,
-          `${capitalize(keyword)} Generator Online`,
-          `Best Free ${capitalize(keyword)} Tool`,
-          `${capitalize(keyword)} Tool${audiencePart}`,
-          `Generate ${capitalize(keyword)} Instantly`
-        ];
-      }
+      titles = titles.map(function(title) {
+        return applyTone(title, tone);
+      });
 
-      if (tone === "click") {
-        titles = titles.map(title => title.replace("Best", "Top").replace("Complete Guide", "What You Need to Know"));
-      } else if (tone === "simple") {
-        titles = titles.map(title => title.replace("Features, Benefits and Pricing", "Made Simple").replace("Best Practices", "Basics"));
-      } else if (tone === "brand") {
-        titles = titles.map(title => addBrand(title, brand || "Your Brand"));
-      }
+      titles = applyBrandMode(titles, brandMode, brand);
 
-      if (tone !== "brand" && brand) {
-        titles[0] = addBrand(titles[0], brand);
-        titles[1] = addBrand(titles[1], brand);
-      }
+      titles = titles.map(function(title) {
+        return shortenSmart(title, maxLength);
+      });
 
-      titles = titles.map(title => shorten(title, 60));
-
-      document.getElementById("title1").textContent = titles[0];
-      document.getElementById("title2").textContent = titles[1];
-      document.getElementById("title3").textContent = titles[2];
-      document.getElementById("title4").textContent = titles[3];
-      document.getElementById("title5").textContent = titles[4];
-      document.getElementById("lengthInfo").textContent =
-        `Lengths: ${titles.map((t, i) => `#${i + 1} ${t.length}`).join(" | ")}`;
-      document.getElementById("result").style.display = "block";
+      renderResults(titles);
+      renderPreview(keyword, urlSlugInput, titles[0], type);
+      setStatus("Generated 8 meta titles.");
     }
 
-    function copyText(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Copied to clipboard.");
+    function renderResults(titles) {
+      const list = document.getElementById("resultsList");
+      list.innerHTML = "";
+
+      titles.forEach(function(text, index) {
+        const card = document.createElement("div");
+        card.className = "title-card";
+
+        const top = document.createElement("div");
+        top.className = "title-top";
+
+        const label = document.createElement("div");
+        label.className = "title-label";
+        label.textContent = "Variation #" + (index + 1);
+
+        const length = document.createElement("div");
+        length.className = "title-length";
+        length.textContent = text.length + " chars";
+
+        top.appendChild(label);
+        top.appendChild(length);
+
+        const content = document.createElement("div");
+        content.className = "title-text";
+        content.textContent = text;
+
+        const actions = document.createElement("div");
+        actions.className = "title-actions";
+
+        const copyButton = document.createElement("button");
+        copyButton.className = "copy-btn";
+        copyButton.textContent = "Copy";
+        copyButton.onclick = function() {
+          copyToClipboard(text);
+        };
+
+        actions.appendChild(copyButton);
+
+        card.appendChild(top);
+        card.appendChild(content);
+        card.appendChild(actions);
+        list.appendChild(card);
       });
+
+      document.getElementById("resultBox").style.display = "block";
+    }
+
+    function renderPreview(keyword, urlSlugInput, title, type) {
+      const slug = urlSlugInput ? slugify(urlSlugInput) : slugify(keyword);
+      document.getElementById("previewTitle").textContent = title;
+      document.getElementById("previewUrl").textContent = "https://example.com/" + slug;
+      document.getElementById("previewDesc").textContent = getSnippetText(type, keyword);
+      document.getElementById("previewBox").style.display = "block";
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(function() {
+        setStatus("Copied to clipboard.");
+      }).catch(function() {
+        setStatus("Copy failed. Try again.");
+      });
+    }
+
+    function copyAll() {
+      const cards = Array.from(document.querySelectorAll(".title-text"));
+      if (!cards.length) {
+        setStatus("Generate meta titles first.");
+        return;
+      }
+
+      const allText = cards.map(function(card) {
+        return card.textContent;
+      }).join("\n");
+
+      copyToClipboard(allText);
+    }
+
+    function setStatus(message) {
+      document.getElementById("status").textContent = message;
     }
   </script>
 </body>
