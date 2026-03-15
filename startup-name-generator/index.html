@@ -1,33 +1,493 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Startup Name Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Startup Name Generator</title>
+  <meta name="description" content="Generate modern startup name ideas for tech projects, SaaS tools, apps, and AI brands." />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background: #f5f5f5;
+      color: #222;
+      font-family: Arial, sans-serif;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      padding: 28px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #0d6efd;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #111;
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: #555;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    select,
+    button {
+      width: 100%;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      border-radius: 12px;
+    }
+
+    select {
+      border: 1px solid #d7d7d7;
+      padding: 13px 14px;
+      background: #fff;
+      color: #222;
+      outline: none;
+    }
+
+    select:focus {
+      border-color: #999;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 13px 18px;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: #111;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #222;
+    }
+
+    .btn-secondary {
+      background: #ececec;
+      color: #111;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e2e2;
+    }
+
+    .results {
+      display: none;
+      margin-top: 26px;
+      padding: 20px;
+      border-radius: 16px;
+      background: #f8f9fb;
+      border: 1px solid #e6e6e6;
+    }
+
+    .results h2,
+    .history h3 {
+      margin: 0 0 16px;
+      color: #111;
+    }
+
+    .name-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .name-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .name-label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .name-value {
+      background: #f4f6f8;
+      border: 1px solid #dde2e7;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1.35;
+      color: #111;
+      word-break: break-word;
+    }
+
+    .copy-btn {
+      margin-top: 10px;
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .copy-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .tip-text {
+      margin-top: 16px;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .message {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .message.success {
+      background: #eef7ee;
+      color: #1f7a1f;
+      border: 1px solid #cce7cc;
+    }
+
+    .history {
+      margin-top: 22px;
+      display: none;
+    }
+
+    .history-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .history-item {
+      background: #fff;
+      border: 1px solid #e3e3e3;
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .history-style {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .history-name {
+      font-size: 15px;
+      font-weight: bold;
+      color: #111;
+      word-break: break-word;
+    }
+
+    .coffee-wrap {
+      margin-top: 28px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      background: #ffd400;
+      color: #111;
+      font-weight: bold;
+      padding: 14px 18px;
+      border-radius: 12px;
+      transition: 0.2s ease;
+    }
+
+    .coffee-btn:hover {
+      filter: brightness(0.97);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .tool-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .name-value {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
+    <div class="tool-box">
+      <a class="back-link" href="../">⬅ Back to tools</a>
 
-<p><a href="../">⬅ Back to tools</a></p>
+      <h1>Startup Name Generator</h1>
+      <p class="description">Generate simple modern startup names for tech projects, SaaS tools, AI brands, and apps.</p>
 
-<h1>Startup Name Generator</h1>
+      <div class="field">
+        <label for="style">Startup style</label>
+        <select id="style">
+          <option value="tech">Tech brand</option>
+          <option value="ai">AI startup</option>
+          <option value="saas">SaaS</option>
+          <option value="web3">Web3</option>
+        </select>
+      </div>
 
-<button onclick="generate()">Generate Startup Name</button>
+      <div class="field">
+        <label for="count">Number of names</label>
+        <select id="count">
+          <option value="1">1 name</option>
+          <option value="3" selected>3 names</option>
+          <option value="5">5 names</option>
+        </select>
+      </div>
 
-<p id="name"></p>
+      <div class="button-row">
+        <button class="btn btn-primary" onclick="generate()">Generate Startup Name</button>
+        <button class="btn btn-primary" onclick="generate()">Generate Again</button>
+        <button class="btn btn-secondary" onclick="clearResults()">Clear</button>
+      </div>
 
-<script>
+      <div class="message success" id="successMessage"></div>
 
-const first = ["Tech","Hyper","Quantum","Cloud","Bright","Data","Next","Neo","Future","Pixel"];
-const second = ["Labs","AI","Systems","Network","Flow","Forge","Stack","Works","Base","Core"];
+      <div class="results" id="results">
+        <h2>Generated Names</h2>
+        <div class="name-list" id="nameList"></div>
+        <p class="tip-text">Tip: the best startup names are usually short, easy to pronounce, and simple to remember.</p>
+      </div>
 
-function generate(){
-const a = first[Math.floor(Math.random()*first.length)];
-const b = second[Math.floor(Math.random()*second.length)];
+      <div class="history" id="historySection">
+        <h3>Recent History</h3>
+        <div class="history-list" id="historyList"></div>
+      </div>
 
-document.getElementById("name").innerText = a + b;
-}
+      <div class="coffee-wrap">
+        <a class="coffee-btn" href="https://buymeacoffee.com/" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
+      </div>
+    </div>
+  </div>
 
-</script>
+  <script>
+    const historyItems = [];
 
+    const nameData = {
+      tech: {
+        first: ["Tech", "Hyper", "Quantum", "Cloud", "Bright", "Data", "Next", "Neo", "Future", "Pixel", "Logic", "Nova"],
+        second: ["Labs", "Systems", "Network", "Flow", "Forge", "Stack", "Works", "Base", "Core", "Grid", "Pulse", "Shift"]
+      },
+      ai: {
+        first: ["Neuro", "Cortex", "Vision", "Prompt", "Clever", "Mind", "Synapse", "Deep", "Tensor", "Cognitive", "Signal", "Model"],
+        second: ["AI", "Labs", "Core", "Works", "Forge", "Flow", "Stack", "Logic", "Sense", "Cloud", "Systems", "Base"]
+      },
+      saas: {
+        first: ["Scale", "Launch", "Metric", "Growth", "Task", "Client", "Boost", "Flow", "Team", "Convert", "Market", "Sync"],
+        second: ["Desk", "Pilot", "Stack", "Base", "Suite", "Flow", "Cloud", "OS", "Core", "Works", "Bridge", "Hub"]
+      },
+      web3: {
+        first: ["Chain", "Block", "Token", "Crypto", "Meta", "Proof", "Mint", "Node", "Vault", "Zero", "Open", "Ether"],
+        second: ["Labs", "Flow", "Works", "Base", "Core", "Forge", "Stack", "Chain", "Bridge", "Verse", "Grid", "Port"]
+      }
+    };
+
+    function showSuccess(text) {
+      const successBox = document.getElementById("successMessage");
+      successBox.textContent = text;
+      successBox.style.display = "block";
+
+      setTimeout(() => {
+        successBox.style.display = "none";
+        successBox.textContent = "";
+      }, 1800);
+    }
+
+    function randomItem(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function titleCase(text) {
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function buildName(style) {
+      const data = nameData[style];
+      const a = randomItem(data.first);
+      const b = randomItem(data.second);
+
+      const patterns = [
+        a + b,
+        a + " " + b,
+        a + "ly",
+        "Get" + a,
+        b + a,
+        a + "ify"
+      ];
+
+      let result = randomItem(patterns);
+
+      result = result
+        .replace(/\s+/g, " ")
+        .replace(/([a-z])([A-Z])/g, "$1$2")
+        .trim();
+
+      return titleCase(result);
+    }
+
+    function generateUniqueNames(style, count) {
+      const unique = new Set();
+      let safety = 0;
+
+      while (unique.size < count && safety < 200) {
+        unique.add(buildName(style));
+        safety++;
+      }
+
+      return Array.from(unique);
+    }
+
+    function generate() {
+      const style = document.getElementById("style").value;
+      const count = Number(document.getElementById("count").value);
+      const names = generateUniqueNames(style, count);
+      const nameList = document.getElementById("nameList");
+      const results = document.getElementById("results");
+
+      nameList.innerHTML = names.map((name, index) => `
+        <div class="name-card">
+          <div class="name-label">Name #${index + 1}</div>
+          <div class="name-value" id="name-${index}">${escapeHtml(name)}</div>
+          <button class="btn copy-btn" onclick="copyText('name-${index}', this)">Copy</button>
+        </div>
+      `).join("");
+
+      results.style.display = "block";
+
+      names.forEach(name => addToHistory(name, style));
+    }
+
+    function copyText(id, button) {
+      const text = document.getElementById(id).textContent;
+      const originalText = button.textContent;
+
+      navigator.clipboard.writeText(text).then(() => {
+        button.textContent = "Copied!";
+        showSuccess("Name copied to clipboard.");
+
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1200);
+      }).catch(() => {
+        showSuccess("Copy failed. Please try again.");
+      });
+    }
+
+    function addToHistory(name, style) {
+      historyItems.unshift({
+        name: name,
+        style: style.toUpperCase()
+      });
+
+      if (historyItems.length > 5) {
+        historyItems.pop();
+      }
+
+      renderHistory();
+    }
+
+    function renderHistory() {
+      const historySection = document.getElementById("historySection");
+      const historyList = document.getElementById("historyList");
+
+      if (!historyItems.length) {
+        historySection.style.display = "none";
+        historyList.innerHTML = "";
+        return;
+      }
+
+      historySection.style.display = "block";
+      historyList.innerHTML = historyItems.map(item => `
+        <div class="history-item">
+          <div class="history-style">${escapeHtml(item.style)}</div>
+          <div class="history-name">${escapeHtml(item.name)}</div>
+        </div>
+      `).join("");
+    }
+
+    function clearResults() {
+      document.getElementById("results").style.display = "none";
+      document.getElementById("nameList").innerHTML = "";
+      document.getElementById("successMessage").style.display = "none";
+      document.getElementById("successMessage").textContent = "";
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
 </body>
 </html>
