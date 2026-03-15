@@ -1,40 +1,490 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>YouTube Hook Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Hook Generator</title>
+  <meta
+    name="description"
+    content="Generate YouTube hooks for Shorts and long videos. Free online hook generator for creators."
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+      --soft-border: #e9ecef;
+      --blue: #0d6efd;
+      --blue-hover: #0b5ed7;
+      --dark-btn: #111111;
+      --dark-btn-hover: #333333;
+      --yellow: #ffd400;
+      --yellow-hover: #f2c900;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --success: #2f6f44;
+      --error: #b42318;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px 40px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .tool-box {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .field {
+      margin-top: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fafafa;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      background: var(--dark-btn);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      background: var(--dark-btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .status {
+      margin-top: 14px;
+      min-height: 22px;
+      font-size: 14px;
+      color: var(--success);
+    }
+
+    .result {
+      margin-top: 24px;
+      padding: 20px;
+      background: #f8f9fb;
+      border: 1px solid #dfe3ea;
+      border-radius: 14px;
+      display: none;
+    }
+
+    .result-title {
+      margin: 0 0 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .hook-item + .hook-item {
+      margin-top: 14px;
+    }
+
+    .hook-box {
+      background: #ffffff;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 17px;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .copy-btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+    }
+
+    .small {
+      font-size: 14px;
+      color: #666666;
+      margin: 18px 0 0;
+    }
+
+    .support-wrap {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111111;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .coffee-btn:hover {
+      background: var(--yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 12px 32px;
+      }
+
+      .tool-box {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .copy-btn,
+      .coffee-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
-<p><a href="../">⬅ Back to tools</a></p>
-<h1>YouTube Hook Generator</h1>
+  <div class="page">
+    <a class="back-link" href="../">⬅ Back to tools</a>
 
-<button onclick="generate()">Generate Hook</button>
+    <div class="tool-box">
+      <h1>YouTube Hook Generator</h1>
+      <p class="intro">
+        Generate scroll-stopping YouTube hooks for Shorts and long-form videos.
+      </p>
 
-<p id="hook"></p>
+      <div class="field">
+        <label for="topic">Video topic</label>
+        <input id="topic" type="text" placeholder="e.g. growing on YouTube, fitness for beginners, saving money" />
+      </div>
 
-<script>
+      <div class="grid-2">
+        <div class="field">
+          <label for="style">Hook style</label>
+          <select id="style">
+            <option value="curiosity">Curiosity</option>
+            <option value="warning">Warning</option>
+            <option value="secret">Secret / hidden truth</option>
+            <option value="mistake">Mistake / problem</option>
+            <option value="result">Result / promise</option>
+          </select>
+        </div>
 
-const hooks = [
-"This trick will double your views",
-"You are doing this wrong on YouTube",
-"Nobody tells you this about YouTube",
-"This secret changed my channel",
-"Stop doing this if you want views",
-"99% of creators don't know this",
-"This is why your videos fail",
-"Try this before posting your next video",
-"YouTube algorithm loves this trick",
-"This will explode your views"
-];
+        <div class="field">
+          <label for="format">Video format</label>
+          <select id="format">
+            <option value="shorts">YouTube Shorts</option>
+            <option value="long">Long-form video</option>
+            <option value="general">General</option>
+          </select>
+        </div>
+      </div>
 
-function generate() {
-const random = hooks[Math.floor(Math.random() * hooks.length)];
-document.getElementById("hook").innerText = random;
-}
+      <button class="primary-btn" onclick="generateHooks()">Generate Hooks</button>
 
-</script>
+      <div class="status" id="status"></div>
 
+      <div class="result" id="result">
+        <p class="result-title">Generated hooks:</p>
+
+        <div class="hook-item">
+          <div class="hook-box" id="hook1"></div>
+          <button class="copy-btn" onclick="copyText('hook1')">Copy #1</button>
+        </div>
+
+        <div class="hook-item">
+          <div class="hook-box" id="hook2"></div>
+          <button class="copy-btn" onclick="copyText('hook2')">Copy #2</button>
+        </div>
+
+        <div class="hook-item">
+          <div class="hook-box" id="hook3"></div>
+          <button class="copy-btn" onclick="copyText('hook3')">Copy #3</button>
+        </div>
+
+        <div class="hook-item">
+          <div class="hook-box" id="hook4"></div>
+          <button class="copy-btn" onclick="copyText('hook4')">Copy #4</button>
+        </div>
+
+        <div class="hook-item">
+          <div class="hook-box" id="hook5"></div>
+          <button class="copy-btn" onclick="copyText('hook5')">Copy #5</button>
+        </div>
+
+        <div class="hook-item">
+          <div class="hook-box" id="hook6"></div>
+          <button class="copy-btn" onclick="copyText('hook6')">Copy #6</button>
+        </div>
+
+        <div class="hook-item">
+          <div class="hook-box" id="hook7"></div>
+          <button class="copy-btn" onclick="copyText('hook7')">Copy #7</button>
+        </div>
+
+        <div class="hook-item">
+          <div class="hook-box" id="hook8"></div>
+          <button class="copy-btn" onclick="copyText('hook8')">Copy #8</button>
+        </div>
+
+        <div class="hook-item">
+          <div class="hook-box" id="hook9"></div>
+          <button class="copy-btn" onclick="copyText('hook9')">Copy #9</button>
+        </div>
+
+        <div class="hook-item">
+          <div class="hook-box" id="hook10"></div>
+          <button class="copy-btn" onclick="copyText('hook10')">Copy #10</button>
+        </div>
+
+        <p class="small">Tip: the best hooks create curiosity fast, but still match what the video really delivers.</p>
+      </div>
+
+      <div class="support-wrap">
+        <a
+          class="coffee-btn"
+          href="https://www.buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function cleanText(text) {
+      return text.trim().replace(/\s+/g, " ");
+    }
+
+    function capitalize(text) {
+      if (!text) return "";
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function setStatus(message, isError = false) {
+      const status = document.getElementById("status");
+      status.textContent = message;
+      status.style.color = isError ? "#b42318" : "#2f6f44";
+    }
+
+    function uniquePush(arr, value) {
+      if (value && !arr.includes(value)) {
+        arr.push(value);
+      }
+    }
+
+    function generateHooks() {
+      const topic = cleanText(document.getElementById("topic").value);
+      const style = document.getElementById("style").value;
+      const format = document.getElementById("format").value;
+
+      if (!topic) {
+        document.getElementById("result").style.display = "none";
+        setStatus("Please enter a video topic.", true);
+        return;
+      }
+
+      const hooks = [];
+      const shortTopic = topic.toLowerCase();
+
+      const styleHooks = {
+        curiosity: [
+          `Nobody tells you this about ${shortTopic}`,
+          `What really happens when you try ${shortTopic}?`,
+          `This is the part of ${shortTopic} most people miss`,
+          `I wish I knew this about ${shortTopic} earlier`,
+          `Here is why ${shortTopic} is easier than you think`
+        ],
+        warning: [
+          `Stop doing this if you care about ${shortTopic}`,
+          `You are probably making this ${shortTopic} mistake`,
+          `This is why most people fail at ${shortTopic}`,
+          `Avoid this if you want better results with ${shortTopic}`,
+          `One bad habit is ruining your ${shortTopic} results`
+        ],
+        secret: [
+          `The hidden truth about ${shortTopic}`,
+          `This secret changed how I approach ${shortTopic}`,
+          `Most people never learn this about ${shortTopic}`,
+          `The simple trick behind better ${shortTopic} results`,
+          `This one idea makes ${shortTopic} much easier`
+        ],
+        mistake: [
+          `The biggest ${shortTopic} mistake beginners make`,
+          `Why your ${shortTopic} results are stuck`,
+          `You are doing ${shortTopic} the hard way`,
+          `This common ${shortTopic} mistake costs you time`,
+          `Here is what is going wrong with your ${shortTopic}`
+        ],
+        result: [
+          `How to get better at ${shortTopic} faster`,
+          `This can improve your ${shortTopic} results quickly`,
+          `A smarter way to approach ${shortTopic}`,
+          `How I made faster progress with ${shortTopic}`,
+          `Do this before your next attempt at ${shortTopic}`
+        ]
+      };
+
+      styleHooks[style].forEach(item => uniquePush(hooks, capitalize(item)));
+
+      if (format === "shorts") {
+        uniquePush(hooks, capitalize(`Before you scroll, watch this if you care about ${shortTopic}`));
+        uniquePush(hooks, capitalize(`If you are trying to improve ${shortTopic}, this matters`));
+        uniquePush(hooks, capitalize(`This quick ${shortTopic} tip can save you time`));
+        uniquePush(hooks, capitalize(`You only need one better habit for ${shortTopic}`));
+        uniquePush(hooks, capitalize(`Try this before your next ${shortTopic} attempt`));
+      }
+
+      if (format === "long") {
+        uniquePush(hooks, capitalize(`Everything you think you know about ${shortTopic} might be wrong`));
+        uniquePush(hooks, capitalize(`Let me show you what actually works in ${shortTopic}`));
+        uniquePush(hooks, capitalize(`Here is the real reason most people struggle with ${shortTopic}`));
+        uniquePush(hooks, capitalize(`In this video, I will break down ${shortTopic} step by step`));
+        uniquePush(hooks, capitalize(`This changed the way I think about ${shortTopic}`));
+      }
+
+      if (format === "general") {
+        uniquePush(hooks, capitalize(`99% of people overlook this in ${shortTopic}`));
+        uniquePush(hooks, capitalize(`This one shift can change your ${shortTopic} results`));
+        uniquePush(hooks, capitalize(`What nobody explains clearly about ${shortTopic}`));
+      }
+
+      while (hooks.length < 10) {
+        uniquePush(hooks, capitalize(`This is why ${shortTopic} feels harder than it should`));
+        uniquePush(hooks, capitalize(`Try this if you want better ${shortTopic} results`));
+        uniquePush(hooks, capitalize(`Most people approach ${shortTopic} the wrong way`));
+      }
+
+      const finalHooks = hooks.slice(0, 10);
+
+      for (let i = 0; i < 10; i++) {
+        document.getElementById(`hook${i + 1}`).textContent = finalHooks[i] || "";
+      }
+
+      document.getElementById("result").style.display = "block";
+      setStatus("Hooks generated successfully.");
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent.trim();
+
+      if (!text) {
+        setStatus("Nothing to copy yet.", true);
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        setStatus("Copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
+      });
+    }
+  </script>
 </body>
-
 </html>
