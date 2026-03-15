@@ -1,41 +1,553 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Instagram Bio Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram Bio Generator</title>
+  <meta
+    name="description"
+    content="Generate Instagram bio ideas for creators, brands, influencers, and personal profiles. Free online Instagram bio generator."
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+      --soft-border: #e9ecef;
+      --blue: #0d6efd;
+      --blue-hover: #0b5ed7;
+      --dark-btn: #111111;
+      --dark-btn-hover: #333333;
+      --yellow: #ffd400;
+      --yellow-hover: #f2c900;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --success: #2f6f44;
+      --error: #b42318;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px 40px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .tool-box {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .field {
+      margin-top: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fafafa;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      background: var(--dark-btn);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      background: var(--dark-btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .status {
+      margin-top: 14px;
+      min-height: 22px;
+      font-size: 14px;
+      color: var(--success);
+    }
+
+    .result {
+      margin-top: 24px;
+      padding: 20px;
+      background: #f8f9fb;
+      border: 1px solid #dfe3ea;
+      border-radius: 14px;
+      display: none;
+    }
+
+    .result-title {
+      margin: 0 0 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .bio-item + .bio-item {
+      margin-top: 14px;
+    }
+
+    .bio-box {
+      background: #ffffff;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 17px;
+      color: var(--text);
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .copy-btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+    }
+
+    .small {
+      font-size: 14px;
+      color: #666666;
+      margin: 18px 0 0;
+    }
+
+    .support-wrap {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111111;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .coffee-btn:hover {
+      background: var(--yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 12px 32px;
+      }
+
+      .tool-box {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .copy-btn,
+      .coffee-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
+    <a class="back-link" href="../">⬅ Back to tools</a>
 
-<p><a href="../">⬅ Back to tools</a></p>
+    <div class="tool-box">
+      <h1>Instagram Bio Generator</h1>
+      <p class="intro">
+        Generate Instagram bio ideas for creators, personal brands, niche pages, and business accounts.
+      </p>
 
-<h1>Instagram Bio Generator</h1>
+      <div class="field">
+        <label for="topic">Niche or account topic</label>
+        <input id="topic" type="text" placeholder="e.g. fitness, travel, business, self improvement, fashion" />
+      </div>
 
-<button onclick="generate()">Generate Bio</button>
+      <div class="field">
+        <label for="audience">Audience (optional)</label>
+        <input id="audience" type="text" placeholder="e.g. busy moms, creators, entrepreneurs, beginners" />
+      </div>
 
-<p id="bio"></p>
+      <div class="grid-2">
+        <div class="field">
+          <label for="tone">Bio tone</label>
+          <select id="tone">
+            <option value="clean">Clean</option>
+            <option value="motivational">Motivational</option>
+            <option value="personal">Personal brand</option>
+            <option value="business">Business</option>
+            <option value="aesthetic">Aesthetic</option>
+          </select>
+        </div>
 
-<script>
+        <div class="field">
+          <label for="emoji">Emoji style</label>
+          <select id="emoji">
+            <option value="none">No emoji</option>
+            <option value="light">Light emoji</option>
+            <option value="more">More emoji</option>
+          </select>
+        </div>
+      </div>
 
-const bios = [
-"Dream big. Work hard.",
-"Building my future every day.",
-"Creating my own path.",
-"Small steps. Big goals.",
-"Focused on growth.",
-"Learning. Building. Winning.",
-"Turning ideas into reality.",
-"Future entrepreneur.",
-"Just getting started.",
-"Progress over perfection."
-];
+      <div class="field">
+        <label for="cta">Call to action</label>
+        <select id="cta">
+          <option value="yes">Include CTA</option>
+          <option value="no">No CTA</option>
+        </select>
+      </div>
 
-function generate(){
-const b = bios[Math.floor(Math.random()*bios.length)];
-document.getElementById("bio").innerText = b;
-}
+      <button class="primary-btn" onclick="generateBios()">Generate Instagram Bios</button>
 
-</script>
+      <div class="status" id="status"></div>
 
+      <div class="result" id="result">
+        <p class="result-title">Generated bios:</p>
+
+        <div class="bio-item">
+          <div class="bio-box" id="bio1"></div>
+          <button class="copy-btn" onclick="copyText('bio1')">Copy #1</button>
+        </div>
+
+        <div class="bio-item">
+          <div class="bio-box" id="bio2"></div>
+          <button class="copy-btn" onclick="copyText('bio2')">Copy #2</button>
+        </div>
+
+        <div class="bio-item">
+          <div class="bio-box" id="bio3"></div>
+          <button class="copy-btn" onclick="copyText('bio3')">Copy #3</button>
+        </div>
+
+        <div class="bio-item">
+          <div class="bio-box" id="bio4"></div>
+          <button class="copy-btn" onclick="copyText('bio4')">Copy #4</button>
+        </div>
+
+        <div class="bio-item">
+          <div class="bio-box" id="bio5"></div>
+          <button class="copy-btn" onclick="copyText('bio5')">Copy #5</button>
+        </div>
+
+        <div class="bio-item">
+          <div class="bio-box" id="bio6"></div>
+          <button class="copy-btn" onclick="copyText('bio6')">Copy #6</button>
+        </div>
+
+        <div class="bio-item">
+          <div class="bio-box" id="bio7"></div>
+          <button class="copy-btn" onclick="copyText('bio7')">Copy #7</button>
+        </div>
+
+        <div class="bio-item">
+          <div class="bio-box" id="bio8"></div>
+          <button class="copy-btn" onclick="copyText('bio8')">Copy #8</button>
+        </div>
+
+        <div class="bio-item">
+          <div class="bio-box" id="bio9"></div>
+          <button class="copy-btn" onclick="copyText('bio9')">Copy #9</button>
+        </div>
+
+        <div class="bio-item">
+          <div class="bio-box" id="bio10"></div>
+          <button class="copy-btn" onclick="copyText('bio10')">Copy #10</button>
+        </div>
+
+        <p class="small">Tip: the best Instagram bios are short, clear, niche-specific, and easy to understand in a few seconds.</p>
+      </div>
+
+      <div class="support-wrap">
+        <a
+          class="coffee-btn"
+          href="https://www.buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function cleanText(text) {
+      return text.trim().replace(/\s+/g, " ");
+    }
+
+    function titleCase(text) {
+      return text
+        .split(" ")
+        .filter(Boolean)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(" ");
+    }
+
+    function setStatus(message, isError = false) {
+      const status = document.getElementById("status");
+      status.textContent = message;
+      status.style.color = isError ? "#b42318" : "#2f6f44";
+    }
+
+    function uniquePush(arr, value) {
+      if (value && !arr.includes(value)) {
+        arr.push(value);
+      }
+    }
+
+    function addEmoji(text, mode, emoji) {
+      if (mode === "none") return text;
+      if (mode === "light") return `${emoji} ${text}`;
+      return `${emoji} ${text} ${emoji}`;
+    }
+
+    function generateBios() {
+      const topicRaw = cleanText(document.getElementById("topic").value);
+      const audienceRaw = cleanText(document.getElementById("audience").value);
+      const tone = document.getElementById("tone").value;
+      const emojiMode = document.getElementById("emoji").value;
+      const cta = document.getElementById("cta").value;
+
+      if (!topicRaw) {
+        document.getElementById("result").style.display = "none";
+        setStatus("Please enter a niche or account topic.", true);
+        return;
+      }
+
+      const topic = titleCase(topicRaw);
+      const audience = audienceRaw ? titleCase(audienceRaw) : "";
+      const audienceLine = audience ? `Helping ${audience}` : "";
+
+      const emojiMap = {
+        clean: "•",
+        motivational: "🔥",
+        personal: "✨",
+        business: "📈",
+        aesthetic: "🤍"
+      };
+
+      const ctaLines = [
+        "DM for collabs",
+        "Follow for more",
+        "New posts weekly",
+        "Join the journey",
+        "Let’s grow together",
+        "Message me below",
+        "Daily content here",
+        "Tap follow for more"
+      ];
+
+      const toneBios = {
+        clean: [
+          `${topic} tips and ideas`,
+          `${topic} | growth | consistency`,
+          `${topic} content for real progress`,
+          `Simple ${topic} content`,
+          `${topic} made easier`,
+          `${topic} inspiration and value`,
+          `Sharing what works in ${topic}`,
+          `${topic} focused. Results driven.`
+        ],
+        motivational: [
+          `Building through discipline and ${topic}`,
+          `Daily ${topic} motivation`,
+          `Small steps. Big ${topic} goals.`,
+          `Focused on growth through ${topic}`,
+          `Consistency, mindset, ${topic}`,
+          `Leveling up with ${topic}`,
+          `Progress over perfection in ${topic}`,
+          `Helping you stay locked in on ${topic}`
+        ],
+        personal: [
+          `Documenting my ${topic} journey`,
+          `Building my life through ${topic}`,
+          `Real life, real growth, real ${topic}`,
+          `Sharing what I learn about ${topic}`,
+          `My path, my pace, my ${topic} journey`,
+          `Just figuring out ${topic} one step at a time`,
+          `Creating my own version of success through ${topic}`,
+          `Growing through ${topic} and sharing the process`
+        ],
+        business: [
+          `${topic} strategy and content`,
+          `Helping brands grow with ${topic}`,
+          `${topic} insights for better results`,
+          `${topic} systems, growth, and execution`,
+          `Turning ${topic} into results`,
+          `Smart ${topic} content for ambitious people`,
+          `${topic} tips for creators and businesses`,
+          `Growth-focused ${topic} content`
+        ],
+        aesthetic: [
+          `${topic}, soft moments, good energy`,
+          `A calm space for ${topic}`,
+          `${topic} with intention`,
+          `Curated ${topic} inspiration`,
+          `Slow living meets ${topic}`,
+          `${topic} and beautiful details`,
+          `Simple, soft, and centered on ${topic}`,
+          `Aesthetic ${topic} moments`
+        ]
+      };
+
+      const bios = [];
+      const emojiChar = emojiMap[tone];
+
+      toneBios[tone].forEach((line, index) => {
+        let bio = line;
+
+        if (audienceLine && index % 2 === 0) {
+          bio += `\n${audienceLine}`;
+        }
+
+        if (cta === "yes") {
+          bio += `\n${ctaLines[index % ctaLines.length]}`;
+        }
+
+        bio = addEmoji(bio, emojiMode, emojiChar);
+        uniquePush(bios, bio);
+      });
+
+      while (bios.length < 10) {
+        let extraBio = `${topic} | ${tone === "business" ? "strategy" : "growth"} | consistency`;
+
+        if (audienceLine) {
+          extraBio += `\n${audienceLine}`;
+        }
+
+        if (cta === "yes") {
+          extraBio += `\n${ctaLines[bios.length % ctaLines.length]}`;
+        }
+
+        extraBio = addEmoji(extraBio, emojiMode, emojiChar);
+        uniquePush(bios, extraBio);
+      }
+
+      const finalBios = bios.slice(0, 10);
+
+      for (let i = 0; i < 10; i++) {
+        document.getElementById(`bio${i + 1}`).textContent = finalBios[i] || "";
+      }
+
+      document.getElementById("result").style.display = "block";
+      setStatus("Instagram bios generated successfully.");
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent.trim();
+
+      if (!text) {
+        setStatus("Nothing to copy yet.", true);
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        setStatus("Copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
+      });
+    }
+  </script>
 </body>
 </html>
