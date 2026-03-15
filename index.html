@@ -23,6 +23,7 @@
     h1 {
       font-size: 36px;
       margin-bottom: 10px;
+      text-align: center;
     }
 
     p {
@@ -30,9 +31,22 @@
       margin: 8px 0;
     }
 
+    .header-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      max-width: 300px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
     .intro {
       max-width: 900px;
-      margin-bottom: 20px;
+      text-align: center;
     }
 
     .tool-list {
@@ -77,6 +91,7 @@
       display: flex;
       gap: 15px;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     .buttons a button {
@@ -99,6 +114,7 @@
       color: #555;
       padding-top: 20px;
       border-top: 1px solid #ddd;
+      text-align: center;
     }
 
     footer a {
@@ -110,37 +126,27 @@
     footer a:hover {
       text-decoration: underline;
     }
-
-    .logo {
-      display: block;
-      margin: 0 auto 20px auto;
-      max-width: 300px;
-       float: left;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Logo -->
-  <img src="Tomas free online tools.png" alt="Tomas Free Online Tools Logo" class="logo">
+  <div class="header-container">
+    <img src="Tomas free online tools.png" alt="Tomas Free Online Tools Logo" class="logo">
 
-  
-
-  <div class="intro">
-    <p>
-      Tomas Free Online Tools is a collection of simple generators and calculators you can use directly in your browser for free.
-      These tools are designed to help with content creation, SEO, writing, social media, productivity and everyday online tasks.
-    </p>
-
-    <p>
-      You will find tools like a YouTube hook generator, username generator, blog title generator, hashtag generator,
-      password strength checker, random generators and other useful browser-based tools that work instantly without installation.
-    </p>
-
-    <p>
-      All tools are easy to use and new tools may be added over time to help creators, marketers, developers and casual users work faster.
-      Choose a tool below and start using it right away.
-    </p>
+    <div class="intro">
+      <p>
+        Tomas Free Online Tools is a collection of simple generators and calculators you can use directly in your browser for free.
+        These tools are designed to help with content creation, SEO, writing, social media, productivity and everyday online tasks.
+      </p>
+      <p>
+        You will find tools like a YouTube hook generator, username generator, blog title generator, hashtag generator,
+        password strength checker, random generators and other useful browser-based tools that work instantly without installation.
+      </p>
+      <p>
+        All tools are easy to use and new tools may be added over time to help creators, marketers, developers and casual users work faster.
+        Choose a tool below and start using it right away.
+      </p>
+    </div>
   </div>
 
   <div class="tool-list">
@@ -167,7 +173,6 @@
     <div class="tool-item"><a href="text-case-converter/">Text Case Converter</a><p class="description">Convert text to uppercase, lowercase, or title case.</p></div>
   </div>
 
-  <!-- Buttons -->
   <div class="buttons">
     <a href="page2.html"><button>More Tools</button></a>
     <a href="https://buymeacoffee.com/Tomas.Free.Online.Tools" target="_blank"><button>Support me on Buy Me a Coffee</button></a>
