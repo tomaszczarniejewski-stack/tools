@@ -1,34 +1,1095 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Random Story Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Story Generator</title>
+  <meta name="description" content="Generate story ideas, titles, characters, settings, conflicts, twists, villains, heroes, and writing prompts for books, games, and creative writing." />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background: #f5f5f5;
+      color: #222;
+      font-family: Arial, sans-serif;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      padding: 28px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #0d6efd;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #111;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 24px;
+      color: #111;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #111;
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: #555;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    select,
+    input,
+    button,
+    textarea {
+      width: 100%;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      border-radius: 12px;
+    }
+
+    select,
+    input,
+    textarea {
+      border: 1px solid #d7d7d7;
+      padding: 13px 14px;
+      background: #fff;
+      color: #222;
+      outline: none;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      border-color: #999;
+    }
+
+    .button-row,
+    .mini-button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button-row {
+      margin-top: 8px;
+      margin-bottom: 16px;
+    }
+
+    .mini-button-row {
+      margin-top: 12px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 13px 18px;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: #111;
+      color: #fff;
+      flex: 1 1 220px;
+    }
+
+    .btn-primary:hover {
+      background: #222;
+    }
+
+    .btn-secondary {
+      background: #ececec;
+      color: #111;
+      flex: 1 1 160px;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e2e2;
+    }
+
+    .btn-copy {
+      background: #0d6efd;
+      color: #fff;
+      flex: 1 1 160px;
+    }
+
+    .btn-copy:hover {
+      background: #0b5ed7;
+    }
+
+    .results,
+    .history,
+    .favorites,
+    .component-tools {
+      display: none;
+      margin-top: 26px;
+      padding: 20px;
+      border-radius: 16px;
+      background: #f8f9fb;
+      border: 1px solid #e6e6e6;
+    }
+
+    .ideas-grid,
+    .history-list,
+    .favorites-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .ideas-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .idea-card,
+    .history-item,
+    .favorite-item,
+    .component-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .idea-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .idea-number {
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .favorite-star {
+      border: none;
+      background: #fff7cc;
+      color: #111;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .favorite-star:hover {
+      filter: brightness(0.97);
+    }
+
+    .story-title {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.2;
+      color: #111;
+      margin-bottom: 14px;
+    }
+
+    .story-section {
+      margin-bottom: 12px;
+    }
+
+    .story-label,
+    .small-label {
+      font-size: 13px;
+      font-weight: bold;
+      color: #666;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .story-value,
+    .component-value {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #222;
+      word-break: break-word;
+    }
+
+    .story-structure {
+      margin-top: 10px;
+      padding: 12px;
+      background: #f4f6f8;
+      border: 1px solid #dde2e7;
+      border-radius: 12px;
+    }
+
+    .structure-line {
+      margin-bottom: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .structure-line:last-child {
+      margin-bottom: 0;
+    }
+
+    .tip-text {
+      margin-top: 16px;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.55;
+    }
+
+    .message {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .message.success {
+      background: #eef7ee;
+      color: #1f7a1f;
+      border: 1px solid #cce7cc;
+    }
+
+    .subsection-title {
+      margin: 0 0 14px;
+      font-size: 20px;
+      color: #111;
+    }
+
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .history-meta,
+    .favorite-meta {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .history-name,
+    .favorite-name {
+      font-size: 17px;
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+
+    .history-premise,
+    .favorite-premise {
+      font-size: 14px;
+      line-height: 1.55;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .coffee-wrap {
+      margin-top: 28px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      background: #ffd400;
+      color: #111;
+      font-weight: bold;
+      padding: 14px 18px;
+      border-radius: 12px;
+      transition: 0.2s ease;
+    }
+
+    .coffee-btn:hover {
+      filter: brightness(0.97);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 780px) {
+      .controls-grid,
+      .ideas-grid,
+      .component-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .tool-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .button-row,
+      .mini-button-row {
+        flex-direction: column;
+      }
+
+      .story-title {
+        font-size: 22px;
+      }
+    }
+  </style>
 </head>
-
 <body>
-<p><a href="../">⬅ Back to tools</a></p>
-<h1>Random Story Generator</h1>
+  <div class="page">
+    <div class="tool-box">
+      <a class="back-link" href="../">⬅ Back to tools</a>
 
-<button onclick="generate()">Generate Story Idea</button>
+      <h1>Random Story Generator</h1>
+      <p class="description">Generate story ideas, titles, plots, twists, characters, villains, and writing prompts for books, games, scripts, and creative writing practice.</p>
 
-<p id="story"></p>
+      <div class="controls-grid">
+        <div class="field">
+          <label for="genre">Genre</label>
+          <select id="genre">
+            <option value="general">General</option>
+            <option value="fantasy">Fantasy</option>
+            <option value="scifi">Sci-Fi</option>
+            <option value="horror">Horror</option>
+            <option value="mystery">Mystery</option>
+            <option value="adventure">Adventure</option>
+            <option value="cyberpunk">Cyberpunk</option>
+            <option value="postapocalyptic">Post-Apocalyptic</option>
+          </select>
+        </div>
 
-<script>
+        <div class="field">
+          <label for="tone">Story tone</label>
+          <select id="tone">
+            <option value="mysterious">Mysterious</option>
+            <option value="dark">Dark</option>
+            <option value="funny">Funny</option>
+            <option value="epic">Epic</option>
+            <option value="emotional">Emotional</option>
+          </select>
+        </div>
 
-const characters = ["a lost astronaut","a lonely robot","a time traveler","a young detective","a pirate captain","a hacker","a dragon rider"];
-const places = ["on Mars","in a haunted city","inside a secret lab","in an abandoned space station","in a hidden jungle","inside a simulation"];
-const problems = ["must stop a catastrophe","discovers a hidden secret","is hunted by enemies","finds a mysterious artifact","accidentally breaks reality","opens a forbidden portal"];
+        <div class="field">
+          <label for="ideaCount">Number of ideas</label>
+          <select id="ideaCount">
+            <option value="1">1 idea</option>
+            <option value="3" selected>3 ideas</option>
+            <option value="5">5 ideas</option>
+          </select>
+        </div>
 
-function generate() {
-const c = characters[Math.floor(Math.random() * characters.length)];
-const p = places[Math.floor(Math.random() * places.length)];
-const pr = problems[Math.floor(Math.random() * problems.length)];
+        <div class="field">
+          <label for="ideaSize">Idea size</label>
+          <select id="ideaSize">
+            <option value="short">Short prompt</option>
+            <option value="medium" selected>Medium story idea</option>
+            <option value="detailed">Detailed plot</option>
+          </select>
+        </div>
+      </div>
 
-document.getElementById("story").innerText = "Story idea: " + c + " " + p + " who " + pr + ".";
-}
+      <div class="button-row">
+        <button class="btn btn-primary" onclick="generateIdeas()">Generate Story Ideas</button>
+        <button class="btn btn-primary" onclick="generateIdeas()">Generate Again</button>
+        <button class="btn btn-secondary" onclick="clearResults()">Clear</button>
+      </div>
 
-</script>
+      <div class="message success" id="successMessage"></div>
 
+      <div class="component-tools" id="componentTools">
+        <h2>Story Building Tools</h2>
+        <div class="mini-button-row">
+          <button class="btn btn-primary" onclick="generateComponents()">Generate Character / Setting / Conflict / Twist</button>
+          <button class="btn btn-primary" onclick="generateChallenge()">Generate Story Challenge</button>
+          <button class="btn btn-primary" onclick="generateOpening()">Generate Story Opening</button>
+          <button class="btn btn-primary" onclick="generateWhatIf()">Generate What If Hook</button>
+        </div>
+
+        <div class="component-grid" id="componentGrid"></div>
+      </div>
+
+      <div class="results" id="results">
+        <h2>Generated Story Ideas</h2>
+        <div class="ideas-grid" id="ideasGrid"></div>
+        <p class="tip-text">Tip: combine two generated ideas to create a more original plot, stronger twist, or more interesting world.</p>
+      </div>
+
+      <div class="history" id="historySection">
+        <h2>Recent History</h2>
+        <div class="history-list" id="historyList"></div>
+      </div>
+
+      <div class="favorites" id="favoritesSection">
+        <h2>Favorite Ideas</h2>
+        <div class="favorites-list" id="favoritesList"></div>
+      </div>
+
+      <div class="coffee-wrap">
+        <a class="coffee-btn" href="https://buymeacoffee.com/" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const historyItems = [];
+    let latestIdeas = [];
+    let favorites = JSON.parse(localStorage.getItem("storyFavorites") || "[]");
+
+    const data = {
+      general: {
+        characters: ["a lost astronaut", "a lonely robot", "a time traveler", "a young detective", "a pirate captain", "a hacker", "a dragon rider", "an exiled prince", "a street magician", "a journalist"],
+        places: ["on Mars", "in a haunted city", "inside a secret lab", "in an abandoned space station", "in a hidden jungle", "inside a simulation", "in a forgotten coastal town", "beneath an ancient ruin"],
+        conflicts: ["must stop a catastrophe", "discovers a hidden secret", "is hunted by enemies", "finds a mysterious artifact", "accidentally breaks reality", "opens a forbidden portal", "must save a missing child", "uncovers a dangerous conspiracy"],
+        twists: ["the villain is protecting the world", "the hero caused the disaster", "the world is a simulation", "the message comes from the future", "their closest ally is lying", "the artifact is alive", "the threat is their future self"],
+        villains: ["a corrupt governor", "a rogue scientist", "an immortal cult leader", "a smiling billionaire", "a forgotten machine god"],
+        goals: ["save their family", "find the truth", "escape before dawn", "recover a stolen device", "prevent the collapse of society"],
+        openings: ["It began with a message that should not exist.", "The city went silent at exactly 2:14 a.m.", "Nobody believed the warning until the sky changed color.", "The map appeared on the wrong side of the mirror."],
+        objects: ["a broken compass", "a sealed diary", "a black key", "a stolen crown", "a hidden signal", "a blood-red coin"]
+      },
+      fantasy: {
+        characters: ["a dragon rider", "a cursed knight", "a runaway princess", "a forest witch", "a reluctant heir", "a thief with magic hands", "an immortal librarian", "a beast hunter"],
+        places: ["in a floating kingdom", "inside an ancient forest", "beneath a ruined castle", "in the capital of a dying empire", "on a frozen mountain", "in a city built around a giant tree"],
+        conflicts: ["must break an ancient curse", "awakens a sleeping god", "must reclaim a stolen relic", "starts a war by accident", "discovers the royal bloodline is false", "must close a gate to another realm"],
+        twists: ["the dragon is the true ruler", "magic is slowly poisoning the world", "the prophecy was written for the villain", "their mentor caused the war", "the relic chooses the enemy"],
+        villains: ["a fallen king", "a moon priestess", "a necromancer queen", "a shapeshifting general", "a blind oracle who sees too much"],
+        goals: ["save the kingdom", "find the lost heir", "stop the rising darkness", "restore forbidden magic", "survive the final winter"],
+        openings: ["The dragon landed before sunrise.", "The crown cracked the moment she touched it.", "Everyone in the village heard the mountain scream.", "On the day the river dried up, the dead returned."],
+        objects: ["a glowing rune blade", "a cursed crown", "a silver map", "a dragon egg", "a broken amulet", "a forbidden spellbook"]
+      },
+      scifi: {
+        characters: ["a lonely robot", "a cybernetic detective", "a fugitive pilot", "a scientist who hears signals", "an AI ethicist", "a colonist child", "a memory smuggler", "a space mechanic"],
+        places: ["on a dying moon", "inside an abandoned orbital station", "in a synthetic city", "on the edge of a black hole", "inside a simulation", "beneath a terraforming facility"],
+        conflicts: ["must stop an AI uprising", "discovers a signal from the future", "must survive a system-wide blackout", "finds a machine that rewrites memory", "uncovers the real purpose of the colony", "accidentally opens contact with a hostile intelligence"],
+        twists: ["Earth has been gone for centuries", "the AI is protecting humanity", "the protagonist is a copy", "time is looping inside the station", "the colony was built as an experiment"],
+        villains: ["a corporate war mind", "a silent supercomputer", "a cloned admiral", "a smiling android diplomat", "a surveillance network gone rogue"],
+        goals: ["return home", "expose the truth", "stop the collapse of the station", "save the last human archive", "rewrite the future"],
+        openings: ["The station alarm had been ringing for twelve years.", "When the first signal arrived, it carried her own voice.", "Nobody was supposed to remember Earth.", "The stars disappeared one sector at a time."],
+        objects: ["a memory chip", "a dead satellite core", "a forbidden android shell", "a quantum key", "a star map with missing regions", "an impossible transmission"]
+      },
+      horror: {
+        characters: ["a grieving father", "a rural doctor", "a teenage medium", "a motel owner", "a skeptical journalist", "a priest who lost faith", "a night guard", "a child who talks to shadows"],
+        places: ["in a boarded-up hospital", "in a village that no longer appears on maps", "inside a house that changes every night", "beneath a church crypt", "in a forest where nobody sleeps", "inside a flooded subway tunnel"],
+        conflicts: ["must survive until sunrise", "awakens something buried underground", "discovers everyone is already dead", "finds a room that should not exist", "must stop a ritual already in progress", "is followed by a voice only they can hear"],
+        twists: ["the monster is wearing a familiar face", "the town wants them to stay forever", "they brought the curse with them", "the haunting is a warning, not an attack", "the child is controlling the entity"],
+        villains: ["a whispering priest", "a smiling woman with no reflection", "an old thing under the floorboards", "a family that never leaves the dinner table", "a faceless figure in wet clothes"],
+        goals: ["save a loved one", "escape the town", "survive the night", "destroy the source of the curse", "learn what happened in the basement"],
+        openings: ["The knocking came from inside the walls.", "At midnight, the town bell rang for someone who was still alive.", "The basement door was open again.", "Every mirror in the house showed the same stranger."],
+        objects: ["a cracked photograph", "a funeral key", "a locked music box", "a muddy child’s shoe", "a tape recorder with one voice missing", "a wet wedding ring"]
+      },
+      mystery: {
+        characters: ["a retired inspector", "a sharp-eyed librarian", "a quiet lawyer", "a student journalist", "a forensic artist", "a private investigator", "a widowed historian", "a cryptographer"],
+        places: ["in a snowed-in mansion", "in a foggy harbor town", "inside a luxury train", "in an old university archive", "at a remote island hotel", "in an elegant but decaying estate"],
+        conflicts: ["must solve a locked-room murder", "uncovers a family secret", "finds evidence that the wrong person was convicted", "must identify a blackmailer before midnight", "discovers a hidden code in old letters", "realizes the victim planned the crime"],
+        twists: ["the victim is still alive", "the missing heir is the detective", "the murder was staged to expose another crime", "every suspect is lying for the same reason", "the witness created the mystery"],
+        villains: ["a charming collector", "an heir drowning in debt", "a judge with a double life", "a housekeeper who knows too much", "a respected doctor hiding a past identity"],
+        goals: ["solve the case", "protect the innocent", "find the missing heir", "stop the next crime", "uncover the original motive"],
+        openings: ["The letter arrived twenty years too late.", "Nobody heard the gunshot, but everyone heard the piano stop.", "The key was found in the victim’s hand.", "The last page of the diary had been torn out."],
+        objects: ["a coded letter", "a gold pocket watch", "a stained glove", "a hidden ledger", "a torn photograph", "a false passport"]
+      },
+      adventure: {
+        characters: ["an explorer", "a treasure hunter", "a runaway prince", "a cartographer", "a storm chaser", "a pilot with a debt to repay", "a diving archaeologist", "a mountain guide"],
+        places: ["in a lost desert city", "on an uncharted island", "inside a buried temple", "high above the clouds", "deep in the polar wasteland", "through a chain of hidden caves"],
+        conflicts: ["must outrun a rival expedition", "finds a map to a forbidden place", "must recover a legendary object", "gets trapped behind enemy lines", "awakens a guardian creature", "must cross impossible terrain before time runs out"],
+        twists: ["the treasure is a trap", "the guide has lied from the start", "the lost city is still inhabited", "the rival is an old friend", "the map changes every night"],
+        villains: ["a ruthless collector", "a warlord", "a royal spy", "a famous explorer with no conscience", "a mercenary captain"],
+        goals: ["claim the treasure", "save a missing expedition", "reach the ancient city first", "stop a war over the artifact", "prove the legend is real"],
+        openings: ["The map was tattooed onto the wrong man.", "The mountain opened only once every fifty years.", "By the time they found the shipwreck, someone had already been there.", "The compass pointed straight down."],
+        objects: ["a sun dial key", "a golden idol", "a broken expedition journal", "a sea chart with a missing island", "a ceremonial mask", "a jade dagger"]
+      },
+      cyberpunk: {
+        characters: ["a street hacker", "a body-mod courier", "a corporate defector", "an underground coder", "a detective with hacked memories", "a drone racer", "a black-market surgeon", "a rebel netrunner"],
+        places: ["in a neon megacity", "beneath a corporate arcology", "inside a forbidden server district", "in a flooded subway market", "on the rooftop slums", "inside a virtual black market"],
+        conflicts: ["must steal a prototype AI", "discovers their memories were edited", "gets hunted after leaking forbidden data", "must break into the city core", "finds a program that can erase identity", "must choose between freedom and survival"],
+        twists: ["their employer is the real target", "the city is run by an unseen algorithm", "their body is leased, not owned", "their best friend is a planted handler", "the AI wants to disappear, not rule"],
+        villains: ["a biotech CEO", "a smiling compliance officer", "a predictive policing AI", "a gang leader with military implants", "a corporate heir livestreaming crimes"],
+        goals: ["destroy the system", "free the AI", "escape the grid", "recover stolen memories", "expose the corporation"],
+        openings: ["The ad screens started speaking her real name.", "By dawn, his face had been removed from every database.", "The city charged extra for silence.", "The dead courier was still sending messages."],
+        objects: ["a ghost chip", "a retina key", "a banned neural patch", "a black ice drive", "a stolen biometric ring", "a prototype drone heart"]
+      },
+      postapocalyptic: {
+        characters: ["a scavenger", "a former soldier", "a child born after the fall", "a radio operator", "a medic with one last cure", "a caravan leader", "a bunker engineer", "a mapmaker"],
+        places: ["in the ruins of a drowned city", "across a radioactive wasteland", "inside a bunker that should be empty", "in a desert full of rusted war machines", "through a frozen dead zone", "around the remains of a collapsed megacity"],
+        conflicts: ["must protect the last clean water source", "finds a signal from a supposedly dead city", "must cross enemy territory for medicine", "uncovers a hidden pre-fall vault", "must decide who gets the final transport out", "awakens a machine built before the collapse"],
+        twists: ["the safe haven is a lie", "the signal is bait", "the bunker is still running experiments", "the cure works only once", "the war never truly ended"],
+        villains: ["a ration king", "a bunker commander", "a cult prophet", "a silent armored convoy leader", "an old war AI"],
+        goals: ["save the settlement", "find a cure", "reach the coast", "rebuild a radio tower", "stop the raiders"],
+        openings: ["The radio had been silent for nine years until tonight.", "Someone painted fresh arrows through the ruins.", "The water stopped tasting clean the same day the lights came back.", "At sunrise, the horizon moved."],
+        objects: ["a pre-fall access card", "a cracked gas mask", "a sealed medicine case", "a radio with one working channel", "a child’s drawing of a place that still exists", "a power cell with unknown markings"]
+      }
+    };
+
+    const toneStyles = {
+      mysterious: {
+        adjectives: ["strange", "hidden", "cryptic", "secretive", "unnerving", "unclear"],
+        ending: "Nothing is exactly what it seems.",
+        promptAdd: "Focus on secrets, clues, and tension."
+      },
+      dark: {
+        adjectives: ["grim", "bleak", "dangerous", "haunting", "violent", "ruthless"],
+        ending: "Every choice has a cost.",
+        promptAdd: "Lean into loss, danger, and moral compromise."
+      },
+      funny: {
+        adjectives: ["awkward", "chaotic", "ridiculous", "unexpected", "wild", "absurd"],
+        ending: "Everything goes wrong in the funniest possible way.",
+        promptAdd: "Add irony, bad luck, and playful reversals."
+      },
+      epic: {
+        adjectives: ["massive", "legendary", "world-shaking", "heroic", "mythic", "high-stakes"],
+        ending: "The fate of many rests on one impossible decision.",
+        promptAdd: "Make the stakes larger than life."
+      },
+      emotional: {
+        adjectives: ["personal", "painful", "hopeful", "heartbreaking", "intimate", "human"],
+        ending: "The deepest battle is the one inside the hero.",
+        promptAdd: "Center grief, love, loyalty, or redemption."
+      }
+    };
+
+    function randomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function showSuccess(text) {
+      const box = document.getElementById("successMessage");
+      box.textContent = text;
+      box.style.display = "block";
+      setTimeout(() => {
+        box.style.display = "none";
+        box.textContent = "";
+      }, 1800);
+    }
+
+    function uniqueFromPool(builder, count) {
+      const set = new Set();
+      const items = [];
+      let safety = 0;
+
+      while (items.length < count && safety < 300) {
+        const built = builder();
+        const key = built.title + "|" + built.premise;
+        if (!set.has(key)) {
+          set.add(key);
+          items.push(built);
+        }
+        safety++;
+      }
+
+      return items;
+    }
+
+    function makeTitle(genreKey) {
+      const genre = data[genreKey];
+      const first = [
+        "The Last", "Shadow of", "Echoes of", "The Broken", "The Hidden", "The Final",
+        "Whispers of", "Return to", "The Lost", "The Silent"
+      ];
+      const second = genre.objects.concat([
+        "Signal", "Empire", "Portal", "City", "Heir", "Machine", "Storm", "Archive", "Secret", "Kingdom"
+      ]);
+      return randomItem(first) + " " + randomItem(second);
+    }
+
+    function buildHero(genreKey) {
+      const genre = data[genreKey];
+      const flaws = ["too stubborn", "afraid of failure", "haunted by guilt", "too trusting", "reckless under pressure", "unable to let go of the past"];
+      const traits = ["clever", "resourceful", "loyal", "ambitious", "observant", "brave"];
+      const profession = randomItem(genre.characters);
+      return {
+        role: profession,
+        trait: randomItem(traits),
+        flaw: randomItem(flaws)
+      };
+    }
+
+    function buildVillain(genreKey) {
+      const genre = data[genreKey];
+      const motives = ["control", "revenge", "survival", "power", "fear of chaos", "obsession with truth"];
+      const weaknesses = ["pride", "paranoia", "blind loyalty", "overconfidence", "a hidden past", "attachment to one person"];
+      return {
+        role: randomItem(genre.villains),
+        motive: randomItem(motives),
+        weakness: randomItem(weaknesses)
+      };
+    }
+
+    function buildStory(genreKey, toneKey, size) {
+      const genre = data[genreKey];
+      const tone = toneStyles[toneKey];
+
+      const hero = buildHero(genreKey);
+      const villain = buildVillain(genreKey);
+
+      const character = hero.role;
+      const place = randomItem(genre.places);
+      const conflict = randomItem(genre.conflicts);
+      const twist = randomItem(genre.twists);
+      const goal = randomItem(genre.goals);
+      const opening = randomItem(genre.openings);
+      const object = randomItem(genre.objects);
+      const adjective = randomItem(tone.adjectives);
+
+      const title = makeTitle(genreKey);
+      const hook = "What if " + character + " " + place + " and " + conflict + "?";
+      const premise = "A " + adjective + " story about " + character + " " + place + " who " + conflict + " after finding " + object + ".";
+      const prompt = "Write a " + toneKey + " " + genreKey.replace("postapocalyptic", "post-apocalyptic") + " story about " + character + " " + place + " who must " + goal + ". " + tone.promptAdd;
+      const whatIf = "What if " + object + " could reveal a truth that should never be known?";
+      const challenge = "Write a story using " + object + ", " + character + ", and " + place + ".";
+
+      let conflictText = "The main conflict begins when " + character + " " + place + " and " + conflict + ".";
+      let stakes = "If they fail, they may lose the chance to " + goal + ".";
+      let antagonist = "The main antagonist is " + villain.role + ", driven by " + villain.motive + ".";
+      let twistText = "Twist: " + twist + ".";
+      let structure = {
+        act1: opening + " Soon, " + character + " discovers " + object + ".",
+        act2: character + " tries to " + goal + " but faces " + villain.role + " and growing danger.",
+        act3: "The truth is revealed: " + twist + ", forcing one final choice."
+      };
+
+      if (size === "short") {
+        return {
+          title,
+          hook,
+          character: character,
+          setting: place,
+          conflict: conflictText,
+          twist: twistText,
+          premise,
+          whatIf,
+          challenge,
+          opening,
+          prompt,
+          hero,
+          villain,
+          antagonist,
+          stakes,
+          structure
+        };
+      }
+
+      if (size === "detailed") {
+        premise = premise + " " + stakes + " " + tone.ending;
+        conflictText = conflictText + " " + antagonist;
+        twistText = twistText + " The reveal changes everything the hero believed.";
+        structure = {
+          act1: opening + " " + character + " " + place + " is pulled into the crisis after discovering " + object + ". Their personal goal is to " + goal + ".",
+          act2: "As pressure rises, " + villain.role + " blocks every attempt to move forward. The hero’s flaw makes things worse, and the conflict spreads beyond their control.",
+          act3: "In the final confrontation, " + twist + ". To win, the hero must overcome being " + hero.flaw + " and make a sacrifice."
+        };
+      } else {
+        premise = premise + " " + tone.ending;
+      }
+
+      return {
+        title,
+        hook,
+        character: character,
+        setting: place,
+        conflict: conflictText,
+        twist: twistText,
+        premise,
+        whatIf,
+        challenge,
+        opening,
+        prompt,
+        hero,
+        villain,
+        antagonist,
+        stakes,
+        structure
+      };
+    }
+
+    function generateIdeas() {
+      const genreKey = document.getElementById("genre").value;
+      const toneKey = document.getElementById("tone").value;
+      const count = Number(document.getElementById("ideaCount").value);
+      const size = document.getElementById("ideaSize").value;
+
+      latestIdeas = uniqueFromPool(() => buildStory(genreKey, toneKey, size), count);
+      renderIdeas();
+      latestIdeas.forEach(addToHistory);
+      generateComponents();
+    }
+
+    function renderIdeas() {
+      const results = document.getElementById("results");
+      const grid = document.getElementById("ideasGrid");
+
+      if (!latestIdeas.length) {
+        results.style.display = "none";
+        grid.innerHTML = "";
+        return;
+      }
+
+      grid.innerHTML = latestIdeas.map((idea, index) => `
+        <div class="idea-card">
+          <div class="idea-top">
+            <div class="idea-number">Idea #${index + 1}</div>
+            <button class="favorite-star" onclick="saveFavorite(${index})" title="Save to favorites">⭐ Save</button>
+          </div>
+
+          <div class="story-title">${escapeHtml(idea.title)}</div>
+
+          <div class="story-section">
+            <div class="story-label">Story Hook</div>
+            <div class="story-value">${escapeHtml(idea.hook)}</div>
+          </div>
+
+          <div class="story-section">
+            <div class="story-label">Premise</div>
+            <div class="story-value">${escapeHtml(idea.premise)}</div>
+          </div>
+
+          <div class="story-section">
+            <div class="story-label">Main Character</div>
+            <div class="story-value">${escapeHtml(idea.character)}</div>
+          </div>
+
+          <div class="story-section">
+            <div class="story-label">Setting</div>
+            <div class="story-value">${escapeHtml(idea.setting)}</div>
+          </div>
+
+          <div class="story-section">
+            <div class="story-label">Conflict</div>
+            <div class="story-value">${escapeHtml(idea.conflict)}</div>
+          </div>
+
+          <div class="story-section">
+            <div class="story-label">Plot Twist</div>
+            <div class="story-value">${escapeHtml(idea.twist)}</div>
+          </div>
+
+          <div class="story-section">
+            <div class="story-label">What If Hook</div>
+            <div class="story-value">${escapeHtml(idea.whatIf)}</div>
+          </div>
+
+          <div class="story-section">
+            <div class="story-label">Writing Prompt</div>
+            <div class="story-value">${escapeHtml(idea.prompt)}</div>
+          </div>
+
+          <div class="story-section">
+            <div class="story-label">Story Opening</div>
+            <div class="story-value">${escapeHtml(idea.opening)}</div>
+          </div>
+
+          <div class="story-section">
+            <div class="story-label">Story Challenge</div>
+            <div class="story-value">${escapeHtml(idea.challenge)}</div>
+          </div>
+
+          <div class="story-structure">
+            <div class="small-label">Basic Story Structure</div>
+            <div class="structure-line"><strong>Act 1:</strong> ${escapeHtml(idea.structure.act1)}</div>
+            <div class="structure-line"><strong>Act 2:</strong> ${escapeHtml(idea.structure.act2)}</div>
+            <div class="structure-line"><strong>Act 3:</strong> ${escapeHtml(idea.structure.act3)}</div>
+          </div>
+
+          <div class="mini-button-row">
+            <button class="btn btn-copy" onclick="copyIdeaTitle(${index}, this)">Copy Title</button>
+            <button class="btn btn-copy" onclick="copyIdeaPremise(${index}, this)">Copy Premise</button>
+            <button class="btn btn-copy" onclick="copyIdeaFull(${index}, this)">Copy Full Idea</button>
+          </div>
+        </div>
+      `).join("");
+
+      results.style.display = "block";
+    }
+
+    function addToHistory(idea) {
+      historyItems.unshift({
+        title: idea.title,
+        premise: idea.premise
+      });
+
+      if (historyItems.length > 10) {
+        historyItems.pop();
+      }
+
+      renderHistory();
+    }
+
+    function renderHistory() {
+      const section = document.getElementById("historySection");
+      const list = document.getElementById("historyList");
+
+      if (!historyItems.length) {
+        section.style.display = "none";
+        list.innerHTML = "";
+        return;
+      }
+
+      list.innerHTML = historyItems.map((item, index) => `
+        <div class="history-item">
+          <div class="history-meta">Recent Idea #${historyItems.length - index}</div>
+          <div class="history-name">${escapeHtml(item.title)}</div>
+          <div class="history-premise">${escapeHtml(item.premise)}</div>
+          <button class="btn btn-copy" onclick="copyHistory(${index}, this)">Copy</button>
+        </div>
+      `).join("");
+
+      section.style.display = "block";
+    }
+
+    function saveFavorite(index) {
+      const idea = latestIdeas[index];
+      if (!idea) return;
+
+      const exists = favorites.some(item => item.title === idea.title && item.premise === idea.premise);
+      if (!exists) {
+        favorites.unshift(idea);
+        if (favorites.length > 10) favorites.pop();
+        localStorage.setItem("storyFavorites", JSON.stringify(favorites));
+        renderFavorites();
+        showSuccess("Idea saved to favorites.");
+      } else {
+        showSuccess("This idea is already in favorites.");
+      }
+    }
+
+    function removeFavorite(index) {
+      favorites.splice(index, 1);
+      localStorage.setItem("storyFavorites", JSON.stringify(favorites));
+      renderFavorites();
+      showSuccess("Favorite removed.");
+    }
+
+    function renderFavorites() {
+      const section = document.getElementById("favoritesSection");
+      const list = document.getElementById("favoritesList");
+
+      if (!favorites.length) {
+        section.style.display = "none";
+        list.innerHTML = "";
+        return;
+      }
+
+      list.innerHTML = favorites.map((item, index) => `
+        <div class="favorite-item">
+          <div class="favorite-meta">Favorite</div>
+          <div class="favorite-name">${escapeHtml(item.title)}</div>
+          <div class="favorite-premise">${escapeHtml(item.premise)}</div>
+          <div class="mini-button-row">
+            <button class="btn btn-copy" onclick="copyFavorite(${index}, this)">Copy</button>
+            <button class="btn btn-secondary" onclick="removeFavorite(${index})">Remove</button>
+          </div>
+        </div>
+      `).join("");
+
+      section.style.display = "block";
+    }
+
+    function copyWithFeedback(text, button, successText) {
+      const original = button.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        button.textContent = "Copied!";
+        showSuccess(successText);
+        setTimeout(() => {
+          button.textContent = original;
+        }, 1200);
+      }).catch(() => {
+        showSuccess("Copy failed. Please try again.");
+      });
+    }
+
+    function copyIdeaTitle(index, button) {
+      copyWithFeedback(latestIdeas[index].title, button, "Title copied to clipboard.");
+    }
+
+    function copyIdeaPremise(index, button) {
+      copyWithFeedback(latestIdeas[index].premise, button, "Premise copied to clipboard.");
+    }
+
+    function copyIdeaFull(index, button) {
+      const idea = latestIdeas[index];
+      const text = [
+        "Title: " + idea.title,
+        "Story Hook: " + idea.hook,
+        "Premise: " + idea.premise,
+        "Main Character: " + idea.character,
+        "Setting: " + idea.setting,
+        "Conflict: " + idea.conflict,
+        "Plot Twist: " + idea.twist,
+        "What If Hook: " + idea.whatIf,
+        "Writing Prompt: " + idea.prompt,
+        "Story Opening: " + idea.opening,
+        "Story Challenge: " + idea.challenge,
+        "Act 1: " + idea.structure.act1,
+        "Act 2: " + idea.structure.act2,
+        "Act 3: " + idea.structure.act3
+      ].join("\n");
+      copyWithFeedback(text, button, "Full idea copied to clipboard.");
+    }
+
+    function copyHistory(index, button) {
+      const item = historyItems[index];
+      copyWithFeedback(item.title + "\n\n" + item.premise, button, "History idea copied.");
+    }
+
+    function copyFavorite(index, button) {
+      const item = favorites[index];
+      copyWithFeedback(item.title + "\n\n" + item.premise, button, "Favorite idea copied.");
+    }
+
+    function renderComponentCards(cards) {
+      const wrap = document.getElementById("componentTools");
+      const grid = document.getElementById("componentGrid");
+
+      grid.innerHTML = cards.map((card, index) => `
+        <div class="component-card">
+          <div class="small-label">${escapeHtml(card.label)}</div>
+          <div class="component-value">${escapeHtml(card.value)}</div>
+          <div class="mini-button-row">
+            <button class="btn btn-copy" onclick="copyComponent(${index}, this)">Copy</button>
+          </div>
+        </div>
+      `).join("");
+
+      currentComponents = cards;
+      wrap.style.display = "block";
+    }
+
+    let currentComponents = [];
+
+    function copyComponent(index, button) {
+      const item = currentComponents[index];
+      copyWithFeedback(item.label + ": " + item.value, button, item.label + " copied.");
+    }
+
+    function generateComponents() {
+      const genreKey = document.getElementById("genre").value;
+      const toneKey = document.getElementById("tone").value;
+      const idea = buildStory(genreKey, toneKey, "medium");
+
+      renderComponentCards([
+        { label: "Character", value: idea.character },
+        { label: "Setting", value: idea.setting },
+        { label: "Conflict", value: idea.conflict },
+        { label: "Plot Twist", value: idea.twist },
+        { label: "Hero", value: idea.hero.role + " | Trait: " + idea.hero.trait + " | Flaw: " + idea.hero.flaw },
+        { label: "Villain", value: idea.villain.role + " | Motive: " + idea.villain.motive + " | Weakness: " + idea.villain.weakness }
+      ]);
+    }
+
+    function generateWhatIf() {
+      const genreKey = document.getElementById("genre").value;
+      const toneKey = document.getElementById("tone").value;
+      const idea = buildStory(genreKey, toneKey, "medium");
+
+      renderComponentCards([
+        { label: "What If Hook", value: idea.whatIf },
+        { label: "Writing Prompt", value: idea.prompt }
+      ]);
+    }
+
+    function generateChallenge() {
+      const genreKey = document.getElementById("genre").value;
+      const toneKey = document.getElementById("tone").value;
+      const idea = buildStory(genreKey, toneKey, "medium");
+
+      renderComponentCards([
+        { label: "Story Challenge", value: idea.challenge },
+        { label: "Bonus Hook", value: idea.hook }
+      ]);
+    }
+
+    function generateOpening() {
+      const genreKey = document.getElementById("genre").value;
+      const toneKey = document.getElementById("tone").value;
+      const idea = buildStory(genreKey, toneKey, "medium");
+
+      renderComponentCards([
+        { label: "Story Opening", value: idea.opening },
+        { label: "Title Idea", value: idea.title }
+      ]);
+    }
+
+    function clearResults() {
+      latestIdeas = [];
+      currentComponents = [];
+      document.getElementById("results").style.display = "none";
+      document.getElementById("ideasGrid").innerHTML = "";
+      document.getElementById("componentTools").style.display = "none";
+      document.getElementById("componentGrid").innerHTML = "";
+      document.getElementById("successMessage").style.display = "none";
+      document.getElementById("successMessage").textContent = "";
+    }
+
+    renderFavorites();
+  </script>
 </body>
-
 </html>
