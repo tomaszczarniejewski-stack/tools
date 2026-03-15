@@ -4,134 +4,314 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog Title Generator</title>
-  <meta name="description" content="Generate catchy blog post titles for SEO, content marketing, and niche websites." />
+  <meta
+    name="description"
+    content="Generate catchy blog post titles for SEO, content marketing, and niche websites."
+  />
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+      --soft-border: #e9ecef;
+      --blue: #0d6efd;
+      --blue-hover: #0b5ed7;
+      --dark-btn: #111111;
+      --dark-btn-hover: #333333;
+      --yellow: #ffd400;
+      --yellow-hover: #f2c900;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --success: #2f6f44;
+      --error: #b42318;
+    }
+
     body {
+      margin: 0;
+      padding: 24px 16px 40px;
+      background: var(--bg);
+      color: var(--text);
       font-family: Arial, sans-serif;
-      max-width: 900px;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
       margin: 0 auto;
-      padding: 24px;
-      line-height: 1.5;
-      background: #f7f7f7;
-      color: #222;
     }
-    .box {
-      background: #fff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
     }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .tool-box {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
     h1 {
-      margin-top: 0;
+      margin: 0 0 10px;
       font-size: 32px;
+      line-height: 1.2;
+      color: var(--text);
     }
-    p {
-      color: #444;
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
     }
+
+    .field {
+      margin-top: 16px;
+    }
+
     label {
       display: block;
-      margin-top: 16px;
-      margin-bottom: 6px;
-      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
     }
-    input, select, button {
+
+    input,
+    select {
       width: 100%;
-      padding: 12px;
+      padding: 13px 14px;
       font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fafafa;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
-    button {
-      margin-top: 18px;
-      background: #111;
-      color: #fff;
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
       border: none;
+      border-radius: 12px;
+      background: var(--dark-btn);
+      color: #ffffff;
       cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
     }
-    button:hover {
-      background: #333;
+
+    .primary-btn:hover {
+      background: var(--dark-btn-hover);
+      transform: translateY(-1px);
     }
+
     .result {
       margin-top: 24px;
-      padding: 18px;
-      background: #f1f5f9;
-      border-radius: 8px;
-      border: 1px solid #dbe2ea;
+      padding: 20px;
+      background: #f8f9fb;
+      border: 1px solid #dfe3ea;
+      border-radius: 14px;
       display: none;
     }
-    .title-box {
-      background: #fff;
-      border: 1px solid #d0d7de;
-      border-radius: 8px;
-      padding: 14px;
-      margin-top: 12px;
+
+    .result-title {
+      margin: 0 0 16px;
       font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
     }
+
+    .title-item + .title-item {
+      margin-top: 14px;
+    }
+
+    .title-box {
+      background: #ffffff;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 17px;
+      color: var(--text);
+      word-break: break-word;
+    }
+
     .copy-btn {
       margin-top: 10px;
-      background: #2563eb;
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
     }
+
     .copy-btn:hover {
-      background: #1d4ed8;
+      background: var(--blue-hover);
+      transform: translateY(-1px);
     }
+
     .small {
       font-size: 14px;
-      color: #666;
-      margin-top: 10px;
+      color: #666666;
+      margin: 18px 0 0;
     }
-    a {
-      color: #2563eb;
+
+    .status {
+      margin-top: 14px;
+      min-height: 22px;
+      font-size: 14px;
+      color: var(--success);
+    }
+
+    .support-wrap {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111111;
       text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
-    a:hover {
-      text-decoration: underline;
+
+    .coffee-btn:hover {
+      background: var(--yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 12px 32px;
+      }
+
+      .tool-box {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .copy-btn,
+      .coffee-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <p><a href="../">⬅ Back to tools</a></p>
+  <div class="page">
+    <a class="back-link" href="../">⬅ Back to tools</a>
 
-    <h1>Blog Title Generator</h1>
-    <p>Generate SEO-friendly blog post titles for niche sites, content marketing, and organic traffic.</p>
+    <div class="tool-box">
+      <h1>Blog Title Generator</h1>
+      <p class="intro">
+        Generate SEO-friendly blog post titles for niche sites, content marketing, and organic traffic.
+      </p>
 
-    <label for="topic">Main topic</label>
-    <input id="topic" type="text" placeholder="e.g. email marketing" />
+      <div class="field">
+        <label for="topic">Main topic</label>
+        <input id="topic" type="text" placeholder="e.g. email marketing" />
+      </div>
 
-    <label for="audience">Audience</label>
-    <input id="audience" type="text" placeholder="e.g. small business owners" />
+      <div class="field">
+        <label for="audience">Audience</label>
+        <input id="audience" type="text" placeholder="e.g. small business owners" />
+      </div>
 
-    <label for="style">Title style</label>
-    <select id="style">
-      <option value="howto">How-to</option>
-      <option value="list">List</option>
-      <option value="guide">Guide</option>
-      <option value="questions">Questions</option>
-      <option value="benefit">Benefit-focused</option>
-    </select>
+      <div class="field">
+        <label for="style">Title style</label>
+        <select id="style">
+          <option value="howto">How-to</option>
+          <option value="list">List</option>
+          <option value="guide">Guide</option>
+          <option value="questions">Questions</option>
+          <option value="benefit">Benefit-focused</option>
+        </select>
+      </div>
 
-    <button onclick="generateTitles()">Generate Blog Titles</button>
+      <button class="primary-btn" onclick="generateTitles()">Generate Blog Titles</button>
 
-    <div class="result" id="result">
-      <strong>Generated titles:</strong>
+      <div class="status" id="status"></div>
 
-      <div class="title-box" id="title1"></div>
-      <button class="copy-btn" onclick="copyText('title1')">Copy #1</button>
+      <div class="result" id="result">
+        <p class="result-title">Generated titles:</p>
 
-      <div class="title-box" id="title2"></div>
-      <button class="copy-btn" onclick="copyText('title2')">Copy #2</button>
+        <div class="title-item">
+          <div class="title-box" id="title1"></div>
+          <button class="copy-btn" onclick="copyText('title1')">Copy #1</button>
+        </div>
 
-      <div class="title-box" id="title3"></div>
-      <button class="copy-btn" onclick="copyText('title3')">Copy #3</button>
+        <div class="title-item">
+          <div class="title-box" id="title2"></div>
+          <button class="copy-btn" onclick="copyText('title2')">Copy #2</button>
+        </div>
 
-      <div class="title-box" id="title4"></div>
-      <button class="copy-btn" onclick="copyText('title4')">Copy #4</button>
+        <div class="title-item">
+          <div class="title-box" id="title3"></div>
+          <button class="copy-btn" onclick="copyText('title3')">Copy #3</button>
+        </div>
 
-      <div class="title-box" id="title5"></div>
-      <button class="copy-btn" onclick="copyText('title5')">Copy #5</button>
+        <div class="title-item">
+          <div class="title-box" id="title4"></div>
+          <button class="copy-btn" onclick="copyText('title4')">Copy #4</button>
+        </div>
 
-      <p class="small">Tip: titles with a clear benefit or number usually get better clicks.</p>
+        <div class="title-item">
+          <div class="title-box" id="title5"></div>
+          <button class="copy-btn" onclick="copyText('title5')">Copy #5</button>
+        </div>
+
+        <p class="small">Tip: titles with a clear benefit or number usually get better clicks.</p>
+      </div>
+
+      <div class="support-wrap">
+        <a
+          class="coffee-btn"
+          href="https://www.buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
     </div>
   </div>
 
@@ -140,13 +320,25 @@
       return text.trim().replace(/\s+/g, " ");
     }
 
+    function capitalize(text) {
+      if (!text) return "";
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function setStatus(message, isError = false) {
+      const status = document.getElementById("status");
+      status.textContent = message;
+      status.style.color = isError ? "#b42318" : "#2f6f44";
+    }
+
     function generateTitles() {
       const topic = cleanText(document.getElementById("topic").value);
       const audience = cleanText(document.getElementById("audience").value);
       const style = document.getElementById("style").value;
 
       if (!topic) {
-        alert("Please enter a main topic.");
+        document.getElementById("result").style.display = "none";
+        setStatus("Please enter a main topic.", true);
         return;
       }
 
@@ -200,18 +392,23 @@
       document.getElementById("title3").textContent = titles[2];
       document.getElementById("title4").textContent = titles[3];
       document.getElementById("title5").textContent = titles[4];
-      document.getElementById("result").style.display = "block";
-    }
 
-    function capitalize(text) {
-      if (!text) return "";
-      return text.charAt(0).toUpperCase() + text.slice(1);
+      document.getElementById("result").style.display = "block";
+      setStatus("Blog titles generated successfully.");
     }
 
     function copyText(id) {
-      const text = document.getElementById(id).textContent;
+      const text = document.getElementById(id).textContent.trim();
+
+      if (!text) {
+        setStatus("Nothing to copy yet.", true);
+        return;
+      }
+
       navigator.clipboard.writeText(text).then(() => {
-        alert("Copied to clipboard.");
+        setStatus("Copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
       });
     }
   </script>
