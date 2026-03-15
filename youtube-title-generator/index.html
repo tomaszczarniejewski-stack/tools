@@ -1,41 +1,528 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YouTube Title Generator</title>
+<meta name="description" content="Generate catchy YouTube title ideas for your videos. Create multiple title variations, use a keyword, choose a style, and copy your favorites instantly.">
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+padding:24px;
+background:#f5f5f5;
+font-family:Arial,sans-serif;
+color:#222
+}
+.page{
+max-width:900px;
+margin:0 auto
+}
+.tool-box{
+background:#fff;
+border-radius:18px;
+box-shadow:0 4px 14px rgba(0,0,0,0.08);
+padding:28px
+}
+.back-link{
+display:inline-block;
+margin-bottom:16px;
+color:#0d6efd;
+text-decoration:none;
+font-weight:700
+}
+.back-link:hover{text-decoration:underline}
+h1{
+margin:0 0 10px;
+font-size:32px;
+color:#111
+}
+.description{
+margin:0 0 24px;
+color:#555;
+line-height:1.6
+}
+.controls{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:14px;
+margin-bottom:16px
+}
+.input-group label{
+display:block;
+margin-bottom:8px;
+font-size:14px;
+font-weight:700;
+color:#111
+}
+.input-group input,
+.input-group select{
+width:100%;
+padding:14px;
+font-size:16px;
+border:1px solid #d7d7d7;
+border-radius:12px;
+background:#fff;
+outline:none
+}
+.input-group input:focus,
+.input-group select:focus{
+border-color:#0d6efd
+}
+.button-row{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-bottom:16px
+}
+button{
+border:none;
+border-radius:12px;
+padding:14px 18px;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+transition:transform .15s ease,opacity .15s ease,background .15s ease
+}
+button:hover{
+transform:translateY(-1px);
+opacity:.97
+}
+.primary-btn{
+background:#111;
+color:#fff
+}
+.copy-btn{
+background:#0d6efd;
+color:#fff
+}
+.secondary-btn{
+background:#ececec;
+color:#111
+}
+.status{
+min-height:22px;
+margin-bottom:18px;
+font-size:14px;
+font-weight:700;
+color:#666
+}
+.status.success{color:#198754}
+.status.error{color:#c62828}
+.status.tip{color:#666}
+.results-title,
+.history-title{
+margin:0 0 12px;
+font-size:20px;
+color:#111
+}
+.results{
+display:grid;
+gap:12px
+}
+.result-card{
+background:#f8f8f8;
+border:1px solid #e8e8e8;
+border-radius:14px;
+padding:16px
+}
+.result-top{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:16px
+}
+.result-text{
+font-size:20px;
+font-weight:700;
+line-height:1.4;
+color:#111;
+word-break:break-word;
+flex:1
+}
+.result-meta{
+margin-top:8px;
+font-size:14px;
+color:#666
+}
+.result-actions{
+display:flex;
+gap:10px;
+flex-shrink:0
+}
+.small-btn{
+padding:10px 14px;
+font-size:14px;
+border-radius:10px
+}
+.empty-state{
+background:#f8f8f8;
+border:1px solid #e8e8e8;
+border-radius:14px;
+padding:18px;
+color:#666;
+line-height:1.6
+}
+.history{
+margin-top:26px
+}
+.history-list{
+display:grid;
+gap:10px
+}
+.history-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+background:#fafafa;
+border:1px solid #ececec;
+border-radius:12px;
+padding:14px
+}
+.history-text{
+font-weight:700;
+color:#111;
+word-break:break-word
+}
+.history-meta{
+margin-top:6px;
+font-size:13px;
+color:#666
+}
+.coffee-wrap{
+text-align:center;
+margin-top:28px
+}
+.coffee-btn{
+display:inline-block;
+text-decoration:none;
+background:#ffd400;
+color:#111;
+font-weight:700;
+padding:14px 20px;
+border-radius:12px;
+transition:transform .15s ease,opacity .15s ease
+}
+.coffee-btn:hover{
+transform:translateY(-1px);
+opacity:.97
+}
+@media(max-width:768px){
+body{padding:16px}
+.tool-box{padding:22px}
+h1{font-size:28px}
+.controls{grid-template-columns:1fr}
+.button-row{flex-direction:column}
+.button-row button{width:100%}
+.result-top,
+.history-item{
+flex-direction:column;
+align-items:stretch
+}
+.result-actions{
+width:100%;
+display:grid;
+grid-template-columns:1fr 1fr
+}
+.result-actions button,
+.history-item button{
+width:100%
+}
+}
+</style>
 </head>
-
 <body>
+<div class="page">
+  <div class="tool-box">
+    <a class="back-link" href="../">← Back to tools</a>
 
-<p><a href="../">⬅ Back to tools</a></p>
+    <h1>YouTube Title Generator</h1>
+    <p class="description">
+      Generate catchy YouTube title ideas for your videos. Add a keyword, choose a title style, and get multiple title options you can copy instantly.
+    </p>
 
-<h1>YouTube Title Generator</h1>
+    <div class="controls">
+      <div class="input-group">
+        <label for="keyword">Keyword / Topic</label>
+        <input type="text" id="keyword" placeholder="Example: fitness, AI, gaming, side hustle">
+      </div>
 
-<button onclick="generate()">Generate Title</button>
+      <div class="input-group">
+        <label for="style">Title Style</label>
+        <select id="style">
+          <option value="random">Random</option>
+          <option value="viral">Viral</option>
+          <option value="educational">Educational</option>
+          <option value="curiosity">Curiosity</option>
+          <option value="list">List</option>
+        </select>
+      </div>
+    </div>
 
-<p id="title"></p>
+    <div class="button-row">
+      <button class="primary-btn" id="generateBtn">Generate Titles</button>
+      <button class="secondary-btn" id="againBtn">Generate Again</button>
+      <button class="secondary-btn" id="clearBtn">Clear</button>
+    </div>
+
+    <div class="status tip" id="status">Tip: add a keyword for more relevant title ideas.</div>
+
+    <h2 class="results-title">Results</h2>
+    <div class="results" id="results">
+      <div class="empty-state">
+        Click <strong>Generate Titles</strong> to create 5 YouTube title ideas.
+      </div>
+    </div>
+
+    <div class="history">
+      <h2 class="history-title">History</h2>
+      <div class="history-list" id="history">
+        <div class="empty-state">Your recent generated titles will appear here.</div>
+      </div>
+    </div>
+
+    <div class="coffee-wrap">
+      <a class="coffee-btn" href="https://buymeacoffee.com/" target="_blank" rel="noopener noreferrer">Support me on Buy Me a Coffee</a>
+    </div>
+  </div>
+</div>
 
 <script>
+const keywordInput = document.getElementById("keyword");
+const styleSelect = document.getElementById("style");
+const resultsBox = document.getElementById("results");
+const historyBox = document.getElementById("history");
+const statusBox = document.getElementById("status");
 
-const titles = [
-"This Trick Will Grow Your Channel Fast",
-"10 Things Every YouTuber Should Know",
-"Why Your Videos Get No Views",
-"The Secret Behind Viral Videos",
-"Stop Making These YouTube Mistakes",
-"This Strategy Changed My Channel",
-"How Small Channels Go Viral",
-"YouTube Algorithm Explained Simply",
-"The Truth About Growing on YouTube",
-"Do This Before Uploading Your Next Video"
-];
+const generateBtn = document.getElementById("generateBtn");
+const againBtn = document.getElementById("againBtn");
+const clearBtn = document.getElementById("clearBtn");
 
-function generate(){
-const t = titles[Math.floor(Math.random()*titles.length)];
-document.getElementById("title").innerText = t;
+const templates = {
+  viral: [
+    "This {topic} Trick Will Blow Your Mind",
+    "Why Everyone Is Talking About {topic}",
+    "The {topic} Strategy Nobody Talks About",
+    "I Tried {topic} and This Happened",
+    "The Truth About {topic} in 2026",
+    "Stop Doing This With {topic}",
+    "This {topic} Method Changed Everything",
+    "How {topic} Goes Viral Fast"
+  ],
+  educational: [
+    "{topic} Explained Simply",
+    "How to Get Better at {topic}",
+    "Beginner's Guide to {topic}",
+    "Everything You Need to Know About {topic}",
+    "How {topic} Really Works",
+    "{topic}: Common Mistakes to Avoid",
+    "Learn {topic} Faster With This Method",
+    "What Nobody Tells You About {topic}"
+  ],
+  curiosity: [
+    "What Happens If You Start {topic} Today?",
+    "The Hidden Side of {topic}",
+    "Why Most People Fail at {topic}",
+    "You Won't Believe This About {topic}",
+    "The Biggest {topic} Mistake I See",
+    "Is {topic} Still Worth It?",
+    "What Nobody Tells You About {topic}",
+    "I Wish I Knew This Before {topic}"
+  ],
+  list: [
+    "10 {topic} Tips You Need to Know",
+    "7 {topic} Mistakes Beginners Make",
+    "5 Best {topic} Ideas to Try Today",
+    "12 {topic} Hacks That Actually Work",
+    "9 Ways to Improve Your {topic}",
+    "8 {topic} Secrets for Faster Results",
+    "6 {topic} Tools Worth Using",
+    "11 {topic} Lessons I Learned the Hard Way"
+  ]
+};
+
+let currentTitles = [];
+let historyTitles = [];
+
+function capitalizeWords(text) {
+  return text
+    .trim()
+    .split(/\s+/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
-</script>
+function getTopic() {
+  const value = keywordInput.value.trim();
+  return value ? capitalizeWords(value) : "Your Channel";
+}
 
+function getTemplatePool() {
+  const selectedStyle = styleSelect.value;
+
+  if (selectedStyle === "random") {
+    return [
+      ...templates.viral,
+      ...templates.educational,
+      ...templates.curiosity,
+      ...templates.list
+    ];
+  }
+
+  return templates[selectedStyle];
+}
+
+function generateUniqueTitles(count) {
+  const topic = getTopic();
+  const pool = getTemplatePool();
+  const unique = new Set();
+  let tries = 0;
+
+  while (unique.size < count && tries < 100) {
+    const template = pool[Math.floor(Math.random() * pool.length)];
+    unique.add(template.replace(/\{topic\}/g, topic));
+    tries++;
+  }
+
+  return Array.from(unique);
+}
+
+function setStatus(message, type) {
+  statusBox.textContent = message;
+  statusBox.className = "status " + type;
+}
+
+function copyText(text, button) {
+  navigator.clipboard.writeText(text).then(() => {
+    const oldText = button.textContent;
+    button.textContent = "Copied!";
+    setTimeout(() => {
+      button.textContent = oldText;
+    }, 1400);
+  }).catch(() => {
+    setStatus("Copy failed. Please try again.", "error");
+  });
+}
+
+function renderResults() {
+  if (currentTitles.length === 0) {
+    resultsBox.innerHTML = `
+      <div class="empty-state">
+        Click <strong>Generate Titles</strong> to create 5 YouTube title ideas.
+      </div>
+    `;
+    return;
+  }
+
+  resultsBox.innerHTML = currentTitles.map((title, index) => `
+    <div class="result-card">
+      <div class="result-top">
+        <div>
+          <div class="result-text">${escapeHtml(title)}</div>
+          <div class="result-meta">Option ${index + 1} • ${title.length} characters</div>
+        </div>
+        <div class="result-actions">
+          <button class="copy-btn small-btn copy-single" data-title="${escapeAttribute(title)}">Copy</button>
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".copy-single").forEach(button => {
+    button.addEventListener("click", () => {
+      copyText(button.getAttribute("data-title"), button);
+    });
+  });
+}
+
+function renderHistory() {
+  if (historyTitles.length === 0) {
+    historyBox.innerHTML = `<div class="empty-state">Your recent generated titles will appear here.</div>`;
+    return;
+  }
+
+  historyBox.innerHTML = historyTitles.map(title => `
+    <div class="history-item">
+      <div>
+        <div class="history-text">${escapeHtml(title)}</div>
+        <div class="history-meta">${title.length} characters</div>
+      </div>
+      <button class="copy-btn small-btn copy-history" data-history="${escapeAttribute(title)}">Copy</button>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".copy-history").forEach(button => {
+    button.addEventListener("click", () => {
+      copyText(button.getAttribute("data-history"), button);
+    });
+  });
+}
+
+function updateHistory(titles) {
+  const combined = [...titles, ...historyTitles];
+  const unique = [];
+
+  for (const title of combined) {
+    if (!unique.includes(title)) {
+      unique.push(title);
+    }
+  }
+
+  historyTitles = unique.slice(0, 8);
+}
+
+function generateTitles() {
+  currentTitles = generateUniqueTitles(5);
+
+  if (!currentTitles.length) {
+    setStatus("Could not generate titles. Please try again.", "error");
+    renderResults();
+    return;
+  }
+
+  updateHistory(currentTitles);
+  renderResults();
+  renderHistory();
+
+  if (keywordInput.value.trim()) {
+    setStatus("5 title ideas generated successfully.", "success");
+  } else {
+    setStatus("5 title ideas generated. Add a keyword for more targeted results.", "tip");
+  }
+}
+
+function clearAll() {
+  keywordInput.value = "";
+  styleSelect.value = "random";
+  currentTitles = [];
+  historyTitles = [];
+  renderResults();
+  renderHistory();
+  setStatus("Results cleared.", "tip");
+}
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function escapeAttribute(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+generateBtn.addEventListener("click", generateTitles);
+againBtn.addEventListener("click", generateTitles);
+clearBtn.addEventListener("click", clearAll);
+</script>
 </body>
 </html>
