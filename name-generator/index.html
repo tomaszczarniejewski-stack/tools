@@ -1,33 +1,457 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Name Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Name Generator</title>
+  <meta name="description" content="Generate random names for characters, usernames, mockups, stories, and creative projects." />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #f5f5f5;
+      color: #222;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      padding: 28px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #111;
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: #555;
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.04s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .generate-btn {
+      background: #111;
+      color: #fff;
+    }
+
+    .generate-btn:hover {
+      background: #222;
+    }
+
+    .copy-all-btn {
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .copy-all-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .status {
+      margin-top: 12px;
+      min-height: 20px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .result-box {
+      margin-top: 24px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 20px;
+      display: none;
+    }
+
+    .result-title {
+      margin: 0 0 12px;
+      font-size: 20px;
+      color: #111;
+    }
+
+    .names-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .name-card {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .name-text {
+      font-size: 18px;
+      color: #111;
+      word-break: break-word;
+      flex: 1;
+    }
+
+    .copy-btn {
+      background: #0d6efd;
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .small {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .coffee-wrap {
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: #ffd400;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: opacity 0.2s ease, transform 0.04s ease;
+    }
+
+    .coffee-btn:hover {
+      opacity: 0.92;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .tool-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .generate-btn,
+      .copy-all-btn {
+        width: 100%;
+      }
+
+      .name-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .copy-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
+    <div class="tool-box">
+      <a class="back-link" href="../">⬅ Back to tools</a>
 
-<p><a href="../">⬅ Back to tools</a></p>
+      <h1>Random Name Generator</h1>
+      <p class="description">
+        Generate random names for characters, stories, mockups, usernames, and creative projects.
+      </p>
 
-<h1>Random Name Generator</h1>
+      <div class="grid">
+        <div class="field">
+          <label for="nameType">Name type</label>
+          <select id="nameType">
+            <option value="random">Random</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="neutral">Neutral</option>
+          </select>
+        </div>
 
-<button onclick="generate()">Generate Name</button>
+        <div class="field">
+          <label for="lastStyle">Last name style</label>
+          <select id="lastStyle">
+            <option value="modern">Modern</option>
+            <option value="classic">Classic</option>
+            <option value="short">Short</option>
+          </select>
+        </div>
 
-<p id="name"></p>
+        <div class="field">
+          <label for="format">Format</label>
+          <select id="format">
+            <option value="full">First + Last</option>
+            <option value="first">First name only</option>
+          </select>
+        </div>
 
-<script>
+        <div class="field">
+          <label for="amount">Amount</label>
+          <select id="amount">
+            <option value="5">5 names</option>
+            <option value="10" selected>10 names</option>
+            <option value="15">15 names</option>
+          </select>
+        </div>
+      </div>
 
-const first = ["Alex","Jordan","Taylor","Chris","Morgan","Jamie","Casey","Riley","Avery","Skyler"];
-const last = ["Smith","Walker","Stone","Hunter","Carter","Blake","Turner","Parker","Reed","Cooper"];
+      <div class="button-row">
+        <button class="generate-btn" onclick="generateNames()">Generate Names</button>
+        <button class="copy-all-btn" onclick="copyAll()">Copy All</button>
+      </div>
 
-function generate(){
-const f = first[Math.floor(Math.random()*first.length)];
-const l = last[Math.floor(Math.random()*last.length)];
+      <div class="status" id="status"></div>
 
-document.getElementById("name").innerText = f + " " + l;
-}
+      <div class="result-box" id="resultBox">
+        <h2 class="result-title">Generated names</h2>
+        <div class="names-list" id="namesList"></div>
+        <p class="small">
+          Tip: refresh a few times and mix first-name type with a different last-name style to get more unique combinations.
+        </p>
+      </div>
 
-</script>
+      <div class="coffee-wrap">
+        <a
+          class="coffee-btn"
+          href="https://buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
 
+  <script>
+    const maleFirst = [
+      "Alex", "Jordan", "Chris", "Ryan", "Ethan", "Noah", "Liam", "Logan", "Mason", "Tyler",
+      "Jake", "Owen", "Lucas", "Nathan", "Adam"
+    ];
+
+    const femaleFirst = [
+      "Emma", "Ava", "Sophia", "Mia", "Chloe", "Ella", "Grace", "Lily", "Hannah", "Zoe",
+      "Aria", "Nora", "Ruby", "Layla", "Lucy"
+    ];
+
+    const neutralFirst = [
+      "Taylor", "Morgan", "Jamie", "Casey", "Riley", "Avery", "Skyler", "Parker", "Quinn", "Rowan",
+      "Dakota", "Finley", "Harper", "Reese", "Sage"
+    ];
+
+    const modernLast = [
+      "Walker", "Stone", "Hunter", "Carter", "Blake", "Turner", "Parker", "Reed", "Cooper", "Hayes",
+      "Brooks", "Wells", "Lane", "Perry", "Foster"
+    ];
+
+    const classicLast = [
+      "Smith", "Johnson", "Brown", "Miller", "Davis", "Wilson", "Moore", "Taylor", "Clark", "Lewis",
+      "Hall", "Allen", "Young", "King", "Wright"
+    ];
+
+    const shortLast = [
+      "Cole", "Shaw", "Dean", "Gray", "West", "Ross", "Price", "Scott", "Boone", "Flynn",
+      "Reid", "Nash", "Cross", "Fox", "Drake"
+    ];
+
+    function randomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function getFirstPool(type) {
+      if (type === "male") return maleFirst;
+      if (type === "female") return femaleFirst;
+      if (type === "neutral") return neutralFirst;
+      return [...maleFirst, ...femaleFirst, ...neutralFirst];
+    }
+
+    function getLastPool(style) {
+      if (style === "classic") return classicLast;
+      if (style === "short") return shortLast;
+      return modernLast;
+    }
+
+    function setStatus(message) {
+      document.getElementById("status").textContent = message;
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(function () {
+        setStatus("Copied to clipboard.");
+      }).catch(function () {
+        setStatus("Copy failed. Try again.");
+      });
+    }
+
+    function generateNames() {
+      const type = document.getElementById("nameType").value;
+      const style = document.getElementById("lastStyle").value;
+      const format = document.getElementById("format").value;
+      const amount = parseInt(document.getElementById("amount").value, 10);
+
+      const firstPool = getFirstPool(type);
+      const lastPool = getLastPool(style);
+      const results = [];
+
+      for (let i = 0; i < amount; i++) {
+        const first = randomItem(firstPool);
+        const last = randomItem(lastPool);
+        results.push(format === "first" ? first : first + " " + last);
+      }
+
+      renderResults(results);
+      setStatus("Generated " + results.length + " names.");
+    }
+
+    function renderResults(names) {
+      const list = document.getElementById("namesList");
+      list.innerHTML = "";
+
+      names.forEach(function (name) {
+        const card = document.createElement("div");
+        card.className = "name-card";
+
+        const text = document.createElement("div");
+        text.className = "name-text";
+        text.textContent = name;
+
+        const button = document.createElement("button");
+        button.className = "copy-btn";
+        button.textContent = "Copy";
+        button.onclick = function () {
+          copyToClipboard(name);
+        };
+
+        card.appendChild(text);
+        card.appendChild(button);
+        list.appendChild(card);
+      });
+
+      document.getElementById("resultBox").style.display = "block";
+    }
+
+    function copyAll() {
+      const items = Array.from(document.querySelectorAll(".name-text"));
+      if (!items.length) {
+        setStatus("Generate names first.");
+        return;
+      }
+
+      const allText = items.map(function (item) {
+        return item.textContent;
+      }).join("\n");
+
+      copyToClipboard(allText);
+    }
+  </script>
 </body>
 </html>
