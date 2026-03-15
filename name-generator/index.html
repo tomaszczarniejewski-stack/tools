@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Name Generator</title>
+</head>
+
+<body>
+
+<p><a href="../">⬅ Back to tools</a></p>
+
+<h1>Random Name Generator</h1>
+
+<button onclick="generate()">Generate Name</button>
+
+<p id="name"></p>
+
+<script>
+
+const first = ["Alex","Jordan","Taylor","Chris","Morgan","Jamie","Casey","Riley","Avery","Skyler"];
+const last = ["Smith","Walker","Stone","Hunter","Carter","Blake","Turner","Parker","Reed","Cooper"];
+
+function generate(){
+const f = first[Math.floor(Math.random()*first.length)];
+const l = last[Math.floor(Math.random()*last.length)];
+
+document.getElementById("name").innerText = f + " " + l;
+}
+
+</script>
+
+</body>
+</html>
