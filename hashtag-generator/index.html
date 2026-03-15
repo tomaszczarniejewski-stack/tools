@@ -1,200 +1,571 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hashtag Generator</title>
-<meta name="description" content="Generate hashtags for Instagram, TikTok, YouTube Shorts and social media posts.">
-<style>
-*{box-sizing:border-box}
-body{
-font-family:Arial,sans-serif;
-max-width:900px;
-margin:0 auto;
-padding:24px;
-background:#f7f7f7;
-color:#222
-}
-.box{
-background:#fff;
-padding:24px;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,.08)
-}
-h1{margin-top:0;font-size:32px}
-p{color:#444}
-label{
-display:block;
-margin-top:16px;
-margin-bottom:6px;
-font-weight:bold
-}
-input,select,button{
-width:100%;
-padding:12px;
-font-size:16px;
-border:1px solid #ccc;
-border-radius:8px
-}
-button{
-margin-top:18px;
-background:#111;
-color:#fff;
-border:none;
-cursor:pointer
-}
-button:hover{background:#333}
-.result{
-margin-top:24px;
-padding:18px;
-background:#f1f5f9;
-border-radius:8px;
-border:1px solid #dbe2ea;
-display:none
-}
-.tag-box{
-background:#fff;
-border:1px solid #d0d7de;
-border-radius:8px;
-padding:14px;
-margin-top:12px;
-word-break:break-word;
-font-family:monospace
-}
-.copy-btn{
-margin-top:10px;
-background:#2563eb
-}
-.copy-btn:hover{background:#1d4ed8}
-.small{
-font-size:14px;
-color:#666;
-margin-top:10px
-}
-a{
-color:#2563eb;
-text-decoration:none
-}
-a:hover{text-decoration:underline}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hashtag Generator</title>
+  <meta
+    name="description"
+    content="Generate hashtags for Instagram, TikTok, YouTube Shorts, and social media posts. Free online hashtag generator."
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+      --soft-border: #e9ecef;
+      --blue: #0d6efd;
+      --blue-hover: #0b5ed7;
+      --dark-btn: #111111;
+      --dark-btn-hover: #333333;
+      --yellow: #ffd400;
+      --yellow-hover: #f2c900;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --success: #2f6f44;
+      --error: #b42318;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px 40px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .tool-box {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .field {
+      margin-top: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fafafa;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      background: var(--dark-btn);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      background: var(--dark-btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .status {
+      margin-top: 14px;
+      min-height: 22px;
+      font-size: 14px;
+      color: var(--success);
+    }
+
+    .result {
+      margin-top: 24px;
+      padding: 20px;
+      background: #f8f9fb;
+      border: 1px solid #dfe3ea;
+      border-radius: 14px;
+      display: none;
+    }
+
+    .result-title {
+      margin: 0 0 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .tag-item + .tag-item {
+      margin-top: 14px;
+    }
+
+    .tag-box {
+      background: #ffffff;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      padding: 14px;
+      word-break: break-word;
+      font-family: monospace;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .copy-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .copy-btn,
+    .copy-all-btn {
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .copy-btn:hover,
+    .copy-all-btn:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+    }
+
+    .copy-all-wrap {
+      margin-top: 18px;
+    }
+
+    .small {
+      font-size: 14px;
+      color: #666666;
+      margin: 18px 0 0;
+    }
+
+    .support-wrap {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111111;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .coffee-btn:hover {
+      background: var(--yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 12px 32px;
+      }
+
+      .tool-box {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .copy-btn,
+      .copy-all-btn,
+      .coffee-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page">
+    <a class="back-link" href="../">⬅ Back to tools</a>
 
-<div class="box">
+    <div class="tool-box">
+      <h1>Hashtag Generator</h1>
+      <p class="intro">
+        Generate hashtag sets for Instagram, TikTok, YouTube Shorts, and other social media posts.
+      </p>
 
-<p><a href="../">⬅ Back to tools</a></p>
+      <div class="field">
+        <label for="topic">Main keyword or topic</label>
+        <input id="topic" type="text" placeholder="e.g. fitness motivation" />
+      </div>
 
-<h1>Hashtag Generator</h1>
-<p>Generate hashtags for Instagram, TikTok, YouTube Shorts and social media posts.</p>
+      <div class="grid-2">
+        <div class="field">
+          <label for="platform">Platform</label>
+          <select id="platform">
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="youtube">YouTube Shorts</option>
+            <option value="general">General</option>
+          </select>
+        </div>
 
-<label>Main keyword or topic</label>
-<input id="topic" placeholder="e.g. fitness motivation">
+        <div class="field">
+          <label for="style">Hashtag style</label>
+          <select id="style">
+            <option value="mixed">Mixed</option>
+            <option value="broad">Broad</option>
+            <option value="niche">Niche</option>
+            <option value="viral">Viral / trend style</option>
+          </select>
+        </div>
+      </div>
 
-<label>Platform</label>
-<select id="platform">
-<option value="instagram">Instagram</option>
-<option value="tiktok">TikTok</option>
-<option value="youtube">YouTube Shorts</option>
-<option value="general">General</option>
-</select>
+      <div class="field">
+        <label for="extra">Extra keywords (optional)</label>
+        <input id="extra" type="text" placeholder="e.g. gym workout health" />
+      </div>
 
-<label>Extra keywords (optional)</label>
-<input id="extra" placeholder="e.g. gym workout health">
+      <button class="primary-btn" onclick="generateHashtags()">Generate Hashtags</button>
 
-<button onclick="generate()">Generate Hashtags</button>
+      <div class="status" id="status"></div>
 
-<div class="result" id="result">
+      <div class="result" id="result">
+        <p class="result-title">Generated hashtag sets:</p>
 
-<strong>Generated hashtags:</strong>
+        <div class="tag-item">
+          <div class="tag-box" id="set1"></div>
+          <div class="copy-row">
+            <button class="copy-btn" onclick="copySet('set1')">Copy #1</button>
+          </div>
+        </div>
 
-<div class="tag-box" id="set1"></div>
-<button class="copy-btn" onclick="copy('set1')">Copy #1</button>
+        <div class="tag-item">
+          <div class="tag-box" id="set2"></div>
+          <div class="copy-row">
+            <button class="copy-btn" onclick="copySet('set2')">Copy #2</button>
+          </div>
+        </div>
 
-<div class="tag-box" id="set2"></div>
-<button class="copy-btn" onclick="copy('set2')">Copy #2</button>
+        <div class="tag-item">
+          <div class="tag-box" id="set3"></div>
+          <div class="copy-row">
+            <button class="copy-btn" onclick="copySet('set3')">Copy #3</button>
+          </div>
+        </div>
 
-<div class="tag-box" id="set3"></div>
-<button class="copy-btn" onclick="copy('set3')">Copy #3</button>
+        <div class="tag-item">
+          <div class="tag-box" id="set4"></div>
+          <div class="copy-row">
+            <button class="copy-btn" onclick="copySet('set4')">Copy #4</button>
+          </div>
+        </div>
 
-<p class="small">Tip: mix large, medium and niche hashtags.</p>
+        <div class="tag-item">
+          <div class="tag-box" id="set5"></div>
+          <div class="copy-row">
+            <button class="copy-btn" onclick="copySet('set5')">Copy #5</button>
+          </div>
+        </div>
 
-</div>
+        <div class="copy-all-wrap">
+          <button class="copy-all-btn" onclick="copyAllSets()">Copy All Sets</button>
+        </div>
 
-</div>
+        <p class="small">Tip: the strongest posts usually mix broad, medium, and niche hashtags instead of using only huge generic tags.</p>
+      </div>
 
-<script>
+      <div class="support-wrap">
+        <a
+          class="coffee-btn"
+          href="https://www.buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
 
-function normalize(text){
-return text.toLowerCase().replace(/[^a-z0-9\s]/g,"").trim()
-}
+  <script>
+    let generatedSets = [];
 
-function makeTags(words){
-return words.map(w=>"#"+w.replace(/\s+/g,"")).join(" ")
-}
+    function normalize(text) {
+      return text
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
 
-function generate(){
+    function unique(arr) {
+      return [...new Set(arr.filter(Boolean))];
+    }
 
-let topic=document.getElementById("topic").value
-let extra=document.getElementById("extra").value
-let platform=document.getElementById("platform").value
+    function setStatus(message, isError = false) {
+      const status = document.getElementById("status");
+      status.textContent = message;
+      status.style.color = isError ? "#b42318" : "#2f6f44";
+    }
 
-if(!topic){
-alert("Enter a topic")
-return
-}
+    function toTag(text) {
+      return "#" + text.replace(/\s+/g, "");
+    }
 
-topic=normalize(topic)
-extra=normalize(extra)
+    function makeTagVariants(words) {
+      const variants = [];
 
-let baseWords=topic.split(" ")
-let extraWords=extra?extra.split(" "):[]
+      words.forEach(word => {
+        variants.push(word);
+        variants.push(word + "tips");
+        variants.push(word + "daily");
+        variants.push(word + "life");
+        variants.push(word + "journey");
+      });
 
-let tags=[]
+      if (words.length >= 2) {
+        const joined = words.join("");
+        variants.push(joined);
+        variants.push(joined + "tips");
+        variants.push(joined + "daily");
+      }
 
-baseWords.forEach(w=>{
-tags.push(w)
-tags.push(w+"tips")
-tags.push(w+"life")
-tags.push(w+"daily")
-})
+      return unique(variants);
+    }
 
-extraWords.forEach(w=>{
-tags.push(w)
-tags.push(w+"tips")
-})
+    function buildTopicPhrases(topicWords, extraWords) {
+      const phrases = [];
+      const topicPhrase = topicWords.join(" ");
+      const extraPhrase = extraWords.join(" ");
 
-if(platform==="instagram"){
-tags.push("instagood","photooftheday","viral","explorepage")
-}
+      if (topicPhrase) {
+        phrases.push(topicPhrase);
+        phrases.push(topicPhrase + " tips");
+        phrases.push(topicPhrase + " motivation");
+        phrases.push(topicPhrase + " ideas");
+      }
 
-if(platform==="tiktok"){
-tags.push("fyp","foryou","viralvideo","tiktoktrend")
-}
+      topicWords.forEach(word => {
+        phrases.push(word);
+        phrases.push(word + " tips");
+        phrases.push(word + " lifestyle");
+      });
 
-if(platform==="youtube"){
-tags.push("shorts","youtubeshorts","viralshorts","shortsvideo")
-}
+      extraWords.forEach(word => {
+        phrases.push(word);
+        phrases.push(word + " tips");
+        phrases.push(word + " goals");
+      });
 
-let unique=[...new Set(tags)]
+      if (topicPhrase && extraPhrase) {
+        phrases.push(topicPhrase + " " + extraPhrase.split(" ")[0]);
+      }
 
-let set1=makeTags(unique.slice(0,12))
-let set2=makeTags(unique.slice(5,17))
-let set3=makeTags(unique.slice(10,22))
+      return unique(phrases);
+    }
 
-document.getElementById("set1").textContent=set1
-document.getElementById("set2").textContent=set2
-document.getElementById("set3").textContent=set3
+    function getPlatformTags(platform) {
+      if (platform === "instagram") {
+        return ["instagood", "explorepage", "instagramreels", "contentcreator", "viralpost", "photooftheday"];
+      }
+      if (platform === "tiktok") {
+        return ["fyp", "foryou", "tiktokvideo", "viralvideo", "trendalert", "tiktokcreator"];
+      }
+      if (platform === "youtube") {
+        return ["shorts", "youtubeshorts", "shortsvideo", "viralshorts", "creator", "youtubevideo"];
+      }
+      return ["viral", "trending", "contentcreator", "socialmedia", "growth", "onlinecontent"];
+    }
 
-document.getElementById("result").style.display="block"
+    function buildHashtagPool(topic, extra, platform, style) {
+      const topicWords = normalize(topic).split(" ").filter(Boolean);
+      const extraWords = normalize(extra).split(" ").filter(Boolean);
 
-}
+      const phrasePool = buildTopicPhrases(topicWords, extraWords);
+      const wordPool = unique([
+        ...makeTagVariants(topicWords),
+        ...makeTagVariants(extraWords),
+        ...phrasePool.map(item => item.replace(/\s+/g, "")),
+        ...getPlatformTags(platform)
+      ]);
 
-function copy(id){
-let text=document.getElementById(id).textContent
-navigator.clipboard.writeText(text).then(()=>{alert("Copied")})
-}
+      const broadExtras = ["motivation", "lifestyle", "success", "viral", "mindset", "growth", "inspiration", "creator"];
+      const nicheExtras = phrasePool.map(item => item.replace(/\s+/g, "")); 
+      const viralExtras = ["fyp", "viral", "trending", "explorepage", "trend", "foryou", "viralcontent", "mustwatch"];
 
-</script>
+      let finalPool = [...wordPool];
 
+      if (style === "broad") {
+        finalPool = unique([...wordPool, ...broadExtras]);
+      } else if (style === "niche") {
+        finalPool = unique([...nicheExtras, ...wordPool]);
+      } else if (style === "viral") {
+        finalPool = unique([...wordPool, ...viralExtras, ...getPlatformTags(platform)]);
+      } else {
+        finalPool = unique([...wordPool, ...broadExtras, ...nicheExtras]);
+      }
+
+      return finalPool.map(toTag);
+    }
+
+    function buildSets(pool, style) {
+      const sizes = {
+        broad: [12, 14, 15, 13, 12],
+        niche: [10, 12, 11, 12, 10],
+        viral: [12, 13, 14, 12, 13],
+        mixed: [12, 12, 14, 13, 12]
+      };
+
+      const setSizes = sizes[style] || sizes.mixed;
+      const sets = [];
+
+      for (let i = 0; i < 5; i++) {
+        const start = i * 4;
+        const selected = pool.slice(start, start + setSizes[i]);
+
+        if (selected.length < 8) {
+          selected.push(...pool.slice(0, 8 - selected.length));
+        }
+
+        sets.push(unique(selected).join(" "));
+      }
+
+      return sets;
+    }
+
+    function generateHashtags() {
+      const topic = document.getElementById("topic").value.trim();
+      const extra = document.getElementById("extra").value.trim();
+      const platform = document.getElementById("platform").value;
+      const style = document.getElementById("style").value;
+
+      if (!topic) {
+        document.getElementById("result").style.display = "none";
+        setStatus("Please enter a main topic.", true);
+        return;
+      }
+
+      const pool = buildHashtagPool(topic, extra, platform, style);
+      const sets = buildSets(pool, style);
+
+      generatedSets = sets;
+
+      for (let i = 0; i < 5; i++) {
+        document.getElementById(`set${i + 1}`).textContent = sets[i] || "";
+      }
+
+      document.getElementById("result").style.display = "block";
+      setStatus("Hashtag sets generated successfully.");
+    }
+
+    function copySet(id) {
+      const text = document.getElementById(id).textContent.trim();
+
+      if (!text) {
+        setStatus("Nothing to copy yet.", true);
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        setStatus("Hashtag set copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
+      });
+    }
+
+    function copyAllSets() {
+      if (!generatedSets.length) {
+        setStatus("Generate hashtags first.", true);
+        return;
+      }
+
+      const text = generatedSets.join("\n\n");
+
+      navigator.clipboard.writeText(text).then(() => {
+        setStatus("All hashtag sets copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
+      });
+    }
+  </script>
 </body>
 </html>
