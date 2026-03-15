@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tomas Free Online Tools</title>
-  <meta name="description" content="Simple generators and calculators you can use for free. YouTube hook generator, username generator, diet calculator, and more.">
-  
+  <title>Free Online Generators and Calculators – Tomas Tools</title>
+  <meta name="description" content="Free online generators and calculators for content creation, SEO, writing, social media and everyday tasks. Use simple browser tools instantly.">
+  <link rel="canonical" href="https://tomaszczarniejewski-stack.github.io/tools/">
+
   <style>
     * { box-sizing: border-box; }
+
     body {
       font-family: Arial, sans-serif;
       max-width: 1200px;
@@ -15,15 +17,31 @@
       padding: 20px;
       background: #f7f7f7;
       color: #222;
+      line-height: 1.6;
     }
-    h1 { font-size: 36px; margin-bottom: 10px; }
-    p { font-size: 18px; margin: 5px 0; }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 8px 0;
+    }
+
+    .intro {
+      max-width: 900px;
+      margin-bottom: 20px;
+    }
+
     .tool-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 15px;
       margin-top: 20px;
     }
+
     .tool-item {
       background: #fff;
       padding: 20px;
@@ -31,109 +49,164 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       transition: transform 0.2s;
     }
-    .tool-item:hover { transform: translateY(-5px); }
-    .tool-item a { color: #1a73e8; text-decoration: none; font-weight: bold; font-size: 18px; }
-    .tool-item a:hover { text-decoration: underline; }
-    .tool-item .description { font-size: 14px; color: #555; margin-top: 5px; }
-    footer { margin-top: 40px; font-size: 14px; color: #555; }
+
+    .tool-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .tool-item a {
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .tool-item a:hover {
+      text-decoration: underline;
+    }
+
+    .tool-item .description {
+      font-size: 14px;
+      color: #555;
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #555;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+    }
+
+    footer a {
+      color: #1a73e8;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
-<h1>Tomas Free Online Tools</h1>
-<p>Simple generators and calculators you can use for free.</p>
-<p>Choose a tool below:</p>
+  <h1>Tomas Free Online Tools</h1>
 
-<div class="tool-list">
-  <div class="tool-item">
-    <a href="hook-generator/">YouTube Hook Generator</a>
-    <p class="description">Generate catchy hooks for your YouTube videos instantly.</p>
-  </div>
-  <div class="tool-item">
-    <a href="username-generator/">Username Generator</a>
-    <p class="description">Create unique usernames for social media and gaming.</p>
-  </div>
-  <div class="tool-item">
-    <a href="diet-calculator/">Diet Calculator</a>
-    <p class="description">Calculate calories and macros for your diet plan.</p>
-  </div>
-  <div class="tool-item">
-    <a href="story-generator/">Random Story Generator</a>
-    <p class="description">Generate creative random story ideas instantly.</p>
-  </div>
-  <div class="tool-item">
-    <a href="caption-generator/">Caption Generator</a>
-    <p class="description">Generate captions for social media posts quickly.</p>
-  </div>
-  <div class="tool-item">
-    <a href="base64-encoder-decoder/">Base64 Encoder/Decoder</a>
-    <p class="description">Encode or decode Base64 text instantly.</p>
-  </div>
-  <div class="tool-item">
-    <a href="blog-title-generator/">Blog Title Generator</a>
-    <p class="description">Generate catchy blog post titles automatically.</p>
-  </div>
-  <div class="tool-item">
-    <a href="call-to-action-generator/">Call-to-Action Generator</a>
-    <p class="description">Create effective CTA texts for marketing and ads.</p>
-  </div>
-  <div class="tool-item">
-    <a href="faq-generator/">FAQ Generator</a>
-    <p class="description">Generate FAQ sections for websites in seconds.</p>
-  </div>
-  <div class="tool-item">
-    <a href="hashtag-generator/">Hashtag Generator</a>
-    <p class="description">Generate hashtags for social media posts fast.</p>
-  </div>
-  <div class="tool-item">
-    <a href="keyword-idea-generator/">Keyword Idea Generator</a>
-    <p class="description">Find keyword ideas for SEO and content marketing.</p>
-  </div>
-  <div class="tool-item">
-    <a href="lorem-ipsum-generator/">Lorem Ipsum Generator</a>
-    <p class="description">Generate placeholder text for your projects.</p>
-  </div>
-  <div class="tool-item">
-    <a href="meta-description-generator/">Meta Description Generator</a>
-    <p class="description">Create SEO-friendly meta descriptions quickly.</p>
-  </div>
-  <div class="tool-item">
-    <a href="meta-title-generator/">Meta Title Generator</a>
-    <p class="description">Generate SEO-friendly meta titles for your pages.</p>
-  </div>
-  <div class="tool-item">
-    <a href="password-strength-checker/">Password Strength Checker</a>
-    <p class="description">Check the strength of your passwords instantly.</p>
-  </div>
-  <div class="tool-item">
-    <a href="random-color-generator/">Random Color Generator</a>
-    <p class="description">Generate random colors with hex codes for design.</p>
-  </div>
-  <div class="tool-item">
-    <a href="random-name-picker/">Random Name Picker</a>
-    <p class="description">Pick random names from a list quickly.</p>
-  </div>
-  <div class="tool-item">
-    <a href="random-number-generator/">Random Number Generator</a>
-    <p class="description">Generate random numbers instantly.</p>
-  </div>
-  <div class="tool-item">
-    <a href="slug-generator/">Slug Generator</a>
-    <p class="description">Generate URL-friendly slugs for your pages.</p>
-  </div>
-  <div class="tool-item">
-    <a href="text-case-converter/">Text Case Converter</a>
-    <p class="description">Convert text to uppercase, lowercase, or title case.</p>
-  </div>
-  <div class="tool-item">
-    <a href="word-counter/">Word Counter</a>
-    <p class="description">Count words and characters quickly for your text.</p>
-  </div>
-</div>
+  <div class="intro">
+    <p>
+      Tomas Free Online Tools is a collection of simple generators and calculators you can use directly in your browser for free.
+      These tools are designed to help with content creation, SEO, writing, social media, productivity and everyday online tasks.
+    </p>
 
-<footer>
-  &copy; Tomas Tools
-</footer>
+    <p>
+      You will find tools like a YouTube hook generator, username generator, blog title generator, hashtag generator,
+      password strength checker, random generators and other useful browser-based tools that work instantly without installation.
+    </p>
+
+    <p>
+      All tools are easy to use and new tools may be added over time to help creators, marketers, developers and casual users work faster.
+      Choose a tool below and start using it right away.
+    </p>
+  </div>
+
+  <div class="tool-list">
+    <div class="tool-item">
+      <a href="hook-generator/">YouTube Hook Generator</a>
+      <p class="description">Generate catchy hooks for your YouTube videos instantly.</p>
+    </div>
+    <div class="tool-item">
+      <a href="username-generator/">Username Generator</a>
+      <p class="description">Create unique usernames for social media and gaming.</p>
+    </div>
+    <div class="tool-item">
+      <a href="diet-calculator/">Diet Calculator</a>
+      <p class="description">Calculate calories and macros for your diet plan.</p>
+    </div>
+    <div class="tool-item">
+      <a href="story-generator/">Random Story Generator</a>
+      <p class="description">Generate creative random story ideas instantly.</p>
+    </div>
+    <div class="tool-item">
+      <a href="caption-generator/">Caption Generator</a>
+      <p class="description">Generate captions for social media posts quickly.</p>
+    </div>
+    <div class="tool-item">
+      <a href="base64-encoder-decoder/">Base64 Encoder/Decoder</a>
+      <p class="description">Encode or decode Base64 text instantly.</p>
+    </div>
+    <div class="tool-item">
+      <a href="blog-title-generator/">Blog Title Generator</a>
+      <p class="description">Generate catchy blog post titles automatically.</p>
+    </div>
+    <div class="tool-item">
+      <a href="call-to-action-generator/">Call-to-Action Generator</a>
+      <p class="description">Create effective CTA texts for marketing and ads.</p>
+    </div>
+    <div class="tool-item">
+      <a href="faq-generator/">FAQ Generator</a>
+      <p class="description">Generate FAQ sections for websites in seconds.</p>
+    </div>
+    <div class="tool-item">
+      <a href="hashtag-generator/">Hashtag Generator</a>
+      <p class="description">Generate hashtags for social media posts fast.</p>
+    </div>
+    <div class="tool-item">
+      <a href="keyword-idea-generator/">Keyword Idea Generator</a>
+      <p class="description">Find keyword ideas for SEO and content marketing.</p>
+    </div>
+    <div class="tool-item">
+      <a href="lorem-ipsum-generator/">Lorem Ipsum Generator</a>
+      <p class="description">Generate placeholder text for your projects.</p>
+    </div>
+    <div class="tool-item">
+      <a href="meta-description-generator/">Meta Description Generator</a>
+      <p class="description">Create SEO-friendly meta descriptions quickly.</p>
+    </div>
+    <div class="tool-item">
+      <a href="meta-title-generator/">Meta Title Generator</a>
+      <p class="description">Generate SEO-friendly meta titles for your pages.</p>
+    </div>
+    <div class="tool-item">
+      <a href="password-strength-checker/">Password Strength Checker</a>
+      <p class="description">Check the strength of your passwords instantly.</p>
+    </div>
+    <div class="tool-item">
+      <a href="random-color-generator/">Random Color Generator</a>
+      <p class="description">Generate random colors with hex codes for design.</p>
+    </div>
+    <div class="tool-item">
+      <a href="random-name-picker/">Random Name Picker</a>
+      <p class="description">Pick random names from a list quickly.</p>
+    </div>
+    <div class="tool-item">
+      <a href="random-number-generator/">Random Number Generator</a>
+      <p class="description">Generate random numbers instantly.</p>
+    </div>
+    <div class="tool-item">
+      <a href="slug-generator/">Slug Generator</a>
+      <p class="description">Generate URL-friendly slugs for your pages.</p>
+    </div>
+    <div class="tool-item">
+      <a href="text-case-converter/">Text Case Converter</a>
+      <p class="description">Convert text to uppercase, lowercase, or title case.</p>
+    </div>
+    <div class="tool-item">
+      <a href="word-counter/">Word Counter</a>
+      <p class="description">Count words and characters quickly for your text.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; Tomas Tools</p>
+    <p>
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="terms.html">Terms of Service</a> |
+      <a href="contact.html">Contact</a>
+    </p>
+  </footer>
 
 </body>
 </html>
