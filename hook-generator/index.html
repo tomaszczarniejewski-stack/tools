@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>YouTube Hook Generator</title>
+</head>
+
+<body>
+
+<h1>YouTube Hook Generator</h1>
+
+<button onclick="generate()">Generate Hook</button>
+
+<p id="hook"></p>
+
+<script>
+
+const hooks = [
+"This trick will double your views",
+"You are doing this wrong on YouTube",
+"Nobody tells you this about YouTube",
+"This secret changed my channel",
+"Stop doing this if you want views",
+"99% of creators don't know this",
+"This is why your videos fail",
+"Try this before posting your next video",
+"YouTube algorithm loves this trick",
+"This will explode your views"
+];
+
+function generate() {
+const random = hooks[Math.floor(Math.random() * hooks.length)];
+document.getElementById("hook").innerText = random;
+}
+
+</script>
+
+</body>
+
+</html>
