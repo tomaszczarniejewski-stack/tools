@@ -4,141 +4,421 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meta Description Generator</title>
-  <meta name="description" content="Generate SEO-friendly meta descriptions for blog posts, products, services, and landing pages." />
+  <meta name="description" content="Generate SEO-friendly meta descriptions for blog posts, products, services, tools, and landing pages." />
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 0 auto;
+      margin: 0;
       padding: 24px;
-      line-height: 1.5;
-      background: #f7f7f7;
+      background: #f5f5f5;
       color: #222;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
     }
-    .box {
-      background: #fff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
     }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      padding: 28px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
     h1 {
-      margin-top: 0;
-      font-size: 32px;
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #111;
     }
-    p {
-      color: #444;
+
+    .description {
+      margin: 0 0 24px;
+      color: #555;
+      font-size: 16px;
     }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
     label {
       display: block;
-      margin-top: 16px;
-      margin-bottom: 6px;
-      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
     }
-    input, select, textarea, button {
+
+    input,
+    select,
+    textarea {
       width: 100%;
-      padding: 12px;
+      padding: 13px 14px;
       font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-family: Arial, sans-serif;
     }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+    }
+
     textarea {
       resize: vertical;
       min-height: 90px;
     }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
     button {
-      margin-top: 18px;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.04s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .generate-btn {
       background: #111;
       color: #fff;
-      border: none;
-      cursor: pointer;
     }
-    button:hover {
-      background: #333;
+
+    .generate-btn:hover {
+      background: #222;
     }
-    .result {
-      margin-top: 24px;
-      padding: 18px;
-      background: #f1f5f9;
-      border-radius: 8px;
-      border: 1px solid #dbe2ea;
+
+    .copy-all-btn {
+      background: #0d6efd;
+      color: #fff;
     }
-    .meta-box {
-      background: #fff;
-      padding: 14px;
-      border-radius: 8px;
-      border: 1px solid #d0d7de;
+
+    .copy-all-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .status {
       margin-top: 12px;
-      white-space: pre-wrap;
+      min-height: 20px;
+      font-size: 14px;
+      color: #444;
     }
+
+    .preview-box,
+    .result-box {
+      margin-top: 24px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 20px;
+      color: #111;
+    }
+
+    .google-preview {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .google-title {
+      color: #1a0dab;
+      font-size: 21px;
+      line-height: 1.3;
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+
+    .google-url {
+      color: #188038;
+      font-size: 14px;
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+
+    .google-desc {
+      color: #4d5156;
+      font-size: 14px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .results-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .meta-card {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .meta-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .meta-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .meta-length {
+      font-size: 13px;
+      color: #666;
+      background: #f3f4f6;
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .meta-text {
+      color: #222;
+      font-size: 15px;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    .meta-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .copy-btn {
-      margin-top: 10px;
-      background: #2563eb;
+      background: #0d6efd;
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 10px;
     }
+
     .copy-btn:hover {
-      background: #1d4ed8;
+      background: #0b5ed7;
     }
+
     .small {
-      margin-top: 8px;
+      margin-top: 14px;
       font-size: 14px;
       color: #666;
     }
-    a {
-      color: #2563eb;
-      text-decoration: none;
+
+    .coffee-wrap {
+      margin-top: 26px;
     }
-    a:hover {
-      text-decoration: underline;
+
+    .coffee-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: #ffd400;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: opacity 0.2s ease, transform 0.04s ease;
+    }
+
+    .coffee-btn:hover {
+      opacity: 0.92;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .tool-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .generate-btn,
+      .copy-all-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <p><a href="../">⬅ Back to tools</a></p>
+  <div class="page">
+    <div class="tool-box">
+      <a class="back-link" href="../">⬅ Back to tools</a>
 
-    <h1>Meta Description Generator</h1>
-    <p>Create short SEO meta descriptions for blog posts, product pages, services, apps, and landing pages.</p>
+      <h1>Meta Description Generator</h1>
+      <p class="description">
+        Create SEO-friendly meta descriptions for blog posts, product pages, services, tools, apps, and landing pages.
+      </p>
 
-    <label for="topic">Main topic or page title</label>
-    <input id="topic" type="text" placeholder="e.g. Best AI tools for small business" />
+      <div class="grid">
+        <div class="field full">
+          <label for="topic">Main topic or page title</label>
+          <input id="topic" type="text" placeholder="e.g. Best AI tools for small business" />
+        </div>
 
-    <label for="keywords">Keywords</label>
-    <input id="keywords" type="text" placeholder="e.g. ai tools, small business, productivity" />
+        <div class="field">
+          <label for="keywords">Keywords</label>
+          <input id="keywords" type="text" placeholder="e.g. ai tools, small business, productivity" />
+        </div>
 
-    <label for="audience">Audience</label>
-    <input id="audience" type="text" placeholder="e.g. freelancers, marketers, startup founders" />
+        <div class="field">
+          <label for="audience">Audience</label>
+          <input id="audience" type="text" placeholder="e.g. freelancers, marketers, startup founders" />
+        </div>
 
-    <label for="type">Page type</label>
-    <select id="type">
-      <option value="blog">Blog Post</option>
-      <option value="product">Product Page</option>
-      <option value="service">Service Page</option>
-      <option value="landing">Landing Page</option>
-      <option value="tool">Online Tool</option>
-    </select>
+        <div class="field">
+          <label for="type">Page type</label>
+          <select id="type">
+            <option value="blog">Blog Post</option>
+            <option value="product">Product Page</option>
+            <option value="service">Service Page</option>
+            <option value="landing">Landing Page</option>
+            <option value="tool">Online Tool</option>
+          </select>
+        </div>
 
-    <label for="tone">Tone</label>
-    <select id="tone">
-      <option value="professional">Professional</option>
-      <option value="friendly">Friendly</option>
-      <option value="persuasive">Persuasive</option>
-      <option value="simple">Simple</option>
-    </select>
+        <div class="field">
+          <label for="tone">Tone</label>
+          <select id="tone">
+            <option value="professional">Professional</option>
+            <option value="friendly">Friendly</option>
+            <option value="persuasive">Persuasive</option>
+            <option value="simple">Simple</option>
+          </select>
+        </div>
 
-    <button onclick="generateMeta()">Generate Meta Descriptions</button>
+        <div class="field">
+          <label for="length">Length target</label>
+          <select id="length">
+            <option value="short">Short</option>
+            <option value="standard" selected>Standard</option>
+            <option value="long">Longer</option>
+          </select>
+        </div>
 
-    <div class="result" id="result" style="display:none;">
-      <strong>Results:</strong>
-      <div class="meta-box" id="output1"></div>
-      <button class="copy-btn" onclick="copyText('output1')">Copy #1</button>
+        <div class="field">
+          <label for="cta">CTA</label>
+          <select id="cta">
+            <option value="none">None</option>
+            <option value="Learn more.">Learn more</option>
+            <option value="Get started today.">Get started</option>
+            <option value="Try it now.">Try it now</option>
+            <option value="Explore now.">Explore now</option>
+          </select>
+        </div>
 
-      <div class="meta-box" id="output2"></div>
-      <button class="copy-btn" onclick="copyText('output2')">Copy #2</button>
+        <div class="field">
+          <label for="urlSlug">Preview URL slug</label>
+          <input id="urlSlug" type="text" placeholder="e.g. ai-tools-small-business" />
+        </div>
+      </div>
 
-      <div class="meta-box" id="output3"></div>
-      <button class="copy-btn" onclick="copyText('output3')">Copy #3</button>
+      <div class="button-row">
+        <button class="generate-btn" onclick="generateMeta()">Generate Meta Descriptions</button>
+        <button class="copy-all-btn" onclick="copyAll()">Copy All</button>
+      </div>
 
-      <p class="small" id="lengthInfo"></p>
+      <div class="status" id="status"></div>
+
+      <div class="preview-box" id="previewBox" style="display:none;">
+        <h2 class="section-title">Google preview</h2>
+        <div class="google-preview">
+          <div class="google-title" id="previewTitle"></div>
+          <div class="google-url" id="previewUrl"></div>
+          <div class="google-desc" id="previewDesc"></div>
+        </div>
+      </div>
+
+      <div class="result-box" id="resultBox" style="display:none;">
+        <h2 class="section-title">Generated results</h2>
+        <div class="results-list" id="resultsList"></div>
+        <p class="small">
+          Tip: meta descriptions do not directly improve rankings, but stronger wording can improve click-through rate.
+        </p>
+      </div>
+
+      <div class="coffee-wrap">
+        <a
+          class="coffee-btn"
+          href="https://buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
     </div>
   </div>
 
@@ -147,9 +427,144 @@
       return text.trim().replace(/\s+/g, " ");
     }
 
-    function limitLength(text, max = 160) {
-      if (text.length <= max) return text;
-      return text.slice(0, max - 1).trim() + "…";
+    function sentenceCase(text) {
+      if (!text) return "";
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+    }
+
+    function getMaxLength(lengthType) {
+      if (lengthType === "short") return 120;
+      if (lengthType === "long") return 165;
+      return 155;
+    }
+
+    function limitLengthSmart(text, maxLength) {
+      if (text.length <= maxLength) return text;
+      let trimmed = text.slice(0, maxLength + 1);
+      const lastSpace = trimmed.lastIndexOf(" ");
+      if (lastSpace > 60) {
+        trimmed = trimmed.slice(0, lastSpace);
+      } else {
+        trimmed = trimmed.slice(0, maxLength - 1);
+      }
+      return trimmed.trim().replace(/[,.!;:\-–—]+$/, "") + "…";
+    }
+
+    function buildParts(topic, keywords, audience) {
+      return {
+        keywordPart: keywords ? " with " + keywords : "",
+        featuringPart: keywords ? " featuring " + keywords : "",
+        audiencePart: audience ? " for " + audience : "",
+        helpingPart: audience ? " helping " + audience : "",
+        topicOnly: sentenceCase(topic)
+      };
+    }
+
+    function getTemplates(type, parts) {
+      const t = parts.topicOnly;
+      const keywordPart = parts.keywordPart;
+      const featuringPart = parts.featuringPart;
+      const audiencePart = parts.audiencePart;
+      const helpingPart = parts.helpingPart;
+
+      if (type === "blog") {
+        return [
+          `Learn about ${t}${keywordPart}${audiencePart}. Get practical tips, clear insights, and useful examples in one place.`,
+          `Explore ${t}${featuringPart}. Discover actionable advice, ideas, and takeaways${audiencePart}.`,
+          `Read this guide to ${t}${keywordPart} with simple explanations, examples, and next steps${audiencePart}.`,
+          `Find helpful insights on ${t}${keywordPart}. A clear resource${audiencePart} looking for useful answers.`,
+          `Understand ${t}${keywordPart} through practical examples, smart advice, and easy-to-follow ideas.`,
+          `Discover ${t}${keywordPart} in a clear and useful format designed to inform${audiencePart}.`
+        ];
+      }
+
+      if (type === "product") {
+        return [
+          `Discover ${t}${keywordPart}. A smart product${audiencePart} built to save time and improve results.`,
+          `Explore ${t}${featuringPart} and see how it helps${audiencePart} work faster and more efficiently.`,
+          `Try ${t}${keywordPart} to access useful features, clear benefits, and real value${audiencePart}.`,
+          `See what makes ${t}${keywordPart} a strong choice${audiencePart} looking for better results.`,
+          `Find out how ${t}${keywordPart} helps streamline work, reduce friction, and support growth.`,
+          `Choose ${t}${keywordPart} for a practical solution${audiencePart} that want better performance.`
+        ];
+      }
+
+      if (type === "service") {
+        return [
+          `Professional ${t}${keywordPart}${audiencePart}. Get reliable support tailored to your goals.`,
+          `Looking for ${t}${keywordPart}? Discover trusted service options${audiencePart} with real value.`,
+          `Choose ${t}${keywordPart}${audiencePart} for expert help, clear results, and a smoother experience.`,
+          `Get dependable ${t}${keywordPart} designed to support${audiencePart} with practical solutions.`,
+          `Explore ${t}${featuringPart} and see how the right service can deliver better outcomes.`,
+          `Find a trusted ${t}${keywordPart} service${audiencePart} that need quality support and results.`
+        ];
+      }
+
+      if (type === "landing") {
+        return [
+          `Discover ${t}${keywordPart}${audiencePart}. Clear benefits, simple solutions, and an easy next step.`,
+          `Start with ${t}${keywordPart} and see how it can help${audiencePart} achieve better results.`,
+          `Explore ${t}${featuringPart}${audiencePart} and take the next step with more confidence.`,
+          `Learn how ${t}${keywordPart} can simplify the process and deliver value from the start.`,
+          `See why ${t}${keywordPart} is worth exploring${audiencePart} looking for practical solutions.`,
+          `Find the key benefits of ${t}${keywordPart} in a clear page built to guide your next move.`
+        ];
+      }
+
+      return [
+        `Use our ${t}${keywordPart}${audiencePart} to generate fast, useful results in seconds.`,
+        `Try the ${t}${keywordPart}${audiencePart}. Simple, free, and built for quick results.`,
+        `Generate ${t}${keywordPart}${audiencePart} instantly with our free online tool.`,
+        `Create better results with our ${t}${keywordPart}, designed to help${audiencePart} move faster.`,
+        `Explore the ${t}${keywordPart} tool and get practical output quickly and easily.`,
+        `Use ${t}${keywordPart} online to save time, simplify work, and get useful results faster.`
+      ];
+    }
+
+    function applyTone(text, tone) {
+      let result = text;
+
+      if (tone === "friendly") {
+        result = result
+          .replace(/^Discover /, "Check out ")
+          .replace(/^Explore /, "Take a look at ")
+          .replace(/^Professional /, "Friendly ")
+          .replace(/^Looking for /, "Need ")
+          .replace(/^Use our /, "Use our easy ");
+      }
+
+      if (tone === "persuasive") {
+        result = result
+          .replace("A smart product", "A powerful product")
+          .replace("simple solutions", "high-impact solutions")
+          .replace("useful results", "results that matter");
+      }
+
+      if (tone === "simple") {
+        result = result
+          .replace("practical insights", "helpful ideas")
+          .replace("actionable advice", "useful advice")
+          .replace("streamline work, reduce friction, and support growth", "make work easier and faster")
+          .replace("tailored to your goals", "made for your needs")
+          .replace("achieve better results", "get better results");
+      }
+
+      return result;
+    }
+
+    function addCTA(text, ctaValue) {
+      if (ctaValue === "none") return text;
+      if (text.endsWith("…")) return text;
+      return text + " " + ctaValue;
     }
 
     function generateMeta() {
@@ -158,74 +573,117 @@
       const audience = cleanText(document.getElementById("audience").value);
       const type = document.getElementById("type").value;
       const tone = document.getElementById("tone").value;
+      const length = document.getElementById("length").value;
+      const cta = document.getElementById("cta").value;
+      const urlSlugInput = cleanText(document.getElementById("urlSlug").value);
 
       if (!topic) {
-        alert("Please enter a main topic or page title.");
+        setStatus("Enter a main topic or page title.");
         return;
       }
 
-      const keywordPart = keywords ? ` featuring ${keywords}` : "";
-      const audiencePart = audience ? ` for ${audience}` : "";
+      const maxLength = getMaxLength(length);
+      const parts = buildParts(topic, keywords, audience);
+      let templates = getTemplates(type, parts);
 
-      let templates = [];
+      templates = templates.map(function(template) {
+        return applyTone(template, tone);
+      });
 
-      if (type === "blog") {
-        templates = [
-          `Discover ${topic}${keywordPart}. Practical insights${audiencePart} explained in a clear and useful way.`,
-          `Read about ${topic}${keywordPart}. Get helpful tips, ideas, and takeaways${audiencePart}.`,
-          `Learn more about ${topic}${keywordPart} with simple advice, examples, and actionable ideas${audiencePart}.`
-        ];
-      } else if (type === "product") {
-        templates = [
-          `Explore ${topic}${keywordPart}. A smart solution${audiencePart} designed to save time and improve results.`,
-          `Find out how ${topic}${keywordPart} helps${audiencePart} work faster, easier, and more efficiently.`,
-          `Try ${topic}${keywordPart} and discover features, benefits, and value${audiencePart}.`
-        ];
-      } else if (type === "service") {
-        templates = [
-          `Professional ${topic}${keywordPart}${audiencePart}. Get reliable service tailored to your needs.`,
-          `Looking for ${topic}${keywordPart}? Discover trusted solutions${audiencePart} with real value.`,
-          `Choose ${topic}${keywordPart}${audiencePart} for quality support, clear results, and a smooth experience.`
-        ];
-      } else if (type === "landing") {
-        templates = [
-          `Discover ${topic}${keywordPart}${audiencePart}. Clear benefits, simple solutions, and fast next steps.`,
-          `Start with ${topic}${keywordPart} and see how it can help${audiencePart} achieve better results.`,
-          `Explore ${topic}${keywordPart}${audiencePart} and take the next step with confidence.`
-        ];
-      } else {
-        templates = [
-          `Use our ${topic}${keywordPart}${audiencePart} to generate fast, useful results in seconds.`,
-          `Try the ${topic}${keywordPart}${audiencePart}. Simple, free, and built for quick results.`,
-          `Generate ${topic}${keywordPart}${audiencePart} instantly with our free online tool.`
-        ];
-      }
+      templates = templates.map(function(template) {
+        return addCTA(template, cta);
+      });
 
-      if (tone === "friendly") {
-        templates = templates.map(t => t.replace("Discover", "Check out").replace("Professional", "Friendly"));
-      } else if (tone === "persuasive") {
-        templates = templates.map(t => t + " Get started today.");
-      } else if (tone === "simple") {
-        templates = templates.map(t => t.replace("designed to save time and improve results", "made to help you quickly"));
-      }
+      const results = templates.map(function(template) {
+        return limitLengthSmart(template, maxLength);
+      });
 
-      const final1 = limitLength(templates[0]);
-      const final2 = limitLength(templates[1]);
-      const final3 = limitLength(templates[2]);
-
-      document.getElementById("output1").textContent = final1;
-      document.getElementById("output2").textContent = final2;
-      document.getElementById("output3").textContent = final3;
-      document.getElementById("lengthInfo").textContent =
-        `Length: #1 ${final1.length} chars | #2 ${final2.length} chars | #3 ${final3.length} chars`;
-      document.getElementById("result").style.display = "block";
+      renderResults(results);
+      renderPreview(topic, urlSlugInput, results[0]);
+      setStatus("Generated 6 meta descriptions.");
     }
 
-    function copyText(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Copied to clipboard.");
+    function renderResults(results) {
+      const list = document.getElementById("resultsList");
+      list.innerHTML = "";
+
+      results.forEach(function(text, index) {
+        const card = document.createElement("div");
+        card.className = "meta-card";
+
+        const top = document.createElement("div");
+        top.className = "meta-top";
+
+        const label = document.createElement("div");
+        label.className = "meta-label";
+        label.textContent = "Variation #" + (index + 1);
+
+        const length = document.createElement("div");
+        length.className = "meta-length";
+        length.textContent = text.length + " chars";
+
+        top.appendChild(label);
+        top.appendChild(length);
+
+        const content = document.createElement("div");
+        content.className = "meta-text";
+        content.textContent = text;
+
+        const actions = document.createElement("div");
+        actions.className = "meta-actions";
+
+        const copyButton = document.createElement("button");
+        copyButton.className = "copy-btn";
+        copyButton.textContent = "Copy";
+        copyButton.onclick = function() {
+          copyToClipboard(text);
+        };
+
+        actions.appendChild(copyButton);
+
+        card.appendChild(top);
+        card.appendChild(content);
+        card.appendChild(actions);
+        list.appendChild(card);
       });
+
+      document.getElementById("resultBox").style.display = "block";
+    }
+
+    function renderPreview(topic, urlSlugInput, description) {
+      const title = sentenceCase(topic);
+      const slug = urlSlugInput ? slugify(urlSlugInput) : slugify(topic);
+
+      document.getElementById("previewTitle").textContent = title;
+      document.getElementById("previewUrl").textContent = "https://example.com/" + slug;
+      document.getElementById("previewDesc").textContent = description;
+      document.getElementById("previewBox").style.display = "block";
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(function() {
+        setStatus("Copied to clipboard.");
+      }).catch(function() {
+        setStatus("Copy failed. Try again.");
+      });
+    }
+
+    function copyAll() {
+      const cards = Array.from(document.querySelectorAll(".meta-text"));
+      if (!cards.length) {
+        setStatus("Generate meta descriptions first.");
+        return;
+      }
+
+      const allText = cards.map(function(card) {
+        return card.textContent;
+      }).join("\n\n");
+
+      copyToClipboard(allText);
+    }
+
+    function setStatus(message) {
+      document.getElementById("status").textContent = message;
     }
   </script>
 </body>
