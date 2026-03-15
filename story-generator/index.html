@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Random Story Generator</title>
+</head>
+
+<body>
+
+<h1>Random Story Generator</h1>
+
+<button onclick="generate()">Generate Story Idea</button>
+
+<p id="story"></p>
+
+<script>
+
+const characters = ["a lost astronaut","a lonely robot","a time traveler","a young detective","a pirate captain","a hacker","a dragon rider"];
+const places = ["on Mars","in a haunted city","inside a secret lab","in an abandoned space station","in a hidden jungle","inside a simulation"];
+const problems = ["must stop a catastrophe","discovers a hidden secret","is hunted by enemies","finds a mysterious artifact","accidentally breaks reality","opens a forbidden portal"];
+
+function generate() {
+const c = characters[Math.floor(Math.random() * characters.length)];
+const p = places[Math.floor(Math.random() * places.length)];
+const pr = problems[Math.floor(Math.random() * problems.length)];
+
+document.getElementById("story").innerText = "Story idea: " + c + " " + p + " who " + pr + ".";
+}
+
+</script>
+
+</body>
+
+</html>
