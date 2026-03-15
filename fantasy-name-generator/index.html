@@ -1,33 +1,508 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Fantasy Name Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fantasy Name Generator</title>
+  <meta
+    name="description"
+    content="Generate fantasy names for characters, kingdoms, cities, dragons, and magical worlds. Free online fantasy name generator."
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+      --soft-border: #e9ecef;
+      --blue: #0d6efd;
+      --blue-hover: #0b5ed7;
+      --dark-btn: #111111;
+      --dark-btn-hover: #333333;
+      --yellow: #ffd400;
+      --yellow-hover: #f2c900;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --success: #2f6f44;
+      --error: #b42318;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px 40px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .tool-box {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .field {
+      margin-top: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fafafa;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      background: var(--dark-btn);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      background: var(--dark-btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .status {
+      margin-top: 14px;
+      min-height: 22px;
+      font-size: 14px;
+      color: var(--success);
+    }
+
+    .result {
+      margin-top: 24px;
+      padding: 20px;
+      background: #f8f9fb;
+      border: 1px solid #dfe3ea;
+      border-radius: 14px;
+      display: none;
+    }
+
+    .result-title {
+      margin: 0 0 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .name-item + .name-item {
+      margin-top: 14px;
+    }
+
+    .name-box {
+      background: #ffffff;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .copy-btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+    }
+
+    .small {
+      font-size: 14px;
+      color: #666666;
+      margin: 18px 0 0;
+    }
+
+    .support-wrap {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111111;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .coffee-btn:hover {
+      background: var(--yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 12px 32px;
+      }
+
+      .tool-box {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .copy-btn,
+      .coffee-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
+    <a class="back-link" href="../">⬅ Back to tools</a>
 
-<p><a href="../">⬅ Back to tools</a></p>
+    <div class="tool-box">
+      <h1>Fantasy Name Generator</h1>
+      <p class="intro">
+        Generate fantasy names for heroes, villains, kingdoms, cities, dragons, and magical worlds.
+      </p>
 
-<h1>Fantasy Name Generator</h1>
+      <div class="field">
+        <label for="themeWord">Optional theme word</label>
+        <input id="themeWord" type="text" placeholder="e.g. fire, moon, shadow, frost" />
+      </div>
 
-<button onclick="generate()">Generate Fantasy Name</button>
+      <div class="grid-2">
+        <div class="field">
+          <label for="nameType">Name type</label>
+          <select id="nameType">
+            <option value="character">Character</option>
+            <option value="kingdom">Kingdom</option>
+            <option value="city">City</option>
+            <option value="dragon">Dragon</option>
+            <option value="elf">Elf</option>
+          </select>
+        </div>
 
-<p id="name"></p>
+        <div class="field">
+          <label for="style">Fantasy style</label>
+          <select id="style">
+            <option value="epic">Epic</option>
+            <option value="dark">Dark</option>
+            <option value="mystical">Mystical</option>
+            <option value="royal">Royal</option>
+            <option value="ancient">Ancient</option>
+          </select>
+        </div>
+      </div>
 
-<script>
+      <button class="primary-btn" onclick="generateNames()">Generate Fantasy Names</button>
 
-const first = ["Zar","Mor","Kel","Vor","Tal","Ryn","Drak","Vel","Sor","Thal"];
-const second = ["ion","ara","eth","dor","mir","ath","zor","ian","or","ius"];
+      <div class="status" id="status"></div>
 
-function generate(){
-const a = first[Math.floor(Math.random()*first.length)];
-const b = second[Math.floor(Math.random()*second.length)];
+      <div class="result" id="result">
+        <p class="result-title">Generated names:</p>
 
-document.getElementById("name").innerText = a + b;
-}
+        <div class="name-item">
+          <div class="name-box" id="name1"></div>
+          <button class="copy-btn" onclick="copyText('name1')">Copy #1</button>
+        </div>
 
-</script>
+        <div class="name-item">
+          <div class="name-box" id="name2"></div>
+          <button class="copy-btn" onclick="copyText('name2')">Copy #2</button>
+        </div>
 
+        <div class="name-item">
+          <div class="name-box" id="name3"></div>
+          <button class="copy-btn" onclick="copyText('name3')">Copy #3</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name4"></div>
+          <button class="copy-btn" onclick="copyText('name4')">Copy #4</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name5"></div>
+          <button class="copy-btn" onclick="copyText('name5')">Copy #5</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name6"></div>
+          <button class="copy-btn" onclick="copyText('name6')">Copy #6</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name7"></div>
+          <button class="copy-btn" onclick="copyText('name7')">Copy #7</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name8"></div>
+          <button class="copy-btn" onclick="copyText('name8')">Copy #8</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name9"></div>
+          <button class="copy-btn" onclick="copyText('name9')">Copy #9</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name10"></div>
+          <button class="copy-btn" onclick="copyText('name10')">Copy #10</button>
+        </div>
+
+        <p class="small">
+          Tip: combining a theme word with a style usually gives more memorable fantasy names.
+        </p>
+      </div>
+
+      <div class="support-wrap">
+        <a
+          class="coffee-btn"
+          href="https://www.buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function cleanText(text) {
+      return text.trim().replace(/\s+/g, " ");
+    }
+
+    function capitalize(text) {
+      if (!text) return "";
+      return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }
+
+    function setStatus(message, isError = false) {
+      const status = document.getElementById("status");
+      status.textContent = message;
+      status.style.color = isError ? "#b42318" : "#2f6f44";
+    }
+
+    function randomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function uniquePush(arr, value) {
+      if (value && !arr.includes(value)) {
+        arr.push(value);
+      }
+    }
+
+    function buildCoreName(style, type) {
+      const styleParts = {
+        epic: {
+          first: ["Zar", "Mor", "Kel", "Vor", "Tal", "Ryn", "Drak", "Vel", "Sor", "Thal"],
+          second: ["ion", "ara", "eth", "dor", "mir", "ath", "zor", "ian", "or", "ius"]
+        },
+        dark: {
+          first: ["Nox", "Vark", "Dread", "Mor", "Grim", "Zeth", "Thorn", "Velk", "Rav", "Skar"],
+          second: ["oth", "mour", "vex", "dris", "gath", "zul", "rath", "vorn", "nir", "vak"]
+        },
+        mystical: {
+          first: ["Ely", "Luna", "Syl", "Aeri", "Myr", "Opha", "Nyra", "Elu", "Vael", "Iri"],
+          second: ["thia", "riel", "wyn", "lora", "mira", "selle", "vara", "neth", "dora", "vielle"]
+        },
+        royal: {
+          first: ["Aurel", "Valen", "Sera", "Celes", "Leon", "Arden", "Regal", "Theron", "Cass", "Edrin"],
+          second: ["ius", "ara", "mont", "vale", "dor", "thea", "rian", "mere", "tria", "wyn"]
+        },
+        ancient: {
+          first: ["Or", "Kael", "Thae", "Uru", "Sael", "Nym", "Vaor", "Eld", "Tor", "Az"],
+          second: ["akar", "eth", "oran", "ul", "amir", "edor", "axis", "urion", "alor", "eon"]
+        }
+      };
+
+      const typeSuffixes = {
+        character: ["", "", "", "", " the Bold", " the Wanderer", " the Wise", " of the North"],
+        kingdom: [" Kingdom", " Realm", " Dominion", " Empire", " Keep", " Crownlands"],
+        city: [" City", " Hollow", " Reach", " Port", " Gate", " Haven"],
+        dragon: [" the Flameborn", " the Ancient", " the Cruel", "fang", "scale", "wyrm"],
+        elf: ["el", "ion", "eth", "ael", "wyn", "ith"]
+      };
+
+      const pool = styleParts[style];
+      let base = randomItem(pool.first) + randomItem(pool.second);
+
+      if (type === "elf") {
+        base = randomItem(pool.first) + randomItem(typeSuffixes.elf);
+      } else if (type === "dragon") {
+        const extra = randomItem(typeSuffixes.dragon);
+        if (extra.startsWith(" ")) {
+          base += extra;
+        } else {
+          base += extra;
+        }
+      } else {
+        base += randomItem(typeSuffixes[type]);
+      }
+
+      return base;
+    }
+
+    function applyTheme(name, themeWord, type) {
+      if (!themeWord) return name;
+
+      const theme = capitalize(themeWord);
+
+      const patterns = [
+        `${theme}${name}`,
+        `${name} of ${theme}`,
+        `${theme} ${name}`,
+        `${name} ${theme}`
+      ];
+
+      if (type === "kingdom" || type === "city") {
+        patterns.push(`${theme}hold`);
+        patterns.push(`${theme}reach`);
+        patterns.push(`${theme}vale`);
+      }
+
+      return randomItem(patterns);
+    }
+
+    function generateNames() {
+      const themeWord = cleanText(document.getElementById("themeWord").value);
+      const nameType = document.getElementById("nameType").value;
+      const style = document.getElementById("style").value;
+
+      const names = [];
+      let attempts = 0;
+
+      while (names.length < 10 && attempts < 200) {
+        attempts++;
+        const core = buildCoreName(style, nameType);
+        const finalName = applyTheme(core, themeWord, nameType);
+        uniquePush(names, finalName);
+      }
+
+      if (names.length === 0) {
+        document.getElementById("result").style.display = "none";
+        setStatus("Could not generate names.", true);
+        return;
+      }
+
+      for (let i = 0; i < 10; i++) {
+        document.getElementById(`name${i + 1}`).textContent = names[i] || "";
+      }
+
+      document.getElementById("result").style.display = "block";
+      setStatus("Fantasy names generated successfully.");
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent.trim();
+
+      if (!text) {
+        setStatus("Nothing to copy yet.", true);
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        setStatus("Copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
+      });
+    }
+  </script>
 </body>
 </html>
