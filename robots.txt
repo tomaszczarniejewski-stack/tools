@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tomaszczarniejewski-stack.github.io/tools/sitemap.xml
