@@ -1,33 +1,461 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Business Name Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Name Generator</title>
+  <meta
+    name="description"
+    content="Generate creative business names instantly. Free online business name generator for startups, brands, and online projects."
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+      --soft-border: #e9ecef;
+      --blue: #0d6efd;
+      --blue-hover: #0b5ed7;
+      --dark-btn: #111111;
+      --dark-btn-hover: #333333;
+      --yellow: #ffd400;
+      --yellow-hover: #f2c900;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --success: #2f6f44;
+      --error: #b42318;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px 40px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .tool-box {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .field {
+      margin-top: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fafafa;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      background: var(--dark-btn);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      background: var(--dark-btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .status {
+      margin-top: 14px;
+      min-height: 22px;
+      font-size: 14px;
+      color: var(--success);
+    }
+
+    .result {
+      margin-top: 24px;
+      padding: 20px;
+      background: #f8f9fb;
+      border: 1px solid #dfe3ea;
+      border-radius: 14px;
+      display: none;
+    }
+
+    .result-title {
+      margin: 0 0 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .name-item + .name-item {
+      margin-top: 14px;
+    }
+
+    .name-box {
+      background: #ffffff;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .copy-btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+    }
+
+    .small {
+      font-size: 14px;
+      color: #666666;
+      margin: 18px 0 0;
+    }
+
+    .support-wrap {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111111;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .coffee-btn:hover {
+      background: var(--yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 12px 32px;
+      }
+
+      .tool-box {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .copy-btn,
+      .coffee-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
+    <a class="back-link" href="../">⬅ Back to tools</a>
 
-<p><a href="../">⬅ Back to tools</a></p>
+    <div class="tool-box">
+      <h1>Business Name Generator</h1>
+      <p class="intro">
+        Generate creative business name ideas for startups, brands, side projects, and online businesses.
+      </p>
 
-<h1>Business Name Generator</h1>
+      <div class="field">
+        <label for="keyword">Keyword or niche</label>
+        <input id="keyword" type="text" placeholder="e.g. fitness, coffee, marketing, pets" />
+      </div>
 
-<button onclick="generate()">Generate Business Name</button>
+      <div class="field">
+        <label for="style">Name style</label>
+        <select id="style">
+          <option value="modern">Modern</option>
+          <option value="professional">Professional</option>
+          <option value="creative">Creative</option>
+          <option value="tech">Tech</option>
+          <option value="brandable">Brandable</option>
+        </select>
+      </div>
 
-<p id="name"></p>
+      <button class="primary-btn" onclick="generateNames()">Generate Business Names</button>
 
-<script>
+      <div class="status" id="status"></div>
 
-const first = ["Nova","Bright","Future","Prime","Next","Ultra","Smart","Blue","Green","Golden"];
-const second = ["Labs","Solutions","Studio","Works","Systems","Tech","Group","Company","Factory","Hub"];
+      <div class="result" id="result">
+        <p class="result-title">Generated names:</p>
 
-function generate(){
-const a = first[Math.floor(Math.random()*first.length)];
-const b = second[Math.floor(Math.random()*second.length)];
+        <div class="name-item">
+          <div class="name-box" id="name1"></div>
+          <button class="copy-btn" onclick="copyText('name1')">Copy #1</button>
+        </div>
 
-document.getElementById("name").innerText = a + " " + b;
-}
+        <div class="name-item">
+          <div class="name-box" id="name2"></div>
+          <button class="copy-btn" onclick="copyText('name2')">Copy #2</button>
+        </div>
 
-</script>
+        <div class="name-item">
+          <div class="name-box" id="name3"></div>
+          <button class="copy-btn" onclick="copyText('name3')">Copy #3</button>
+        </div>
 
+        <div class="name-item">
+          <div class="name-box" id="name4"></div>
+          <button class="copy-btn" onclick="copyText('name4')">Copy #4</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name5"></div>
+          <button class="copy-btn" onclick="copyText('name5')">Copy #5</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name6"></div>
+          <button class="copy-btn" onclick="copyText('name6')">Copy #6</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name7"></div>
+          <button class="copy-btn" onclick="copyText('name7')">Copy #7</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name8"></div>
+          <button class="copy-btn" onclick="copyText('name8')">Copy #8</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name9"></div>
+          <button class="copy-btn" onclick="copyText('name9')">Copy #9</button>
+        </div>
+
+        <div class="name-item">
+          <div class="name-box" id="name10"></div>
+          <button class="copy-btn" onclick="copyText('name10')">Copy #10</button>
+        </div>
+
+        <p class="small">
+          Tip: short, simple, and easy-to-pronounce names usually work better for branding.
+        </p>
+      </div>
+
+      <div class="support-wrap">
+        <a
+          class="coffee-btn"
+          href="https://www.buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function cleanText(text) {
+      return text.trim().replace(/\s+/g, " ");
+    }
+
+    function capitalizeWords(text) {
+      return text
+        .split(" ")
+        .filter(Boolean)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(" ");
+    }
+
+    function removeSpaces(text) {
+      return text.replace(/\s+/g, "");
+    }
+
+    function setStatus(message, isError = false) {
+      const status = document.getElementById("status");
+      status.textContent = message;
+      status.style.color = isError ? "#b42318" : "#2f6f44";
+    }
+
+    function randomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function uniquePush(arr, value) {
+      if (!arr.includes(value)) {
+        arr.push(value);
+      }
+    }
+
+    function generateNames() {
+      const keywordRaw = cleanText(document.getElementById("keyword").value);
+      const style = document.getElementById("style").value;
+
+      const keyword = keywordRaw ? capitalizeWords(keywordRaw) : "";
+      const keywordCompact = keywordRaw ? removeSpaces(capitalizeWords(keywordRaw)) : "";
+
+      const prefixes = {
+        modern: ["Nova", "Bright", "Prime", "Next", "Urban", "True", "Fresh", "Clear", "Bold", "Vivid"],
+        professional: ["Summit", "Sterling", "Premier", "Core", "Alliance", "Vision", "Apex", "Capital", "Trusted", "Elite"],
+        creative: ["Spark", "Mint", "Rocket", "Pixel", "Echo", "Clever", "Lively", "Happy", "Velvet", "Glow"],
+        tech: ["Data", "Code", "Cloud", "Byte", "Logic", "Quantum", "Cyber", "Sync", "Nano", "Turbo"],
+        brandable: ["Zento", "Lumio", "Bravio", "Nexora", "Velto", "Solvix", "Moviq", "Trenza", "Fynlo", "Rovix"]
+      };
+
+      const suffixes = {
+        modern: ["Studio", "Works", "Hub", "Labs", "Space", "Co", "Collective", "Media", "House", "Base"],
+        professional: ["Group", "Partners", "Solutions", "Consulting", "Agency", "Systems", "Advisors", "Network", "Company", "Services"],
+        creative: ["Nest", "Forge", "Flow", "Factory", "Corner", "Room", "Spot", "Wave", "Garden", "Box"],
+        tech: ["Tech", "Systems", "Labs", "Soft", "Digital", "Net", "Stack", "AI", "Cloud", "Works"],
+        brandable: ["ly", "ora", "io", "ify", "exa", "nest", "ify Labs", "works", "base", "space"]
+      };
+
+      const names = [];
+      let attempts = 0;
+
+      while (names.length < 10 && attempts < 200) {
+        attempts++;
+
+        const first = randomItem(prefixes[style]);
+        const second = randomItem(suffixes[style]);
+
+        let generated = "";
+
+        if (!keyword) {
+          const patternsNoKeyword = [
+            `${first} ${second}`,
+            `${first}${second}`,
+            `${first} & Co`,
+            `${first} One`,
+            `${first} Point`
+          ];
+          generated = randomItem(patternsNoKeyword);
+        } else {
+          const patternsWithKeyword = [
+            `${keyword} ${second}`,
+            `${first} ${keyword}`,
+            `${keywordCompact}${second}`,
+            `${first}${keywordCompact}`,
+            `${keyword} ${first}`,
+            `${first} ${keyword} Co`
+          ];
+          generated = randomItem(patternsWithKeyword);
+        }
+
+        uniquePush(names, generated);
+      }
+
+      if (names.length < 10) {
+        setStatus("Generated fewer unique names than expected. Try another keyword or style.", true);
+      } else {
+        setStatus("Business names generated successfully.");
+      }
+
+      for (let i = 0; i < 10; i++) {
+        document.getElementById(`name${i + 1}`).textContent = names[i] || "";
+      }
+
+      document.getElementById("result").style.display = "block";
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent.trim();
+
+      if (!text) {
+        setStatus("Nothing to copy yet.", true);
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        setStatus("Copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
+      });
+    }
+  </script>
 </body>
 </html>
