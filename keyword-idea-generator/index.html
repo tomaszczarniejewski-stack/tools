@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keyword Idea Generator</title>
+<meta name="description" content="Generate keyword ideas for SEO, blog posts, tools, and niche websites.">
+<style>
+*{box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+max-width:900px;
+margin:0 auto;
+padding:24px;
+background:#f7f7f7;
+color:#222
+}
+.box{
+background:#fff;
+padding:24px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.08)
+}
+h1{margin-top:0;font-size:32px}
+p{color:#444}
+label{
+display:block;
+margin-top:16px;
+margin-bottom:6px;
+font-weight:bold
+}
+input,select,button{
+width:100%;
+padding:12px;
+font-size:16px;
+border:1px solid #ccc;
+border-radius:8px
+}
+button{
+margin-top:18px;
+background:#111;
+color:#fff;
+border:none;
+cursor:pointer
+}
+button:hover{background:#333}
+.result{
+margin-top:24px;
+padding:18px;
+background:#f1f5f9;
+border-radius:8px;
+border:1px solid #dbe2ea;
+display:none
+}
+.keyword-box{
+background:#fff;
+border:1px solid #d0d7de;
+border-radius:8px;
+padding:14px;
+margin-top:12px;
+font-family:monospace;
+word-break:break-word
+}
+.copy-btn{
+margin-top:10px;
+background:#2563eb
+}
+.copy-btn:hover{background:#1d4ed8}
+.small{
+font-size:14px;
+color:#666;
+margin-top:10px
+}
+a{
+color:#2563eb;
+text-decoration:none
+}
+a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="box">
+
+<p><a href="../">⬅ Back to tools</a></p>
+
+<h1>Keyword Idea Generator</h1>
+<p>Generate keyword ideas for SEO, niche sites, blog posts, and tools.</p>
+
+<label>Main keyword</label>
+<input id="keyword" placeholder="e.g. email marketing">
+
+<label>Keyword type</label>
+<select id="type">
+<option value="seo">SEO keywords</option>
+<option value="questions">Question keywords</option>
+<option value="longtail">Long tail keywords</option>
+<option value="commercial">Commercial keywords</option>
+</select>
+
+<button onclick="generate()">Generate Keywords</button>
+
+<div class="result" id="result">
+
+<strong>Keyword ideas:</strong>
+
+<div class="keyword-box" id="k1"></div>
+<button class="copy-btn" onclick="copy('k1')">Copy #1</button>
+
+<div class="keyword-box" id="k2"></div>
+<button class="copy-btn" onclick="copy('k2')">Copy #2</button>
+
+<div class="keyword-box" id="k3"></div>
+<button class="copy-btn" onclick="copy('k3')">Copy #3</button>
+
+<p class="small">Tip: long-tail keywords are usually easier to rank in Google.</p>
+
+</div>
+
+</div>
+
+<script>
+
+function generate(){
+
+let keyword=document.getElementById("keyword").value.trim().toLowerCase()
+let type=document.getElementById("type").value
+
+if(!keyword){
+alert("Enter a keyword")
+return
+}
+
+let set1=[]
+let set2=[]
+let set3=[]
+
+if(type==="seo"){
+
+set1=[
+keyword+" tips",
+keyword+" ideas",
+keyword+" strategy",
+keyword+" examples",
+keyword+" tutorial"
+]
+
+set2=[
+"best "+keyword,
+keyword+" guide",
+keyword+" tools",
+keyword+" methods",
+keyword+" strategy 2026"
+]
+
+set3=[
+keyword+" for beginners",
+keyword+" for business",
+keyword+" checklist",
+keyword+" mistakes",
+keyword+" trends"
+]
+
+}
+
+if(type==="questions"){
+
+set1=[
+"what is "+keyword,
+"how does "+keyword+" work",
+"why is "+keyword+" important",
+"when to use "+keyword,
+"who should use "+keyword
+]
+
+set2=[
+"how to start "+keyword,
+"how to improve "+keyword,
+"how to learn "+keyword,
+"how to use "+keyword,
+"how to master "+keyword
+]
+
+set3=[
+"is "+keyword+" worth it",
+"can "+keyword+" help business",
+"does "+keyword+" really work",
+"why learn "+keyword,
+"what are "+keyword+" benefits"
+]
+
+}
+
+if(type==="longtail"){
+
+set1=[
+"best "+keyword+" for beginners",
+keyword+" strategy for small business",
+"simple "+keyword+" guide",
+keyword+" tips for beginners",
+keyword+" ideas for startups"
+]
+
+set2=[
+"free "+keyword+" tools",
+keyword+" examples for beginners",
+keyword+" methods for growth",
+keyword+" tips for marketing",
+keyword+" strategy for 2026"
+]
+
+set3=[
+keyword+" ideas for content",
+keyword+" plan for beginners",
+keyword+" tricks for growth",
+keyword+" tutorial step by step",
+keyword+" mistakes to avoid"
+]
+
+}
+
+if(type==="commercial"){
+
+set1=[
+"best "+keyword+" tool",
+keyword+" software",
+keyword+" service",
+keyword+" platform",
+keyword+" solution"
+]
+
+set2=[
+keyword+" pricing",
+keyword+" free tool",
+keyword+" generator",
+keyword+" app",
+keyword+" online tool"
+]
+
+set3=[
+keyword+" comparison",
+keyword+" alternatives",
+keyword+" reviews",
+keyword+" features",
+keyword+" benefits"
+]
+
+}
+
+document.getElementById("k1").textContent=set1.join(", ")
+document.getElementById("k2").textContent=set2.join(", ")
+document.getElementById("k3").textContent=set3.join(", ")
+
+document.getElementById("result").style.display="block"
+
+}
+
+function copy(id){
+let text=document.getElementById(id).textContent
+navigator.clipboard.writeText(text).then(()=>{alert("Copied")})
+}
+
+</script>
+
+</body>
+</html>

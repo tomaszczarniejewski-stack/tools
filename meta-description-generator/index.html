@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meta Description Generator</title>
+  <meta name="description" content="Generate SEO-friendly meta descriptions for blog posts, products, services, and landing pages." />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      line-height: 1.5;
+      background: #f7f7f7;
+      color: #222;
+    }
+    .box {
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 32px;
+    }
+    p {
+      color: #444;
+    }
+    label {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+    button {
+      margin-top: 18px;
+      background: #111;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #333;
+    }
+    .result {
+      margin-top: 24px;
+      padding: 18px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      border: 1px solid #dbe2ea;
+    }
+    .meta-box {
+      background: #fff;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #d0d7de;
+      margin-top: 12px;
+      white-space: pre-wrap;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      background: #2563eb;
+    }
+    .copy-btn:hover {
+      background: #1d4ed8;
+    }
+    .small {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p><a href="../">⬅ Back to tools</a></p>
+
+    <h1>Meta Description Generator</h1>
+    <p>Create short SEO meta descriptions for blog posts, product pages, services, apps, and landing pages.</p>
+
+    <label for="topic">Main topic or page title</label>
+    <input id="topic" type="text" placeholder="e.g. Best AI tools for small business" />
+
+    <label for="keywords">Keywords</label>
+    <input id="keywords" type="text" placeholder="e.g. ai tools, small business, productivity" />
+
+    <label for="audience">Audience</label>
+    <input id="audience" type="text" placeholder="e.g. freelancers, marketers, startup founders" />
+
+    <label for="type">Page type</label>
+    <select id="type">
+      <option value="blog">Blog Post</option>
+      <option value="product">Product Page</option>
+      <option value="service">Service Page</option>
+      <option value="landing">Landing Page</option>
+      <option value="tool">Online Tool</option>
+    </select>
+
+    <label for="tone">Tone</label>
+    <select id="tone">
+      <option value="professional">Professional</option>
+      <option value="friendly">Friendly</option>
+      <option value="persuasive">Persuasive</option>
+      <option value="simple">Simple</option>
+    </select>
+
+    <button onclick="generateMeta()">Generate Meta Descriptions</button>
+
+    <div class="result" id="result" style="display:none;">
+      <strong>Results:</strong>
+      <div class="meta-box" id="output1"></div>
+      <button class="copy-btn" onclick="copyText('output1')">Copy #1</button>
+
+      <div class="meta-box" id="output2"></div>
+      <button class="copy-btn" onclick="copyText('output2')">Copy #2</button>
+
+      <div class="meta-box" id="output3"></div>
+      <button class="copy-btn" onclick="copyText('output3')">Copy #3</button>
+
+      <p class="small" id="lengthInfo"></p>
+    </div>
+  </div>
+
+  <script>
+    function cleanText(text) {
+      return text.trim().replace(/\s+/g, " ");
+    }
+
+    function limitLength(text, max = 160) {
+      if (text.length <= max) return text;
+      return text.slice(0, max - 1).trim() + "…";
+    }
+
+    function generateMeta() {
+      const topic = cleanText(document.getElementById("topic").value);
+      const keywords = cleanText(document.getElementById("keywords").value);
+      const audience = cleanText(document.getElementById("audience").value);
+      const type = document.getElementById("type").value;
+      const tone = document.getElementById("tone").value;
+
+      if (!topic) {
+        alert("Please enter a main topic or page title.");
+        return;
+      }
+
+      const keywordPart = keywords ? ` featuring ${keywords}` : "";
+      const audiencePart = audience ? ` for ${audience}` : "";
+
+      let templates = [];
+
+      if (type === "blog") {
+        templates = [
+          `Discover ${topic}${keywordPart}. Practical insights${audiencePart} explained in a clear and useful way.`,
+          `Read about ${topic}${keywordPart}. Get helpful tips, ideas, and takeaways${audiencePart}.`,
+          `Learn more about ${topic}${keywordPart} with simple advice, examples, and actionable ideas${audiencePart}.`
+        ];
+      } else if (type === "product") {
+        templates = [
+          `Explore ${topic}${keywordPart}. A smart solution${audiencePart} designed to save time and improve results.`,
+          `Find out how ${topic}${keywordPart} helps${audiencePart} work faster, easier, and more efficiently.`,
+          `Try ${topic}${keywordPart} and discover features, benefits, and value${audiencePart}.`
+        ];
+      } else if (type === "service") {
+        templates = [
+          `Professional ${topic}${keywordPart}${audiencePart}. Get reliable service tailored to your needs.`,
+          `Looking for ${topic}${keywordPart}? Discover trusted solutions${audiencePart} with real value.`,
+          `Choose ${topic}${keywordPart}${audiencePart} for quality support, clear results, and a smooth experience.`
+        ];
+      } else if (type === "landing") {
+        templates = [
+          `Discover ${topic}${keywordPart}${audiencePart}. Clear benefits, simple solutions, and fast next steps.`,
+          `Start with ${topic}${keywordPart} and see how it can help${audiencePart} achieve better results.`,
+          `Explore ${topic}${keywordPart}${audiencePart} and take the next step with confidence.`
+        ];
+      } else {
+        templates = [
+          `Use our ${topic}${keywordPart}${audiencePart} to generate fast, useful results in seconds.`,
+          `Try the ${topic}${keywordPart}${audiencePart}. Simple, free, and built for quick results.`,
+          `Generate ${topic}${keywordPart}${audiencePart} instantly with our free online tool.`
+        ];
+      }
+
+      if (tone === "friendly") {
+        templates = templates.map(t => t.replace("Discover", "Check out").replace("Professional", "Friendly"));
+      } else if (tone === "persuasive") {
+        templates = templates.map(t => t + " Get started today.");
+      } else if (tone === "simple") {
+        templates = templates.map(t => t.replace("designed to save time and improve results", "made to help you quickly"));
+      }
+
+      const final1 = limitLength(templates[0]);
+      const final2 = limitLength(templates[1]);
+      const final3 = limitLength(templates[2]);
+
+      document.getElementById("output1").textContent = final1;
+      document.getElementById("output2").textContent = final2;
+      document.getElementById("output3").textContent = final3;
+      document.getElementById("lengthInfo").textContent =
+        `Length: #1 ${final1.length} chars | #2 ${final2.length} chars | #3 ${final3.length} chars`;
+      document.getElementById("result").style.display = "block";
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard.");
+      });
+    }
+  </script>
+</body>
+</html>

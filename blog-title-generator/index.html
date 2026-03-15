@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Title Generator</title>
+  <meta name="description" content="Generate catchy blog post titles for SEO, content marketing, and niche websites." />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      line-height: 1.5;
+      background: #f7f7f7;
+      color: #222;
+    }
+    .box {
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 32px;
+    }
+    p {
+      color: #444;
+    }
+    label {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 18px;
+      background: #111;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #333;
+    }
+    .result {
+      margin-top: 24px;
+      padding: 18px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      border: 1px solid #dbe2ea;
+      display: none;
+    }
+    .title-box {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+      font-size: 18px;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      background: #2563eb;
+    }
+    .copy-btn:hover {
+      background: #1d4ed8;
+    }
+    .small {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p><a href="../">⬅ Back to tools</a></p>
+
+    <h1>Blog Title Generator</h1>
+    <p>Generate SEO-friendly blog post titles for niche sites, content marketing, and organic traffic.</p>
+
+    <label for="topic">Main topic</label>
+    <input id="topic" type="text" placeholder="e.g. email marketing" />
+
+    <label for="audience">Audience</label>
+    <input id="audience" type="text" placeholder="e.g. small business owners" />
+
+    <label for="style">Title style</label>
+    <select id="style">
+      <option value="howto">How-to</option>
+      <option value="list">List</option>
+      <option value="guide">Guide</option>
+      <option value="questions">Questions</option>
+      <option value="benefit">Benefit-focused</option>
+    </select>
+
+    <button onclick="generateTitles()">Generate Blog Titles</button>
+
+    <div class="result" id="result">
+      <strong>Generated titles:</strong>
+
+      <div class="title-box" id="title1"></div>
+      <button class="copy-btn" onclick="copyText('title1')">Copy #1</button>
+
+      <div class="title-box" id="title2"></div>
+      <button class="copy-btn" onclick="copyText('title2')">Copy #2</button>
+
+      <div class="title-box" id="title3"></div>
+      <button class="copy-btn" onclick="copyText('title3')">Copy #3</button>
+
+      <div class="title-box" id="title4"></div>
+      <button class="copy-btn" onclick="copyText('title4')">Copy #4</button>
+
+      <div class="title-box" id="title5"></div>
+      <button class="copy-btn" onclick="copyText('title5')">Copy #5</button>
+
+      <p class="small">Tip: titles with a clear benefit or number usually get better clicks.</p>
+    </div>
+  </div>
+
+  <script>
+    function cleanText(text) {
+      return text.trim().replace(/\s+/g, " ");
+    }
+
+    function generateTitles() {
+      const topic = cleanText(document.getElementById("topic").value);
+      const audience = cleanText(document.getElementById("audience").value);
+      const style = document.getElementById("style").value;
+
+      if (!topic) {
+        alert("Please enter a main topic.");
+        return;
+      }
+
+      const audiencePart = audience ? ` for ${audience}` : "";
+      let titles = [];
+
+      if (style === "howto") {
+        titles = [
+          `How to Improve ${capitalize(topic)}${audiencePart}`,
+          `How to Start with ${capitalize(topic)}${audiencePart}`,
+          `How to Get Better Results with ${capitalize(topic)}`,
+          `How to Master ${capitalize(topic)} Step by Step`,
+          `How to Use ${capitalize(topic)} to Save Time and Grow Faster`
+        ];
+      } else if (style === "list") {
+        titles = [
+          `10 Best ${capitalize(topic)} Tips${audiencePart}`,
+          `15 ${capitalize(topic)} Ideas That Actually Work`,
+          `7 Common ${capitalize(topic)} Mistakes to Avoid`,
+          `12 Simple Ways to Improve ${capitalize(topic)}`,
+          `9 ${capitalize(topic)} Strategies for Faster Results`
+        ];
+      } else if (style === "guide") {
+        titles = [
+          `The Complete Guide to ${capitalize(topic)}${audiencePart}`,
+          `Beginner’s Guide to ${capitalize(topic)}`,
+          `${capitalize(topic)} Explained Simply`,
+          `Everything You Need to Know About ${capitalize(topic)}`,
+          `A Practical Guide to ${capitalize(topic)} for Beginners`
+        ];
+      } else if (style === "questions") {
+        titles = [
+          `What Is ${capitalize(topic)} and Why Does It Matter?`,
+          `Is ${capitalize(topic)} Worth It${audiencePart}?`,
+          `Why Is ${capitalize(topic)} So Important Today?`,
+          `What Are the Biggest ${capitalize(topic)} Mistakes?`,
+          `How Does ${capitalize(topic)} Help You Grow Faster?`
+        ];
+      } else {
+        titles = [
+          `Boost Results with Better ${capitalize(topic)}`,
+          `Why ${capitalize(topic)} Can Help You Grow Faster`,
+          `Get More Traffic, Leads, or Sales with ${capitalize(topic)}`,
+          `The Real Benefits of ${capitalize(topic)}${audiencePart}`,
+          `Use ${capitalize(topic)} to Work Smarter, Not Harder`
+        ];
+      }
+
+      document.getElementById("title1").textContent = titles[0];
+      document.getElementById("title2").textContent = titles[1];
+      document.getElementById("title3").textContent = titles[2];
+      document.getElementById("title4").textContent = titles[3];
+      document.getElementById("title5").textContent = titles[4];
+      document.getElementById("result").style.display = "block";
+    }
+
+    function capitalize(text) {
+      if (!text) return "";
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard.");
+      });
+    }
+  </script>
+</body>
+</html>

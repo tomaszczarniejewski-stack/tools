@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ Generator</title>
+  <meta name="description" content="Generate frequently asked questions and answers for products, services, websites, and online tools." />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      line-height: 1.5;
+      background: #f7f7f7;
+      color: #222;
+    }
+    .box {
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 32px;
+    }
+    p {
+      color: #444;
+    }
+    label {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    button {
+      margin-top: 18px;
+      background: #111;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #333;
+    }
+    .result {
+      margin-top: 24px;
+      padding: 18px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      border: 1px solid #dbe2ea;
+      display: none;
+    }
+    .faq-item {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+    .faq-q {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .copy-btn {
+      margin-top: 16px;
+      background: #2563eb;
+    }
+    .copy-btn:hover {
+      background: #1d4ed8;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .small {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p><a href="../">⬅ Back to tools</a></p>
+
+    <h1>FAQ Generator</h1>
+    <p>Create simple FAQ questions and answers for products, services, blogs, SaaS pages, and tools.</p>
+
+    <label for="topic">Product, service, or topic</label>
+    <input id="topic" type="text" placeholder="e.g. AI resume builder" />
+
+    <label for="type">Type</label>
+    <select id="type">
+      <option value="tool">Online Tool</option>
+      <option value="product">Product</option>
+      <option value="service">Service</option>
+      <option value="blog">Blog / Content</option>
+      <option value="app">App / SaaS</option>
+    </select>
+
+    <label for="audience">Audience</label>
+    <input id="audience" type="text" placeholder="e.g. job seekers, freelancers, small businesses" />
+
+    <label for="features">Key features or benefits</label>
+    <textarea id="features" placeholder="e.g. fast, free, easy to use, no signup, customizable templates"></textarea>
+
+    <button onclick="generateFAQ()">Generate FAQ</button>
+
+    <div class="result" id="result">
+      <strong>Generated FAQ:</strong>
+      <div id="faqOutput"></div>
+      <button class="copy-btn" onclick="copyFAQ()">Copy All</button>
+      <p class="small">Tip: you can paste this on your tool page and edit the wording later.</p>
+    </div>
+  </div>
+
+  <script>
+    function cleanText(text) {
+      return text.trim().replace(/\s+/g, " ");
+    }
+
+    function capitalize(text) {
+      if (!text) return "";
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function generateFAQ() {
+      const topic = cleanText(document.getElementById("topic").value);
+      const type = document.getElementById("type").value;
+      const audience = cleanText(document.getElementById("audience").value);
+      const features = cleanText(document.getElementById("features").value);
+
+      if (!topic) {
+        alert("Please enter a product, service, or topic.");
+        return;
+      }
+
+      const audienceText = audience ? ` for ${audience}` : "";
+      const featuresText = features ? features : "easy to use and helpful";
+
+      let introWord = "tool";
+      if (type === "product") introWord = "product";
+      if (type === "service") introWord = "service";
+      if (type === "blog") introWord = "resource";
+      if (type === "app") introWord = "app";
+
+      const faqs = [
+        {
+          q: `What is ${topic}?`,
+          a: `${topic} is a ${introWord} designed to help users with ${topic.toLowerCase()} needs${audienceText}. It is focused on being ${featuresText}.`
+        },
+        {
+          q: `How does ${topic} work?`,
+          a: `${topic} works by giving users a simple way to generate, calculate, or improve results related to ${topic.toLowerCase()}. The process is made to be quick and easy.`
+        },
+        {
+          q: `Who should use ${topic}?`,
+          a: `${topic} is useful${audienceText ? audienceText : " for beginners, professionals, and anyone looking for a simple solution"}.`
+        },
+        {
+          q: `Is ${topic} free to use?`,
+          a: `That depends on how the ${introWord} is offered, but many tools like ${topic} include a free version or free basic access for users.`
+        },
+        {
+          q: `What are the main benefits of ${topic}?`,
+          a: `The main benefits of ${topic} include saving time, improving convenience, and giving users a faster way to get results. Key strengths include being ${featuresText}.`
+        },
+        {
+          q: `Do I need experience to use ${topic}?`,
+          a: `No, most users can start using ${topic} without advanced experience. It should be simple enough for beginners while still useful for more experienced users.`
+        }
+      ];
+
+      const faqOutput = document.getElementById("faqOutput");
+      faqOutput.innerHTML = "";
+
+      faqs.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "faq-item";
+        div.innerHTML = `
+          <div class="faq-q">${capitalize(item.q)}</div>
+          <div class="faq-a">${item.a}</div>
+        `;
+        faqOutput.appendChild(div);
+      });
+
+      document.getElementById("result").style.display = "block";
+    }
+
+    function copyFAQ() {
+      const items = document.querySelectorAll(".faq-item");
+      if (!items.length) {
+        alert("Generate FAQ first.");
+        return;
+      }
+
+      let text = "";
+      items.forEach(item => {
+        const q = item.querySelector(".faq-q").textContent;
+        const a = item.querySelector(".faq-a").textContent;
+        text += q + "\n" + a + "\n\n";
+      });
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert("FAQ copied to clipboard.");
+      });
+    }
+  </script>
+</body>
+</html>

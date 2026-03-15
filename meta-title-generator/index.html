@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meta Title Generator</title>
+  <meta name="description" content="Generate SEO-friendly meta titles for blog posts, product pages, landing pages, and online tools." />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      line-height: 1.5;
+      background: #f7f7f7;
+      color: #222;
+    }
+    .box {
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 32px;
+    }
+    p {
+      color: #444;
+    }
+    label {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 18px;
+      background: #111;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #333;
+    }
+    .result {
+      margin-top: 24px;
+      padding: 18px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      border: 1px solid #dbe2ea;
+      display: none;
+    }
+    .title-box {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+      font-size: 18px;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      background: #2563eb;
+    }
+    .copy-btn:hover {
+      background: #1d4ed8;
+    }
+    .small {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p><a href="../">⬅ Back to tools</a></p>
+
+    <h1>Meta Title Generator</h1>
+    <p>Generate SEO-friendly meta titles for blog posts, product pages, landing pages, and online tools.</p>
+
+    <label for="keyword">Main keyword</label>
+    <input id="keyword" type="text" placeholder="e.g. AI resume builder" />
+
+    <label for="audience">Audience or use case</label>
+    <input id="audience" type="text" placeholder="e.g. job seekers, freelancers, small business" />
+
+    <label for="type">Page type</label>
+    <select id="type">
+      <option value="blog">Blog Post</option>
+      <option value="product">Product Page</option>
+      <option value="service">Service Page</option>
+      <option value="landing">Landing Page</option>
+      <option value="tool">Online Tool</option>
+    </select>
+
+    <label for="tone">Title style</label>
+    <select id="tone">
+      <option value="seo">SEO / Standard</option>
+      <option value="click">Clickable</option>
+      <option value="simple">Simple</option>
+      <option value="brand">With Brand</option>
+    </select>
+
+    <label for="brand">Brand name (optional)</label>
+    <input id="brand" type="text" placeholder="e.g. ToolHub" />
+
+    <button onclick="generateTitles()">Generate Meta Titles</button>
+
+    <div class="result" id="result">
+      <strong>Generated titles:</strong>
+
+      <div class="title-box" id="title1"></div>
+      <button class="copy-btn" onclick="copyText('title1')">Copy #1</button>
+
+      <div class="title-box" id="title2"></div>
+      <button class="copy-btn" onclick="copyText('title2')">Copy #2</button>
+
+      <div class="title-box" id="title3"></div>
+      <button class="copy-btn" onclick="copyText('title3')">Copy #3</button>
+
+      <div class="title-box" id="title4"></div>
+      <button class="copy-btn" onclick="copyText('title4')">Copy #4</button>
+
+      <div class="title-box" id="title5"></div>
+      <button class="copy-btn" onclick="copyText('title5')">Copy #5</button>
+
+      <p class="small" id="lengthInfo"></p>
+    </div>
+  </div>
+
+  <script>
+    function cleanText(text) {
+      return text.trim().replace(/\s+/g, " ");
+    }
+
+    function capitalize(text) {
+      if (!text) return "";
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function shorten(text, max = 60) {
+      if (text.length <= max) return text;
+      return text.slice(0, max - 1).trim() + "…";
+    }
+
+    function addBrand(title, brand) {
+      if (!brand) return title;
+      return `${title} | ${brand}`;
+    }
+
+    function generateTitles() {
+      const keyword = cleanText(document.getElementById("keyword").value);
+      const audience = cleanText(document.getElementById("audience").value);
+      const type = document.getElementById("type").value;
+      const tone = document.getElementById("tone").value;
+      const brand = cleanText(document.getElementById("brand").value);
+
+      if (!keyword) {
+        alert("Please enter a main keyword.");
+        return;
+      }
+
+      const audiencePart = audience ? ` for ${audience}` : "";
+      let titles = [];
+
+      if (type === "blog") {
+        titles = [
+          `${capitalize(keyword)}: Complete Guide${audiencePart}`,
+          `${capitalize(keyword)} Tips and Best Practices`,
+          `How to Improve ${capitalize(keyword)}${audiencePart}`,
+          `${capitalize(keyword)} Examples and Ideas`,
+          `Best ${capitalize(keyword)} Strategies in 2026`
+        ];
+      } else if (type === "product") {
+        titles = [
+          `${capitalize(keyword)} - Features, Benefits and Pricing`,
+          `Best ${capitalize(keyword)}${audiencePart}`,
+          `${capitalize(keyword)} for Better Results`,
+          `Try ${capitalize(keyword)} Today`,
+          `${capitalize(keyword)} - Simple and Effective Solution`
+        ];
+      } else if (type === "service") {
+        titles = [
+          `${capitalize(keyword)} Services${audiencePart}`,
+          `Professional ${capitalize(keyword)} Solutions`,
+          `${capitalize(keyword)} Experts${audiencePart}`,
+          `Trusted ${capitalize(keyword)} Services`,
+          `${capitalize(keyword)} Help for Faster Results`
+        ];
+      } else if (type === "landing") {
+        titles = [
+          `${capitalize(keyword)}${audiencePart} - Get Started`,
+          `${capitalize(keyword)} Made Simple`,
+          `Discover ${capitalize(keyword)} Today`,
+          `${capitalize(keyword)} That Saves Time`,
+          `Start Using ${capitalize(keyword)} Now`
+        ];
+      } else {
+        titles = [
+          `Free ${capitalize(keyword)} Tool`,
+          `${capitalize(keyword)} Generator Online`,
+          `Best Free ${capitalize(keyword)} Tool`,
+          `${capitalize(keyword)} Tool${audiencePart}`,
+          `Generate ${capitalize(keyword)} Instantly`
+        ];
+      }
+
+      if (tone === "click") {
+        titles = titles.map(title => title.replace("Best", "Top").replace("Complete Guide", "What You Need to Know"));
+      } else if (tone === "simple") {
+        titles = titles.map(title => title.replace("Features, Benefits and Pricing", "Made Simple").replace("Best Practices", "Basics"));
+      } else if (tone === "brand") {
+        titles = titles.map(title => addBrand(title, brand || "Your Brand"));
+      }
+
+      if (tone !== "brand" && brand) {
+        titles[0] = addBrand(titles[0], brand);
+        titles[1] = addBrand(titles[1], brand);
+      }
+
+      titles = titles.map(title => shorten(title, 60));
+
+      document.getElementById("title1").textContent = titles[0];
+      document.getElementById("title2").textContent = titles[1];
+      document.getElementById("title3").textContent = titles[2];
+      document.getElementById("title4").textContent = titles[3];
+      document.getElementById("title5").textContent = titles[4];
+      document.getElementById("lengthInfo").textContent =
+        `Lengths: ${titles.map((t, i) => `#${i + 1} ${t.length}`).join(" | ")}`;
+      document.getElementById("result").style.display = "block";
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard.");
+      });
+    }
+  </script>
+</body>
+</html>

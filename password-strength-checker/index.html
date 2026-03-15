@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Password Strength Checker</title>
+<meta name="description" content="Check how strong your password is. Analyze length, complexity and security level instantly.">
+<style>
+*{box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+max-width:900px;
+margin:0 auto;
+padding:24px;
+background:#f7f7f7;
+color:#222
+}
+.box{
+background:#fff;
+padding:24px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.08)
+}
+h1{margin-top:0;font-size:32px}
+p{color:#444}
+input{
+width:100%;
+padding:12px;
+font-size:18px;
+border:1px solid #ccc;
+border-radius:8px;
+margin-top:10px
+}
+.meter{
+margin-top:20px;
+height:14px;
+background:#e5e7eb;
+border-radius:8px;
+overflow:hidden
+}
+.bar{
+height:100%;
+width:0%;
+background:red;
+transition:width .3s
+}
+.result{
+margin-top:16px;
+font-size:18px
+}
+ul{
+margin-top:14px;
+padding-left:20px
+}
+li{
+margin-bottom:6px
+}
+a{
+color:#2563eb;
+text-decoration:none
+}
+a:hover{text-decoration:underline}
+.tip{
+margin-top:14px;
+font-size:14px;
+color:#666
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+
+<p><a href="../">⬅ Back to tools</a></p>
+
+<h1>Password Strength Checker</h1>
+<p>Check how strong and secure your password is.</p>
+
+<input type="text" id="password" placeholder="Enter your password..." oninput="checkPassword()">
+
+<div class="meter">
+<div class="bar" id="bar"></div>
+</div>
+
+<div class="result" id="strength">Strength: -</div>
+
+<ul id="rules">
+<li id="length">❌ At least 8 characters</li>
+<li id="upper">❌ Uppercase letter</li>
+<li id="lower">❌ Lowercase letter</li>
+<li id="number">❌ Number</li>
+<li id="symbol">❌ Special character</li>
+</ul>
+
+<p class="tip">Tip: strong passwords combine uppercase, lowercase, numbers and symbols.</p>
+
+</div>
+
+<script>
+
+function checkPassword(){
+
+let password=document.getElementById("password").value
+let score=0
+
+let length=password.length>=8
+let upper=/[A-Z]/.test(password)
+let lower=/[a-z]/.test(password)
+let number=/[0-9]/.test(password)
+let symbol=/[^A-Za-z0-9]/.test(password)
+
+update("length",length)
+update("upper",upper)
+update("lower",lower)
+update("number",number)
+update("symbol",symbol)
+
+if(length)score++
+if(upper)score++
+if(lower)score++
+if(number)score++
+if(symbol)score++
+
+let bar=document.getElementById("bar")
+let text=document.getElementById("strength")
+
+let percent=(score/5)*100
+bar.style.width=percent+"%"
+
+if(score<=2){
+bar.style.background="#ef4444"
+text.textContent="Strength: Weak"
+}
+
+else if(score==3 || score==4){
+bar.style.background="#f59e0b"
+text.textContent="Strength: Medium"
+}
+
+else{
+bar.style.background="#22c55e"
+text.textContent="Strength: Strong"
+}
+
+}
+
+function update(id,valid){
+
+let el=document.getElementById(id)
+
+if(valid){
+el.textContent="✔ "+el.textContent.slice(2)
+}else{
+el.textContent="❌ "+el.textContent.slice(2)
+}
+
+}
+
+</script>
+
+</body>
+</html>

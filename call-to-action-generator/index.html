@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Call to Action Generator</title>
+  <meta name="description" content="Generate call to action text for landing pages, ads, websites, tools, and product pages." />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      line-height: 1.5;
+      background: #f7f7f7;
+      color: #222;
+    }
+    .box {
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 32px;
+    }
+    p {
+      color: #444;
+    }
+    label {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input, select, button, textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+    button {
+      margin-top: 18px;
+      background: #111;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #333;
+    }
+    .result {
+      margin-top: 24px;
+      padding: 18px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      border: 1px solid #dbe2ea;
+      display: none;
+    }
+    .cta-box {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+      font-size: 18px;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      background: #2563eb;
+    }
+    .copy-btn:hover {
+      background: #1d4ed8;
+    }
+    .small {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p><a href="../">⬅ Back to tools</a></p>
+
+    <h1>Call to Action Generator</h1>
+    <p>Generate call to action text for landing pages, websites, tools, ads, and product pages.</p>
+
+    <label for="product">Product, service, or offer</label>
+    <input id="product" type="text" placeholder="e.g. AI headline generator" />
+
+    <label for="audience">Audience</label>
+    <input id="audience" type="text" placeholder="e.g. marketers, creators, freelancers" />
+
+    <label for="benefit">Main benefit</label>
+    <textarea id="benefit" placeholder="e.g. save time and generate better headlines in seconds"></textarea>
+
+    <label for="style">CTA style</label>
+    <select id="style">
+      <option value="direct">Direct</option>
+      <option value="friendly">Friendly</option>
+      <option value="urgent">Urgent</option>
+      <option value="sales">Sales-focused</option>
+      <option value="simple">Simple</option>
+    </select>
+
+    <button onclick="generateCTA()">Generate CTA</button>
+
+    <div class="result" id="result">
+      <strong>Generated CTA text:</strong>
+
+      <div class="cta-box" id="cta1"></div>
+      <button class="copy-btn" onclick="copyText('cta1')">Copy #1</button>
+
+      <div class="cta-box" id="cta2"></div>
+      <button class="copy-btn" onclick="copyText('cta2')">Copy #2</button>
+
+      <div class="cta-box" id="cta3"></div>
+      <button class="copy-btn" onclick="copyText('cta3')">Copy #3</button>
+
+      <div class="cta-box" id="cta4"></div>
+      <button class="copy-btn" onclick="copyText('cta4')">Copy #4</button>
+
+      <div class="cta-box" id="cta5"></div>
+      <button class="copy-btn" onclick="copyText('cta5')">Copy #5</button>
+
+      <p class="small">Tip: the strongest CTA usually combines action + clear benefit.</p>
+    </div>
+  </div>
+
+  <script>
+    function cleanText(text) {
+      return text.trim().replace(/\s+/g, " ");
+    }
+
+    function capitalize(text) {
+      if (!text) return "";
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function generateCTA() {
+      const product = cleanText(document.getElementById("product").value);
+      const audience = cleanText(document.getElementById("audience").value);
+      const benefit = cleanText(document.getElementById("benefit").value);
+      const style = document.getElementById("style").value;
+
+      if (!product) {
+        alert("Please enter a product, service, or offer.");
+        return;
+      }
+
+      const audiencePart = audience ? ` for ${audience}` : "";
+      const benefitPart = benefit ? benefit : "get better results faster";
+
+      let ctas = [];
+
+      if (style === "direct") {
+        ctas = [
+          `Try ${product} now`,
+          `Start using ${product} today`,
+          `Get started with ${product}`,
+          `Use ${product} to ${benefitPart}`,
+          `Create better results with ${product}`
+        ];
+      } else if (style === "friendly") {
+        ctas = [
+          `Give ${product} a try`,
+          `See how ${product} can help you`,
+          `Start with ${product} and save time`,
+          `Try ${product}${audiencePart}`,
+          `Make things easier with ${product}`
+        ];
+      } else if (style === "urgent") {
+        ctas = [
+          `Start now and ${benefitPart}`,
+          `Try ${product} before you miss out`,
+          `Get instant results with ${product}`,
+          `Don’t wait - start using ${product} today`,
+          `Take action now with ${product}`
+        ];
+      } else if (style === "sales") {
+        ctas = [
+          `Boost your results with ${product}`,
+          `Get more value with ${product}`,
+          `Use ${product} to ${benefitPart}`,
+          `Unlock faster growth with ${product}`,
+          `Choose ${product} and move faster`
+        ];
+      } else {
+        ctas = [
+          `Try ${product}`,
+          `Start now`,
+          `Get started today`,
+          `Use ${product}`,
+          `See results faster`
+        ];
+      }
+
+      document.getElementById("cta1").textContent = capitalize(ctas[0]);
+      document.getElementById("cta2").textContent = capitalize(ctas[1]);
+      document.getElementById("cta3").textContent = capitalize(ctas[2]);
+      document.getElementById("cta4").textContent = capitalize(ctas[3]);
+      document.getElementById("cta5").textContent = capitalize(ctas[4]);
+      document.getElementById("result").style.display = "block";
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard.");
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hashtag Generator</title>
+<meta name="description" content="Generate hashtags for Instagram, TikTok, YouTube Shorts and social media posts.">
+<style>
+*{box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+max-width:900px;
+margin:0 auto;
+padding:24px;
+background:#f7f7f7;
+color:#222
+}
+.box{
+background:#fff;
+padding:24px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.08)
+}
+h1{margin-top:0;font-size:32px}
+p{color:#444}
+label{
+display:block;
+margin-top:16px;
+margin-bottom:6px;
+font-weight:bold
+}
+input,select,button{
+width:100%;
+padding:12px;
+font-size:16px;
+border:1px solid #ccc;
+border-radius:8px
+}
+button{
+margin-top:18px;
+background:#111;
+color:#fff;
+border:none;
+cursor:pointer
+}
+button:hover{background:#333}
+.result{
+margin-top:24px;
+padding:18px;
+background:#f1f5f9;
+border-radius:8px;
+border:1px solid #dbe2ea;
+display:none
+}
+.tag-box{
+background:#fff;
+border:1px solid #d0d7de;
+border-radius:8px;
+padding:14px;
+margin-top:12px;
+word-break:break-word;
+font-family:monospace
+}
+.copy-btn{
+margin-top:10px;
+background:#2563eb
+}
+.copy-btn:hover{background:#1d4ed8}
+.small{
+font-size:14px;
+color:#666;
+margin-top:10px
+}
+a{
+color:#2563eb;
+text-decoration:none
+}
+a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="box">
+
+<p><a href="../">⬅ Back to tools</a></p>
+
+<h1>Hashtag Generator</h1>
+<p>Generate hashtags for Instagram, TikTok, YouTube Shorts and social media posts.</p>
+
+<label>Main keyword or topic</label>
+<input id="topic" placeholder="e.g. fitness motivation">
+
+<label>Platform</label>
+<select id="platform">
+<option value="instagram">Instagram</option>
+<option value="tiktok">TikTok</option>
+<option value="youtube">YouTube Shorts</option>
+<option value="general">General</option>
+</select>
+
+<label>Extra keywords (optional)</label>
+<input id="extra" placeholder="e.g. gym workout health">
+
+<button onclick="generate()">Generate Hashtags</button>
+
+<div class="result" id="result">
+
+<strong>Generated hashtags:</strong>
+
+<div class="tag-box" id="set1"></div>
+<button class="copy-btn" onclick="copy('set1')">Copy #1</button>
+
+<div class="tag-box" id="set2"></div>
+<button class="copy-btn" onclick="copy('set2')">Copy #2</button>
+
+<div class="tag-box" id="set3"></div>
+<button class="copy-btn" onclick="copy('set3')">Copy #3</button>
+
+<p class="small">Tip: mix large, medium and niche hashtags.</p>
+
+</div>
+
+</div>
+
+<script>
+
+function normalize(text){
+return text.toLowerCase().replace(/[^a-z0-9\s]/g,"").trim()
+}
+
+function makeTags(words){
+return words.map(w=>"#"+w.replace(/\s+/g,"")).join(" ")
+}
+
+function generate(){
+
+let topic=document.getElementById("topic").value
+let extra=document.getElementById("extra").value
+let platform=document.getElementById("platform").value
+
+if(!topic){
+alert("Enter a topic")
+return
+}
+
+topic=normalize(topic)
+extra=normalize(extra)
+
+let baseWords=topic.split(" ")
+let extraWords=extra?extra.split(" "):[]
+
+let tags=[]
+
+baseWords.forEach(w=>{
+tags.push(w)
+tags.push(w+"tips")
+tags.push(w+"life")
+tags.push(w+"daily")
+})
+
+extraWords.forEach(w=>{
+tags.push(w)
+tags.push(w+"tips")
+})
+
+if(platform==="instagram"){
+tags.push("instagood","photooftheday","viral","explorepage")
+}
+
+if(platform==="tiktok"){
+tags.push("fyp","foryou","viralvideo","tiktoktrend")
+}
+
+if(platform==="youtube"){
+tags.push("shorts","youtubeshorts","viralshorts","shortsvideo")
+}
+
+let unique=[...new Set(tags)]
+
+let set1=makeTags(unique.slice(0,12))
+let set2=makeTags(unique.slice(5,17))
+let set3=makeTags(unique.slice(10,22))
+
+document.getElementById("set1").textContent=set1
+document.getElementById("set2").textContent=set2
+document.getElementById("set3").textContent=set3
+
+document.getElementById("result").style.display="block"
+
+}
+
+function copy(id){
+let text=document.getElementById(id).textContent
+navigator.clipboard.writeText(text).then(()=>{alert("Copied")})
+}
+
+</script>
+
+</body>
+</html>

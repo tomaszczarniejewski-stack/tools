@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slug Generator</title>
+  <meta name="description" content="Generate clean SEO-friendly URL slugs from titles, keywords, and phrases." />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      line-height: 1.5;
+      background: #f7f7f7;
+      color: #222;
+    }
+    .box {
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 32px;
+    }
+    p {
+      color: #444;
+    }
+    label {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    button {
+      margin-top: 18px;
+      background: #111;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #333;
+    }
+    .result {
+      margin-top: 24px;
+      padding: 18px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      border: 1px solid #dbe2ea;
+      display: none;
+    }
+    .slug-box {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+      word-break: break-word;
+      font-family: monospace;
+      font-size: 16px;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      background: #2563eb;
+    }
+    .copy-btn:hover {
+      background: #1d4ed8;
+    }
+    .small {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p><a href="../">⬅ Back to tools</a></p>
+
+    <h1>Slug Generator</h1>
+    <p>Convert titles and phrases into clean SEO-friendly URL slugs.</p>
+
+    <label for="text">Title, keyword, or phrase</label>
+    <textarea id="text" placeholder="e.g. 15 Best Free AI Tools for Small Business in 2026"></textarea>
+
+    <label for="mode">Slug style</label>
+    <select id="mode">
+      <option value="default">Default</option>
+      <option value="short">Short slug</option>
+      <option value="keyword">Keyword-focused</option>
+    </select>
+
+    <label for="removeWords">Optional words to remove</label>
+    <input id="removeWords" type="text" placeholder="e.g. best, free, in, for" />
+
+    <button onclick="generateSlug()">Generate Slug</button>
+
+    <div class="result" id="result">
+      <strong>Generated slugs:</strong>
+
+      <div class="slug-box" id="slug1"></div>
+      <button class="copy-btn" onclick="copyText('slug1')">Copy #1</button>
+
+      <div class="slug-box" id="slug2"></div>
+      <button class="copy-btn" onclick="copyText('slug2')">Copy #2</button>
+
+      <div class="slug-box" id="slug3"></div>
+      <button class="copy-btn" onclick="copyText('slug3')">Copy #3</button>
+
+      <p class="small">Tip: shorter slugs usually work better for SEO and readability.</p>
+    </div>
+  </div>
+
+  <script>
+    function normalizeText(text) {
+      return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/&/g, " and ")
+        .replace(/[^a-z0-9\s-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function toSlug(text) {
+      return text
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
+    function generateSlug() {
+      const rawText = document.getElementById("text").value.trim();
+      const mode = document.getElementById("mode").value;
+      const removeWordsInput = document.getElementById("removeWords").value.trim();
+
+      if (!rawText) {
+        alert("Please enter a title, keyword, or phrase.");
+        return;
+      }
+
+      let text = normalizeText(rawText);
+
+      const stopWords = [
+        "a", "an", "the", "of", "to", "and", "or", "but", "in", "on", "at",
+        "for", "with", "by", "from", "is", "are", "was", "were", "be", "as"
+      ];
+
+      const customRemoveWords = removeWordsInput
+        ? removeWordsInput.toLowerCase().split(",").map(w => w.trim()).filter(Boolean)
+        : [];
+
+      let words = text.split(" ").filter(Boolean);
+
+      const slugDefault = toSlug(words.join(" "));
+
+      let shortWords = words.filter(word => !stopWords.includes(word) && !customRemoveWords.includes(word));
+      const slugShort = toSlug(shortWords.slice(0, 6).join(" "));
+
+      let keywordWords = words.filter(word => !customRemoveWords.includes(word));
+      const slugKeyword = toSlug(keywordWords.join(" "));
+
+      let output1 = slugDefault;
+      let output2 = slugShort || slugDefault;
+      let output3 = slugKeyword || slugDefault;
+
+      if (mode === "short") {
+        output1 = slugShort || slugDefault;
+        output2 = slugDefault;
+        output3 = slugKeyword || slugDefault;
+      } else if (mode === "keyword") {
+        output1 = slugKeyword || slugDefault;
+        output2 = slugShort || slugDefault;
+        output3 = slugDefault;
+      }
+
+      document.getElementById("slug1").textContent = output1 || "-";
+      document.getElementById("slug2").textContent = output2 || "-";
+      document.getElementById("slug3").textContent = output3 || "-";
+      document.getElementById("result").style.display = "block";
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard.");
+      });
+    }
+  </script>
+</body>
+</html>

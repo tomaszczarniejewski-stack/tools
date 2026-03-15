@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lorem Ipsum Generator</title>
+<meta name="description" content="Generate Lorem Ipsum placeholder text for websites, design, and layouts.">
+<style>
+*{box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+max-width:900px;
+margin:0 auto;
+padding:24px;
+background:#f7f7f7;
+color:#222
+}
+.box{
+background:#fff;
+padding:24px;
+border-radius:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.08)
+}
+h1{margin-top:0;font-size:32px}
+p{color:#444}
+.controls{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-top:16px
+}
+input,select,button{
+width:100%;
+padding:12px;
+font-size:16px;
+border:1px solid #ccc;
+border-radius:8px
+}
+button{
+margin-top:16px;
+background:#111;
+color:#fff;
+border:none;
+cursor:pointer
+}
+button:hover{background:#333}
+.result{
+margin-top:24px;
+background:#f1f5f9;
+border:1px solid #dbe2ea;
+border-radius:8px;
+padding:16px;
+white-space:pre-wrap;
+line-height:1.6
+}
+.copy-btn{
+margin-top:12px;
+background:#2563eb
+}
+.copy-btn:hover{background:#1d4ed8}
+a{
+color:#2563eb;
+text-decoration:none
+}
+a:hover{text-decoration:underline}
+.small{
+font-size:14px;
+color:#666;
+margin-top:10px
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+
+<p><a href="../">⬅ Back to tools</a></p>
+
+<h1>Lorem Ipsum Generator</h1>
+<p>Generate placeholder text for websites, design mockups, and layouts.</p>
+
+<div class="controls">
+
+<select id="type">
+<option value="paragraphs">Paragraphs</option>
+<option value="sentences">Sentences</option>
+<option value="words">Words</option>
+</select>
+
+<input id="amount" type="number" value="3" min="1" max="100">
+
+</div>
+
+<button onclick="generate()">Generate Text</button>
+
+<div class="result" id="result"></div>
+
+<button class="copy-btn" onclick="copyText()">Copy Text</button>
+
+<p class="small">Tip: Lorem Ipsum is commonly used as placeholder text in design and development.</p>
+
+</div>
+
+<script>
+
+const lorem="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum".split(" ")
+
+function randomWord(){
+return lorem[Math.floor(Math.random()*lorem.length)]
+}
+
+function generateSentence(){
+let length=Math.floor(Math.random()*8)+8
+let words=[]
+for(let i=0;i<length;i++){
+words.push(randomWord())
+}
+let sentence=words.join(" ")
+return sentence.charAt(0).toUpperCase()+sentence.slice(1)+"."
+}
+
+function generateParagraph(){
+let sentences=Math.floor(Math.random()*3)+3
+let p=[]
+for(let i=0;i<sentences;i++){
+p.push(generateSentence())
+}
+return p.join(" ")
+}
+
+function generate(){
+
+let type=document.getElementById("type").value
+let amount=parseInt(document.getElementById("amount").value)
+
+let output=[]
+
+if(type==="words"){
+for(let i=0;i<amount;i++){
+output.push(randomWord())
+}
+document.getElementById("result").textContent=output.join(" ")
+return
+}
+
+if(type==="sentences"){
+for(let i=0;i<amount;i++){
+output.push(generateSentence())
+}
+document.getElementById("result").textContent=output.join(" ")
+return
+}
+
+if(type==="paragraphs"){
+for(let i=0;i<amount;i++){
+output.push(generateParagraph())
+}
+document.getElementById("result").textContent=output.join("\n\n")
+}
+
+}
+
+function copyText(){
+let text=document.getElementById("result").textContent
+if(!text){
+alert("Generate text first")
+return
+}
+navigator.clipboard.writeText(text).then(()=>alert("Copied"))
+}
+
+</script>
+
+</body>
+</html>
