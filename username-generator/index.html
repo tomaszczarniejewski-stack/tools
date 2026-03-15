@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Username Generator</title>
+</head>
+
+<body>
+
+<h1>Username Generator</h1>
+
+<button onclick="generate()">Generate Username</button>
+
+<p id="username"></p>
+
+<script>
+
+const words1 = ["Epic","Dark","Crazy","Silent","Fast","Wild","Pixel","Cyber","Ghost","Alpha"];
+const words2 = ["Tiger","Ninja","Wizard","Hunter","Rider","Wolf","Dragon","Sniper","Shadow","Player"];
+
+function generate() {
+const part1 = words1[Math.floor(Math.random() * words1.length)];
+const part2 = words2[Math.floor(Math.random() * words2.length)];
+const number = Math.floor(Math.random() * 999);
+
+document.getElementById("username").innerText = part1 + part2 + number;
+}
+
+</script>
+
+</body>
+
+</html>
