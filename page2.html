@@ -3,9 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Online Tools – Page 2</title>
-  <link rel="stylesheet" href="style.css"> <!-- jeśli korzystasz z osobnego pliku CSS -->
+  <title>More Free Online Tools – Page 2 – Tomas Tools</title>
+  <meta name="description" content="More free online generators and calculators for content creation, SEO, writing, social media and everyday tasks. Use simple browser tools instantly.">
+  <link rel="canonical" href="https://tomaszczarniejewski-stack.github.io/tools/page2.html">
+
   <style>
+    * { box-sizing: border-box; }
+
     body {
       font-family: Arial, sans-serif;
       max-width: 1200px;
@@ -19,6 +23,11 @@
     h1 {
       font-size: 36px;
       margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 8px 0;
     }
 
     .tool-list {
@@ -58,25 +67,62 @@
       line-height: 1.4;
     }
 
-    .pagination {
+    .buttons {
       margin-top: 30px;
       display: flex;
-      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .buttons a button {
+      background: #ffdd00;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .buttons a button:hover {
+      opacity: 0.9;
+    }
+
+    .pagination {
+      margin-top: 20px;
+      display: flex;
       gap: 10px;
     }
 
-    .pagination a {
+    .pagination .page {
+      padding: 10px 15px;
       background: #ffdd00;
-      padding: 10px 20px;
+      color: #000;
+      text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-      text-decoration: none;
-      color: #000;
     }
 
-    .pagination a.active {
-      background: #222;
-      color: #fff;
+    .pagination .page.active {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #555;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+    }
+
+    footer a {
+      color: #1a73e8;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -85,7 +131,7 @@
   <h1>More Free Online Tools – Page 2</h1>
 
   <div class="tool-list">
-    <!-- Kolejne 20 narzędzi -->
+    <!-- Tools 21-30 -->
     <div class="tool-item"><a href="word-counter/">Word Counter</a><p class="description">Count words and characters quickly for your text.</p></div>
     <div class="tool-item"><a href="youtube-title-generator/">YouTube Title Generator</a><p class="description">Generate catchy video titles instantly.</p></div>
     <div class="tool-item"><a href="instagram-bio-generator/">Instagram Bio Generator</a><p class="description">Create unique bios for Instagram profiles.</p></div>
@@ -96,26 +142,26 @@
     <div class="tool-item"><a href="story-title-generator/">Story Title Generator</a><p class="description">Generate creative story titles automatically.</p></div>
     <div class="tool-item"><a href="password-generator/">Password Generator</a><p class="description">Create strong passwords quickly.</p></div>
     <div class="tool-item"><a href="text-case-converter/">Text Case Converter</a><p class="description">Convert text to uppercase, lowercase, or title case.</p></div>
-    <div class="tool-item"><a href="slug-generator/">Slug Generator</a><p class="description">Generate URL-friendly slugs for your pages.</p></div>
-    <div class="tool-item"><a href="random-number-generator/">Random Number Generator</a><p class="description">Generate random numbers instantly.</p></div>
-    <div class="tool-item"><a href="random-name-picker/">Random Name Picker</a><p class="description">Pick random names from a list quickly.</p></div>
-    <div class="tool-item"><a href="random-color-generator/">Random Color Generator</a><p class="description">Generate random colors with hex codes for design.</p></div>
-    <div class="tool-item"><a href="password-strength-checker/">Password Strength Checker</a><p class="description">Check the strength of your passwords instantly.</p></div>
-    <div class="tool-item"><a href="meta-title-generator/">Meta Title Generator</a><p class="description">Generate SEO-friendly meta titles for your pages.</p></div>
-    <div class="tool-item"><a href="meta-description-generator/">Meta Description Generator</a><p class="description">Create SEO-friendly meta descriptions quickly.</p></div>
-    <div class="tool-item"><a href="lorem-ipsum-generator/">Lorem Ipsum Generator</a><p class="description">Generate placeholder text for your projects.</p></div>
-    <div class="tool-item"><a href="keyword-idea-generator/">Keyword Idea Generator</a><p class="description">Find keyword ideas for SEO and content marketing.</p></div>
-    <div class="tool-item"><a href="hashtag-generator/">Hashtag Generator</a><p class="description">Generate hashtags for social media posts fast.</p></div>
-  </div>
-
-  <div class="pagination">
-    <a href="index.html">Page 1</a>
-    <a href="page2.html" class="active">Page 2</a>
   </div>
 
   <div class="buttons">
+    <a href="index.html"><button>Back to Page 1</button></a>
     <a href="https://buymeacoffee.com/Tomas.Free.Online.Tools" target="_blank"><button>Support me on Buy Me a Coffee</button></a>
   </div>
+
+  <div class="pagination">
+    <a href="index.html" class="page">Page 1</a>
+    <a href="page2.html" class="page active">Page 2</a>
+  </div>
+
+  <footer>
+    <p>&copy; Tomas Tools</p>
+    <p>
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="terms.html">Terms of Service</a> |
+      <a href="contact.html">Contact</a>
+    </p>
+  </footer>
 
 </body>
 </html>
