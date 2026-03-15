@@ -1,107 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Word Counter</title>
-<meta name="description" content="Count words, characters, sentences and paragraphs in your text. Simple free word counter tool.">
+
+<meta name="description" content="Free online word counter. Count words, characters, sentences, paragraphs and reading time instantly.">
+
 <style>
+
 *{box-sizing:border-box}
+
 body{
 font-family:Arial,sans-serif;
-max-width:900px;
-margin:0 auto;
+background:#f5f5f5;
+margin:0;
 padding:24px;
-background:#f7f7f7;
 color:#222
 }
-.box{
-background:#fff;
-padding:24px;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,.08)
+
+.page{
+max-width:900px;
+margin:0 auto
 }
-h1{margin-top:0;font-size:32px}
-p{color:#444}
+
+.tool-box{
+background:#fff;
+padding:28px;
+border-radius:18px;
+box-shadow:0 4px 14px rgba(0,0,0,.08)
+}
+
+.back{
+display:inline-block;
+margin-bottom:14px;
+color:#0d6efd;
+text-decoration:none;
+font-weight:600
+}
+
+.back:hover{text-decoration:underline}
+
+h1{
+margin:0 0 10px;
+font-size:30px
+}
+
+.description{
+color:#555;
+margin-bottom:20px
+}
+
 textarea{
 width:100%;
-min-height:200px;
-padding:12px;
+min-height:220px;
+padding:14px;
 font-size:16px;
 border:1px solid #ccc;
-border-radius:8px;
+border-radius:10px;
 resize:vertical
 }
-.stats{
-margin-top:24px;
+
+textarea:focus{
+outline:none;
+border-color:#0d6efd
+}
+
+.buttons{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:14px
+}
+
+button{
+padding:12px 16px;
+font-size:15px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+transition:0.2s
+}
+
+.primary{
+background:#111;
+color:#fff
+}
+
+.primary:hover{
+background:#333
+}
+
+.copy{
+background:#0d6efd;
+color:#fff
+}
+
+.secondary{
+background:#ececec
+}
+
+button:hover{
+transform:translateY(-1px)
+}
+
+.status{
+margin-top:12px;
+font-size:14px;
+color:#666
+}
+
+.results{
+margin-top:26px;
 display:grid;
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:repeat(3,1fr);
 gap:12px
 }
-.stat{
-background:#f1f5f9;
-border:1px solid #dbe2ea;
-border-radius:8px;
-padding:16px;
-font-size:18px
+
+.card{
+background:#f7f7f7;
+border:1px solid #e6e6e6;
+border-radius:12px;
+padding:16px
 }
-button{
-margin-top:18px;
-padding:12px;
-width:100%;
-font-size:16px;
-background:#111;
-color:#fff;
-border:none;
-border-radius:8px;
-cursor:pointer
-}
-button:hover{background:#333}
-a{
-color:#2563eb;
-text-decoration:none
-}
-a:hover{text-decoration:underline}
-.small{
-font-size:14px;
+
+.card-title{
+font-size:13px;
 color:#666;
-margin-top:10px
+margin-bottom:6px
 }
+
+.card-value{
+font-size:22px;
+font-weight:700
+}
+
+.history{
+margin-top:26px
+}
+
+.history-item{
+background:#fafafa;
+border:1px solid #eee;
+border-radius:10px;
+padding:10px;
+margin-top:6px;
+font-size:14px
+}
+
+.small{
+margin-top:16px;
+font-size:13px;
+color:#666
+}
+
+.coffee{
+margin-top:30px;
+text-align:center
+}
+
+.coffee a{
+background:#ffd400;
+padding:12px 18px;
+border-radius:10px;
+font-weight:700;
+text-decoration:none;
+color:#000
+}
+
+.coffee a:hover{
+opacity:.9
+}
+
+@media(max-width:700px){
+
+.results{
+grid-template-columns:1fr
+}
+
+.buttons{
+flex-direction:column
+}
+
+button{
+width:100%
+}
+
+}
+
 </style>
 </head>
+
 <body>
 
-<div class="box">
+<div class="page">
 
-<p><a href="../">⬅ Back to tools</a></p>
+<div class="tool-box">
+
+<a class="back" href="../">← Back to tools</a>
 
 <h1>Word Counter</h1>
-<p>Count words, characters, sentences and paragraphs in your text.</p>
+
+<p class="description">
+Count words, characters, sentences, paragraphs and reading time in your text instantly.
+</p>
 
 <textarea id="text" placeholder="Paste or type your text here..."></textarea>
 
-<button onclick="analyze()">Count Words</button>
+<div class="buttons">
 
-<div class="stats">
+<button class="primary" onclick="analyze()">Analyze Text</button>
 
-<div class="stat">Words: <span id="words">0</span></div>
-<div class="stat">Characters: <span id="chars">0</span></div>
-<div class="stat">Characters (no spaces): <span id="charsNo">0</span></div>
-<div class="stat">Sentences: <span id="sentences">0</span></div>
-<div class="stat">Paragraphs: <span id="paragraphs">0</span></div>
-<div class="stat">Reading time: <span id="reading">0</span> min</div>
+<button class="copy" onclick="copyText()">Copy Text</button>
+
+<button class="secondary" onclick="clearText()">Clear</button>
 
 </div>
 
-<p class="small">Average reading speed used: 200 words per minute.</p>
+<div class="status" id="status">
+Start typing to see statistics.
+</div>
 
+<div class="results">
+
+<div class="card">
+<div class="card-title">Words</div>
+<div class="card-value" id="words">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">Characters</div>
+<div class="card-value" id="chars">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">Characters (no spaces)</div>
+<div class="card-value" id="charsNo">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">Sentences</div>
+<div class="card-value" id="sentences">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">Paragraphs</div>
+<div class="card-value" id="paragraphs">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">Reading time</div>
+<div class="card-value" id="reading">0 min</div>
+</div>
+
+</div>
+
+<div class="history">
+
+<strong>Recent analyses</strong>
+
+<div id="history"></div>
+
+</div>
+
+<p class="small">
+Average reading speed used: 200 words per minute.
+</p>
+
+<div class="coffee">
+<a href="https://buymeacoffee.com/" target="_blank">
+Support me on Buy Me a Coffee
+</a>
+</div>
+
+</div>
 </div>
 
 <script>
 
+const textarea=document.getElementById("text")
+const historyBox=document.getElementById("history")
+
+let history=[]
+
 function analyze(){
 
-let text=document.getElementById("text").value
+let text=textarea.value
 
 let words=text.trim().match(/\b\S+\b/g)
 let wordCount=words?words.length:0
@@ -121,9 +307,66 @@ document.getElementById("chars").textContent=charCount
 document.getElementById("charsNo").textContent=charNoSpace
 document.getElementById("sentences").textContent=sentences
 document.getElementById("paragraphs").textContent=paragraphs
-document.getElementById("reading").textContent=reading
+document.getElementById("reading").textContent=reading+" min"
+
+document.getElementById("status").textContent="Text analyzed."
+
+saveHistory(wordCount,charCount,reading)
 
 }
+
+function saveHistory(w,c,r){
+
+if(w===0)return
+
+let item=`${w} words • ${c} chars • ${r} min`
+
+history.unshift(item)
+
+if(history.length>6)history.pop()
+
+renderHistory()
+
+}
+
+function renderHistory(){
+
+historyBox.innerHTML=""
+
+history.forEach(h=>{
+
+let div=document.createElement("div")
+div.className="history-item"
+div.textContent=h
+historyBox.appendChild(div)
+
+})
+
+}
+
+function copyText(){
+
+let text=textarea.value
+
+if(!text)return
+
+navigator.clipboard.writeText(text)
+
+document.getElementById("status").textContent="Copied!"
+
+}
+
+function clearText(){
+
+textarea.value=""
+
+analyze()
+
+document.getElementById("status").textContent="Text cleared."
+
+}
+
+textarea.addEventListener("input",analyze)
 
 </script>
 
