@@ -3,89 +3,112 @@
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/</loc>
+<priority>1.0</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/hook-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/username-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/diet-calculator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/story-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/caption-generator/</loc>
+<priority>0.8</priority>
 </url>
 
-  <url>
+<url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/base64-encoder-decoder/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/blog-title-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/call-to-action-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/faq-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/hashtag-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/keyword-idea-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/lorem-ipsum-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/meta-description-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/meta-title-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/password-strength-checker/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/random-color-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/random-name-picker/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/random-number-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/slug-generator/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/text-case-converter/</loc>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://tomaszczarniejewski-stack.github.io/tools/word-counter/</loc>
+<priority>0.8</priority>
 </url>
+
 </urlset>
