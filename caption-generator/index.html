@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Caption Generator</title>
+</head>
+
+<body>
+
+<h1>Social Media Caption Generator</h1>
+
+<button onclick="generate()">Generate Caption</button>
+
+<p id="caption"></p>
+
+<script>
+
+const captions = [
+"Small steps every day.",
+"Dream big. Start small.",
+"Work now. Shine later.",
+"Silence the doubts.",
+"Progress over perfection.",
+"Create your own path.",
+"Do it for your future self.",
+"Consistency wins.",
+"Focus. Build. Repeat.",
+"Make today count."
+];
+
+function generate() {
+const random = captions[Math.floor(Math.random() * captions.length)];
+document.getElementById("caption").innerText = random;
+}
+
+</script>
+
+</body>
+
+</html>
