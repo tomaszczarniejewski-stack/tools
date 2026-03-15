@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Startup Name Generator</title>
+</head>
+
+<body>
+
+<p><a href="../">⬅ Back to tools</a></p>
+
+<h1>Startup Name Generator</h1>
+
+<button onclick="generate()">Generate Startup Name</button>
+
+<p id="name"></p>
+
+<script>
+
+const first = ["Tech","Hyper","Quantum","Cloud","Bright","Data","Next","Neo","Future","Pixel"];
+const second = ["Labs","AI","Systems","Network","Flow","Forge","Stack","Works","Base","Core"];
+
+function generate(){
+const a = first[Math.floor(Math.random()*first.length)];
+const b = second[Math.floor(Math.random()*second.length)];
+
+document.getElementById("name").innerText = a + b;
+}
+
+</script>
+
+</body>
+</html>

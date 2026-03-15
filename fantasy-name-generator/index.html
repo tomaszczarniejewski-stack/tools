@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Fantasy Name Generator</title>
+</head>
+
+<body>
+
+<p><a href="../">⬅ Back to tools</a></p>
+
+<h1>Fantasy Name Generator</h1>
+
+<button onclick="generate()">Generate Fantasy Name</button>
+
+<p id="name"></p>
+
+<script>
+
+const first = ["Zar","Mor","Kel","Vor","Tal","Ryn","Drak","Vel","Sor","Thal"];
+const second = ["ion","ara","eth","dor","mir","ath","zor","ian","or","ius"];
+
+function generate(){
+const a = first[Math.floor(Math.random()*first.length)];
+const b = second[Math.floor(Math.random()*second.length)];
+
+document.getElementById("name").innerText = a + b;
+}
+
+</script>
+
+</body>
+</html>

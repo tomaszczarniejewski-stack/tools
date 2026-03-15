@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Instagram Bio Generator</title>
+</head>
+
+<body>
+
+<p><a href="../">⬅ Back to tools</a></p>
+
+<h1>Instagram Bio Generator</h1>
+
+<button onclick="generate()">Generate Bio</button>
+
+<p id="bio"></p>
+
+<script>
+
+const bios = [
+"Dream big. Work hard.",
+"Building my future every day.",
+"Creating my own path.",
+"Small steps. Big goals.",
+"Focused on growth.",
+"Learning. Building. Winning.",
+"Turning ideas into reality.",
+"Future entrepreneur.",
+"Just getting started.",
+"Progress over perfection."
+];
+
+function generate(){
+const b = bios[Math.floor(Math.random()*bios.length)];
+document.getElementById("bio").innerText = b;
+}
+
+</script>
+
+</body>
+</html>

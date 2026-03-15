@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Story Title Generator</title>
+</head>
+
+<body>
+
+<p><a href="../">⬅ Back to tools</a></p>
+
+<h1>Story Title Generator</h1>
+
+<button onclick="generate()">Generate Title</button>
+
+<p id="title"></p>
+
+<script>
+
+const part1 = [
+"The Secret of",
+"The Shadow of",
+"The Rise of",
+"The Fall of",
+"The Mystery of",
+"The Legend of",
+"The Curse of",
+"The Return of"
+];
+
+const part2 = [
+"The Lost City",
+"The Hidden World",
+"The Last Kingdom",
+"The Dark Forest",
+"The Forgotten Empire",
+"The Silent Planet",
+"The Broken Crown",
+"The Golden Gate"
+];
+
+function generate(){
+const a = part1[Math.floor(Math.random()*part1.length)];
+const b = part2[Math.floor(Math.random()*part2.length)];
+
+document.getElementById("title").innerText = a + " " + b;
+}
+
+</script>
+
+</body>
+</html>

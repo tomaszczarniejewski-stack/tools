@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>YouTube Title Generator</title>
+</head>
+
+<body>
+
+<p><a href="../">⬅ Back to tools</a></p>
+
+<h1>YouTube Title Generator</h1>
+
+<button onclick="generate()">Generate Title</button>
+
+<p id="title"></p>
+
+<script>
+
+const titles = [
+"This Trick Will Grow Your Channel Fast",
+"10 Things Every YouTuber Should Know",
+"Why Your Videos Get No Views",
+"The Secret Behind Viral Videos",
+"Stop Making These YouTube Mistakes",
+"This Strategy Changed My Channel",
+"How Small Channels Go Viral",
+"YouTube Algorithm Explained Simply",
+"The Truth About Growing on YouTube",
+"Do This Before Uploading Your Next Video"
+];
+
+function generate(){
+const t = titles[Math.floor(Math.random()*titles.length)];
+document.getElementById("title").innerText = t;
+}
+
+</script>
+
+</body>
+</html>
