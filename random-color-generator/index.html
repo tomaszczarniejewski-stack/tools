@@ -1,129 +1,632 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Random Color Generator</title>
-<meta name="description" content="Generate random HEX colors for design, websites and graphics.">
-<style>
-*{box-sizing:border-box}
-body{
-font-family:Arial,sans-serif;
-max-width:900px;
-margin:0 auto;
-padding:24px;
-background:#f7f7f7;
-color:#222
-}
-.box{
-background:#fff;
-padding:24px;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,.08)
-}
-h1{margin-top:0;font-size:32px}
-p{color:#444}
-.preview{
-margin-top:20px;
-height:180px;
-border-radius:10px;
-border:1px solid #dbe2ea;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:26px;
-font-weight:bold;
-color:#000
-}
-button{
-margin-top:16px;
-padding:12px;
-width:100%;
-font-size:16px;
-background:#111;
-color:#fff;
-border:none;
-border-radius:8px;
-cursor:pointer
-}
-button:hover{background:#333}
-.copy-btn{
-background:#2563eb
-}
-.copy-btn:hover{background:#1d4ed8}
-.history{
-margin-top:20px;
-font-family:monospace;
-font-size:14px;
-word-break:break-word;
-color:#444
-}
-a{
-color:#2563eb;
-text-decoration:none
-}
-a:hover{text-decoration:underline}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Color Generator</title>
+  <meta name="description" content="Generate random color palettes in HEX, RGB, and HSL for websites, graphics, branding, and design." />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #f5f5f5;
+      color: #222;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      padding: 28px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #111;
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: #555;
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    select:focus {
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.04s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .generate-btn {
+      background: #111;
+      color: #fff;
+    }
+
+    .generate-btn:hover {
+      background: #222;
+    }
+
+    .copy-all-btn {
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .copy-all-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .status {
+      margin-top: 12px;
+      min-height: 20px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .palette-box,
+    .history-box {
+      margin-top: 24px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 20px;
+      color: #111;
+    }
+
+    .palette-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .color-card {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .color-preview {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .color-details {
+      padding: 14px;
+    }
+
+    .color-meta {
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 10px 12px;
+      border: 1px solid #eceff3;
+      border-radius: 12px;
+      background: #fafafa;
+    }
+
+    .meta-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #555;
+      min-width: 56px;
+    }
+
+    .meta-value {
+      font-family: monospace;
+      font-size: 15px;
+      color: #111;
+      flex: 1;
+      word-break: break-word;
+    }
+
+    .small-copy-btn {
+      background: #0d6efd;
+      color: #fff;
+      font-size: 13px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .small-copy-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .helper-text {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .history-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .history-swatch {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      transition: transform 0.04s ease, opacity 0.2s ease;
+      position: relative;
+    }
+
+    .history-swatch:hover {
+      opacity: 0.92;
+    }
+
+    .history-note {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .small {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .coffee-wrap {
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: #ffd400;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: opacity 0.2s ease, transform 0.04s ease;
+    }
+
+    .coffee-btn:hover {
+      opacity: 0.92;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .tool-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .generate-btn,
+      .copy-all-btn {
+        width: 100%;
+      }
+
+      .meta-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .small-copy-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page">
+    <div class="tool-box">
+      <a class="back-link" href="../">⬅ Back to tools</a>
 
-<div class="box">
+      <h1>Random Color Generator</h1>
+      <p class="description">
+        Generate random color palettes in HEX, RGB, and HSL for websites, branding, graphics, and UI design.
+      </p>
 
-<p><a href="../">⬅ Back to tools</a></p>
+      <div class="grid">
+        <div class="field">
+          <label for="paletteStyle">Palette style</label>
+          <select id="paletteStyle">
+            <option value="random">Random</option>
+            <option value="pastel">Pastel</option>
+            <option value="vibrant">Vibrant</option>
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+        </div>
 
-<h1>Random Color Generator</h1>
-<p>Generate random HEX colors for websites, graphics and design.</p>
+        <div class="field">
+          <label for="paletteSize">Palette size</label>
+          <select id="paletteSize">
+            <option value="1">1 color</option>
+            <option value="3">3 colors</option>
+            <option value="5" selected>5 colors</option>
+          </select>
+        </div>
+      </div>
 
-<div class="preview" id="preview">#FFFFFF</div>
+      <div class="button-row">
+        <button class="generate-btn" onclick="generatePalette()">Generate Palette</button>
+        <button class="copy-all-btn" onclick="copyAllHex()">Copy All HEX</button>
+      </div>
 
-<button onclick="generate()">Generate Color</button>
-<button class="copy-btn" onclick="copyColor()">Copy HEX</button>
+      <div class="status" id="status"></div>
 
-<div class="history" id="history"></div>
+      <div class="palette-box">
+        <h2 class="section-title">Generated palette</h2>
+        <div class="palette-list" id="paletteList"></div>
+        <p class="small">
+          Tip: if you build UI, check the recommended text color for each swatch before using it for buttons or labels.
+        </p>
+      </div>
 
-</div>
+      <div class="history-box">
+        <h2 class="section-title">Color history</h2>
+        <div class="history-list" id="historyList"></div>
+        <p class="history-note">Click any color in history to copy its HEX value.</p>
+      </div>
 
-<script>
+      <div class="coffee-wrap">
+        <a
+          class="coffee-btn"
+          href="https://buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
 
-let historyColors=[]
+  <script>
+    let historyColors = [];
 
-function randomHex(){
-let letters="0123456789ABCDEF"
-let color="#"
-for(let i=0;i<6;i++){
-color+=letters[Math.floor(Math.random()*16)]
-}
-return color
-}
+    function setStatus(message) {
+      document.getElementById("status").textContent = message;
+    }
 
-function generate(){
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-let color=randomHex()
+    function componentToHex(c) {
+      const hex = c.toString(16).toUpperCase();
+      return hex.length === 1 ? "0" + hex : hex;
+    }
 
-let preview=document.getElementById("preview")
+    function rgbToHex(r, g, b) {
+      return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
 
-preview.style.background=color
-preview.textContent=color
+    function rgbToHsl(r, g, b) {
+      r /= 255;
+      g /= 255;
+      b /= 255;
 
-historyColors.unshift(color)
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      let h, s;
+      const l = (max + min) / 2;
 
-if(historyColors.length>20){
-historyColors.pop()
-}
+      if (max === min) {
+        h = 0;
+        s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
-document.getElementById("history").textContent="History: "+historyColors.join(", ")
+        switch (max) {
+          case r:
+            h = (g - b) / d + (g < b ? 6 : 0);
+            break;
+          case g:
+            h = (b - r) / d + 2;
+            break;
+          default:
+            h = (r - g) / d + 4;
+        }
 
-}
+        h /= 6;
+      }
 
-function copyColor(){
+      return {
+        h: Math.round(h * 360),
+        s: Math.round(s * 100),
+        l: Math.round(l * 100)
+      };
+    }
 
-let color=document.getElementById("preview").textContent
+    function getContrastTextColor(r, g, b) {
+      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      return brightness >= 150 ? "#000000" : "#FFFFFF";
+    }
 
-navigator.clipboard.writeText(color).then(()=>alert("Copied"))
+    function getTextColorLabel(hex) {
+      return hex === "#000000" ? "Black" : "White";
+    }
 
-}
+    function generateRgbByStyle(style) {
+      let r, g, b;
 
-</script>
+      if (style === "pastel") {
+        r = randomInt(160, 255);
+        g = randomInt(160, 255);
+        b = randomInt(160, 255);
+      } else if (style === "vibrant") {
+        r = randomInt(80, 255);
+        g = randomInt(80, 255);
+        b = randomInt(80, 255);
+      } else if (style === "dark") {
+        r = randomInt(0, 110);
+        g = randomInt(0, 110);
+        b = randomInt(0, 110);
+      } else if (style === "light") {
+        r = randomInt(190, 255);
+        g = randomInt(190, 255);
+        b = randomInt(190, 255);
+      } else {
+        r = randomInt(0, 255);
+        g = randomInt(0, 255);
+        b = randomInt(0, 255);
+      }
 
+      return { r, g, b };
+    }
+
+    function createColorObject(style) {
+      const rgb = generateRgbByStyle(style);
+      const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
+      const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+      const textColor = getContrastTextColor(rgb.r, rgb.g, rgb.b);
+
+      return {
+        hex: hex,
+        rgb: "rgb(" + rgb.r + ", " + rgb.g + ", " + rgb.b + ")",
+        hsl: "hsl(" + hsl.h + ", " + hsl.s + "%, " + hsl.l + "%)",
+        textColor: textColor,
+        textColorLabel: getTextColorLabel(textColor)
+      };
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(function () {
+        setStatus("Copied to clipboard.");
+      }).catch(function () {
+        setStatus("Copy failed. Try again.");
+      });
+    }
+
+    function addToHistory(colors) {
+      colors.forEach(function (color) {
+        historyColors.unshift(color.hex);
+      });
+
+      historyColors = [...new Set(historyColors)].slice(0, 20);
+      renderHistory();
+    }
+
+    function renderHistory() {
+      const historyList = document.getElementById("historyList");
+      historyList.innerHTML = "";
+
+      historyColors.forEach(function (hex) {
+        const swatch = document.createElement("button");
+        swatch.className = "history-swatch";
+        swatch.style.background = hex;
+        swatch.title = hex;
+        swatch.type = "button";
+        swatch.onclick = function () {
+          copyToClipboard(hex);
+        };
+
+        historyList.appendChild(swatch);
+      });
+    }
+
+    function createMetaRow(label, value) {
+      const row = document.createElement("div");
+      row.className = "meta-row";
+
+      const left = document.createElement("div");
+      left.className = "meta-label";
+      left.textContent = label;
+
+      const middle = document.createElement("div");
+      middle.className = "meta-value";
+      middle.textContent = value;
+
+      const button = document.createElement("button");
+      button.className = "small-copy-btn";
+      button.type = "button";
+      button.textContent = "Copy";
+      button.onclick = function () {
+        copyToClipboard(value);
+      };
+
+      row.appendChild(left);
+      row.appendChild(middle);
+      row.appendChild(button);
+
+      return row;
+    }
+
+    function renderPalette(colors) {
+      const paletteList = document.getElementById("paletteList");
+      paletteList.innerHTML = "";
+
+      colors.forEach(function (color, index) {
+        const card = document.createElement("div");
+        card.className = "color-card";
+
+        const preview = document.createElement("div");
+        preview.className = "color-preview";
+        preview.style.background = color.hex;
+        preview.style.color = color.textColor;
+        preview.textContent = color.hex;
+
+        const details = document.createElement("div");
+        details.className = "color-details";
+
+        const meta = document.createElement("div");
+        meta.className = "color-meta";
+
+        meta.appendChild(createMetaRow("HEX", color.hex));
+        meta.appendChild(createMetaRow("RGB", color.rgb));
+        meta.appendChild(createMetaRow("HSL", color.hsl));
+
+        const helper = document.createElement("div");
+        helper.className = "helper-text";
+        helper.textContent = "Best text color: " + color.textColorLabel;
+
+        details.appendChild(meta);
+        details.appendChild(helper);
+
+        card.appendChild(preview);
+        card.appendChild(details);
+
+        paletteList.appendChild(card);
+      });
+    }
+
+    function generatePalette() {
+      const style = document.getElementById("paletteStyle").value;
+      const size = parseInt(document.getElementById("paletteSize").value, 10);
+      const colors = [];
+
+      for (let i = 0; i < size; i++) {
+        colors.push(createColorObject(style));
+      }
+
+      renderPalette(colors);
+      addToHistory(colors);
+      setStatus("Generated " + colors.length + " colors.");
+    }
+
+    function copyAllHex() {
+      const values = Array.from(document.querySelectorAll(".color-preview")).map(function (el) {
+        return el.textContent;
+      });
+
+      if (!values.length) {
+        setStatus("Generate a palette first.");
+        return;
+      }
+
+      copyToClipboard(values.join("\n"));
+    }
+
+    generatePalette();
+  </script>
 </body>
 </html>
