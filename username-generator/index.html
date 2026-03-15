@@ -1,33 +1,656 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Username Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Username Generator</title>
+  <meta
+    name="description"
+    content="Generate modern username ideas for games, social media, and online accounts. Create multiple username variants, copy them instantly, and save recent history."
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #f5f5f5;
+      font-family: Arial, sans-serif;
+      color: #222;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #0d6efd;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      padding: 28px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 30px;
+      line-height: 1.2;
+      color: #111;
+    }
+
+    .description {
+      margin: 0 0 26px;
+      color: #555;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .section-label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .control-card {
+      background: #fafafa;
+      border: 1px solid #e6e6e6;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .control-card label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .control-card input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .control-card select {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px 14px;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      font-size: 15px;
+      background: #fff;
+      outline: none;
+    }
+
+    .control-card select:focus {
+      border-color: #0d6efd;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .primary-btn {
+      background: #111;
+      color: #fff;
+      min-width: 190px;
+    }
+
+    .copy-btn {
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .secondary-btn {
+      background: #ececec;
+      color: #111;
+    }
+
+    .result-section,
+    .history-section,
+    .info-section {
+      margin-top: 8px;
+    }
+
+    .result-header,
+    .history-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .result-title,
+    .history-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .stats-text {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .status-message {
+      min-height: 24px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .status-message.success {
+      color: #198754;
+    }
+
+    .status-message.error {
+      color: #c62828;
+    }
+
+    .results-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .result-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: #f8f8f8;
+      border: 1px solid #e8e8e8;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .result-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .result-username {
+      margin: 0 0 6px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #111;
+      word-break: break-word;
+    }
+
+    .result-meta {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .empty-card {
+      background: #f8f8f8;
+      border: 1px solid #e8e8e8;
+      border-radius: 14px;
+      padding: 18px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .history-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: #fafafa;
+      border: 1px solid #ececec;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .history-name {
+      font-weight: 700;
+      color: #111;
+      word-break: break-word;
+    }
+
+    .history-meta {
+      font-size: 13px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .small-btn {
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .info-text {
+      margin: 20px 0 0;
+      color: #666;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .coffee-wrap {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      background: #ffd400;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 14px 20px;
+      border-radius: 12px;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .coffee-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 16px;
+      }
+
+      .tool-box {
+        padding: 22px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .controls-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .button-row button {
+        width: 100%;
+      }
+
+      .result-card,
+      .history-item,
+      .result-header,
+      .history-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .result-card .copy-btn,
+      .history-item .copy-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
-<p><a href="../">⬅ Back to tools</a></p>
-<h1>Username Generator</h1>
+  <div class="page">
+    <a href="../" class="back-link">← Back to tools</a>
 
-<button onclick="generate()">Generate Username</button>
+    <div class="tool-box">
+      <h1>Username Generator</h1>
+      <p class="description">
+        Generate modern username ideas for games, social media, and online accounts.
+        Create multiple options, copy your favorite instantly, and keep a short history.
+      </p>
 
-<p id="username"></p>
+      <div class="section-label">Options</div>
 
-<script>
+      <div class="controls-grid">
+        <div class="control-card">
+          <label>
+            <input type="checkbox" id="includeNumbers" checked />
+            Include numbers
+          </label>
+        </div>
 
-const words1 = ["Epic","Dark","Crazy","Silent","Fast","Wild","Pixel","Cyber","Ghost","Alpha"];
-const words2 = ["Tiger","Ninja","Wizard","Hunter","Rider","Wolf","Dragon","Sniper","Shadow","Player"];
+        <div class="control-card">
+          <label>
+            <input type="checkbox" id="lowercaseMode" />
+            Lowercase only
+          </label>
+        </div>
 
-function generate() {
-const part1 = words1[Math.floor(Math.random() * words1.length)];
-const part2 = words2[Math.floor(Math.random() * words2.length)];
-const number = Math.floor(Math.random() * 999);
+        <div class="control-card">
+          <label for="separatorSelect">Separator</label>
+          <select id="separatorSelect">
+            <option value="">No separator</option>
+            <option value="_">Underscore (_)</option>
+            <option value=".">Dot (.)</option>
+          </select>
+        </div>
+      </div>
 
-document.getElementById("username").innerText = part1 + part2 + number;
-}
+      <div class="button-row">
+        <button class="primary-btn" id="generateBtn">Generate Usernames</button>
+        <button class="secondary-btn" id="againBtn">Generate Again</button>
+        <button class="secondary-btn" id="clearBtn">Clear</button>
+      </div>
 
-</script>
+      <div id="statusMessage" class="status-message"></div>
 
+      <div class="result-section">
+        <div class="result-header">
+          <h2 class="result-title">Results</h2>
+          <div class="stats-text" id="statsText">0 usernames generated</div>
+        </div>
+
+        <div id="resultsContainer" class="results-grid">
+          <div class="empty-card">
+            Click <strong>Generate Usernames</strong> to create 4 username ideas.
+          </div>
+        </div>
+      </div>
+
+      <div class="history-section">
+        <div class="history-header">
+          <h2 class="history-title">History</h2>
+          <div class="stats-text" id="historyCount">0 saved</div>
+        </div>
+
+        <div id="historyContainer" class="history-list">
+          <div class="empty-card">Your recent generated usernames will appear here.</div>
+        </div>
+      </div>
+
+      <p class="info-text">
+        Usernames are generated from random word combinations and optional numbers, so they work well for gaming profiles, creator names, and general online accounts.
+      </p>
+
+      <div class="coffee-wrap">
+        <a
+          class="coffee-btn"
+          href="https://buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const words1 = [
+      "Epic", "Dark", "Crazy", "Silent", "Fast", "Wild", "Pixel", "Cyber",
+      "Ghost", "Alpha", "Rapid", "Nova", "Iron", "Mega", "Frost", "Urban",
+      "Blaze", "Neon", "Storm", "Hyper"
+    ];
+
+    const words2 = [
+      "Tiger", "Ninja", "Wizard", "Hunter", "Rider", "Wolf", "Dragon", "Sniper",
+      "Shadow", "Player", "Falcon", "Viper", "Knight", "Phantom", "Titan",
+      "Reaper", "Striker", "Rogue", "Maverick", "Legend"
+    ];
+
+    const includeNumbers = document.getElementById("includeNumbers");
+    const lowercaseMode = document.getElementById("lowercaseMode");
+    const separatorSelect = document.getElementById("separatorSelect");
+
+    const generateBtn = document.getElementById("generateBtn");
+    const againBtn = document.getElementById("againBtn");
+    const clearBtn = document.getElementById("clearBtn");
+
+    const resultsContainer = document.getElementById("resultsContainer");
+    const historyContainer = document.getElementById("historyContainer");
+    const statusMessage = document.getElementById("statusMessage");
+    const statsText = document.getElementById("statsText");
+    const historyCount = document.getElementById("historyCount");
+
+    let currentResults = [];
+    let historyItems = [];
+
+    function randomFrom(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function buildUsername() {
+      let first = randomFrom(words1);
+      let second = randomFrom(words2);
+      const separator = separatorSelect.value;
+
+      if (lowercaseMode.checked) {
+        first = first.toLowerCase();
+        second = second.toLowerCase();
+      }
+
+      let username = first + separator + second;
+
+      if (includeNumbers.checked) {
+        const number = Math.floor(Math.random() * 999) + 1;
+        username += separator ? separator + number : number;
+      }
+
+      return username;
+    }
+
+    function generateUniqueUsernames(count) {
+      const set = new Set();
+      let attempts = 0;
+
+      while (set.size < count && attempts < 100) {
+        set.add(buildUsername());
+        attempts++;
+      }
+
+      return Array.from(set);
+    }
+
+    function showStatus(message, type) {
+      statusMessage.textContent = message;
+      statusMessage.className = "status-message " + type;
+    }
+
+    function updateStats() {
+      statsText.textContent =
+        currentResults.length === 1
+          ? "1 username generated"
+          : currentResults.length + " usernames generated";
+
+      historyCount.textContent =
+        historyItems.length === 1
+          ? "1 saved"
+          : historyItems.length + " saved";
+    }
+
+    function copyText(text, button) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = "Copied!";
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1400);
+      }).catch(() => {
+        showStatus("Copy failed. Please try again.", "error");
+      });
+    }
+
+    function renderResults() {
+      if (currentResults.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="empty-card">
+            Click <strong>Generate Usernames</strong> to create 4 username ideas.
+          </div>
+        `;
+        updateStats();
+        return;
+      }
+
+      resultsContainer.innerHTML = currentResults.map((username, index) => `
+        <div class="result-card">
+          <div class="result-main">
+            <p class="result-username">${username}</p>
+            <div class="result-meta">Option ${index + 1} • ${username.length} characters</div>
+          </div>
+          <button
+            class="copy-btn small-btn"
+            type="button"
+            data-copy="${escapeHtml(username)}"
+          >
+            Copy
+          </button>
+        </div>
+      `).join("");
+
+      updateStats();
+
+      const copyButtons = resultsContainer.querySelectorAll("[data-copy]");
+      copyButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          copyText(button.getAttribute("data-copy"), button);
+        });
+      });
+    }
+
+    function renderHistory() {
+      if (historyItems.length === 0) {
+        historyContainer.innerHTML = `
+          <div class="empty-card">Your recent generated usernames will appear here.</div>
+        `;
+        updateStats();
+        return;
+      }
+
+      historyContainer.innerHTML = historyItems.map((item) => `
+        <div class="history-item">
+          <div>
+            <div class="history-name">${item.name}</div>
+            <div class="history-meta">${item.length} characters</div>
+          </div>
+          <button
+            class="copy-btn small-btn"
+            type="button"
+            data-history-copy="${escapeHtml(item.name)}"
+          >
+            Copy
+          </button>
+        </div>
+      `).join("");
+
+      updateStats();
+
+      const historyCopyButtons = historyContainer.querySelectorAll("[data-history-copy]");
+      historyCopyButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          copyText(button.getAttribute("data-history-copy"), button);
+        });
+      });
+    }
+
+    function updateHistory(newResults) {
+      const combined = [...newResults, ...historyItems.map(item => item.name)];
+      const unique = [];
+
+      for (const name of combined) {
+        if (!unique.includes(name)) {
+          unique.push(name);
+        }
+      }
+
+      historyItems = unique.slice(0, 8).map((name) => ({
+        name,
+        length: name.length
+      }));
+    }
+
+    function generateUsernames() {
+      currentResults = generateUniqueUsernames(4);
+
+      if (currentResults.length === 0) {
+        showStatus("Could not generate usernames. Please try again.", "error");
+        renderResults();
+        return;
+      }
+
+      updateHistory(currentResults);
+      renderResults();
+      renderHistory();
+      showStatus("4 username ideas generated successfully.", "success");
+    }
+
+    function clearAll() {
+      currentResults = [];
+      historyItems = [];
+      statusMessage.textContent = "";
+      statusMessage.className = "status-message";
+      renderResults();
+      renderHistory();
+    }
+
+    function escapeHtml(value) {
+      return value
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    generateBtn.addEventListener("click", generateUsernames);
+    againBtn.addEventListener("click", generateUsernames);
+    clearBtn.addEventListener("click", clearAll);
+
+    renderResults();
+    renderHistory();
+  </script>
 </body>
-
 </html>
