@@ -1,40 +1,596 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Caption Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Caption Generator</title>
+  <meta
+    name="description"
+    content="Generate social media captions for Instagram, TikTok, Facebook, and X. Free online caption generator."
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+      --soft-border: #e9ecef;
+      --blue: #0d6efd;
+      --blue-hover: #0b5ed7;
+      --dark-btn: #111111;
+      --dark-btn-hover: #333333;
+      --yellow: #ffd400;
+      --yellow-hover: #f2c900;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --success: #2f6f44;
+      --error: #b42318;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px 40px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .tool-box {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .field {
+      margin-top: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fafafa;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      background: var(--dark-btn);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      background: var(--dark-btn-hover);
+      transform: translateY(-1px);
+    }
+
+    .status {
+      margin-top: 14px;
+      min-height: 22px;
+      font-size: 14px;
+      color: var(--success);
+    }
+
+    .result {
+      margin-top: 24px;
+      padding: 20px;
+      background: #f8f9fb;
+      border: 1px solid #dfe3ea;
+      border-radius: 14px;
+      display: none;
+    }
+
+    .result-title {
+      margin: 0 0 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .caption-item + .caption-item {
+      margin-top: 14px;
+    }
+
+    .caption-box {
+      background: #ffffff;
+      border: 1px solid var(--soft-border);
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 17px;
+      color: var(--text);
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .copy-btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+    }
+
+    .small {
+      font-size: 14px;
+      color: #666666;
+      margin: 18px 0 0;
+    }
+
+    .support-wrap {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111111;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .coffee-btn:hover {
+      background: var(--yellow-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 12px 32px;
+      }
+
+      .tool-box {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .copy-btn,
+      .coffee-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
-<p><a href="../">⬅ Back to tools</a></p>
-<h1>Social Media Caption Generator</h1>
+  <div class="page">
+    <a class="back-link" href="../">⬅ Back to tools</a>
 
-<button onclick="generate()">Generate Caption</button>
+    <div class="tool-box">
+      <h1>Social Media Caption Generator</h1>
+      <p class="intro">
+        Generate social media captions for posts, reels, shorts, and brand content.
+      </p>
 
-<p id="caption"></p>
+      <div class="field">
+        <label for="topic">Post topic</label>
+        <input id="topic" type="text" placeholder="e.g. fitness progress, morning coffee, business growth" />
+      </div>
 
-<script>
+      <div class="grid-2">
+        <div class="field">
+          <label for="tone">Caption tone</label>
+          <select id="tone">
+            <option value="motivational">Motivational</option>
+            <option value="aesthetic">Aesthetic</option>
+            <option value="business">Business</option>
+            <option value="funny">Funny</option>
+            <option value="personal">Personal</option>
+          </select>
+        </div>
 
-const captions = [
-"Small steps every day.",
-"Dream big. Start small.",
-"Work now. Shine later.",
-"Silence the doubts.",
-"Progress over perfection.",
-"Create your own path.",
-"Do it for your future self.",
-"Consistency wins.",
-"Focus. Build. Repeat.",
-"Make today count."
-];
+        <div class="field">
+          <label for="platform">Platform</label>
+          <select id="platform">
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="facebook">Facebook</option>
+            <option value="x">X / Twitter</option>
+          </select>
+        </div>
+      </div>
 
-function generate() {
-const random = captions[Math.floor(Math.random() * captions.length)];
-document.getElementById("caption").innerText = random;
-}
+      <div class="grid-2">
+        <div class="field">
+          <label for="length">Caption length</label>
+          <select id="length">
+            <option value="short">Short</option>
+            <option value="medium">Medium</option>
+            <option value="long">Long</option>
+          </select>
+        </div>
 
-</script>
+        <div class="field">
+          <label for="emoji">Emoji style</label>
+          <select id="emoji">
+            <option value="none">No emoji</option>
+            <option value="light">Light emoji</option>
+            <option value="more">More emoji</option>
+          </select>
+        </div>
+      </div>
 
+      <button class="primary-btn" onclick="generateCaptions()">Generate Captions</button>
+
+      <div class="status" id="status"></div>
+
+      <div class="result" id="result">
+        <p class="result-title">Generated captions:</p>
+
+        <div class="caption-item">
+          <div class="caption-box" id="caption1"></div>
+          <button class="copy-btn" onclick="copyText('caption1')">Copy #1</button>
+        </div>
+
+        <div class="caption-item">
+          <div class="caption-box" id="caption2"></div>
+          <button class="copy-btn" onclick="copyText('caption2')">Copy #2</button>
+        </div>
+
+        <div class="caption-item">
+          <div class="caption-box" id="caption3"></div>
+          <button class="copy-btn" onclick="copyText('caption3')">Copy #3</button>
+        </div>
+
+        <div class="caption-item">
+          <div class="caption-box" id="caption4"></div>
+          <button class="copy-btn" onclick="copyText('caption4')">Copy #4</button>
+        </div>
+
+        <div class="caption-item">
+          <div class="caption-box" id="caption5"></div>
+          <button class="copy-btn" onclick="copyText('caption5')">Copy #5</button>
+        </div>
+
+        <div class="caption-item">
+          <div class="caption-box" id="caption6"></div>
+          <button class="copy-btn" onclick="copyText('caption6')">Copy #6</button>
+        </div>
+
+        <div class="caption-item">
+          <div class="caption-box" id="caption7"></div>
+          <button class="copy-btn" onclick="copyText('caption7')">Copy #7</button>
+        </div>
+
+        <div class="caption-item">
+          <div class="caption-box" id="caption8"></div>
+          <button class="copy-btn" onclick="copyText('caption8')">Copy #8</button>
+        </div>
+
+        <div class="caption-item">
+          <div class="caption-box" id="caption9"></div>
+          <button class="copy-btn" onclick="copyText('caption9')">Copy #9</button>
+        </div>
+
+        <div class="caption-item">
+          <div class="caption-box" id="caption10"></div>
+          <button class="copy-btn" onclick="copyText('caption10')">Copy #10</button>
+        </div>
+
+        <p class="small">Tip: short captions usually work better for fast-scroll platforms, while longer captions can work well for storytelling and engagement.</p>
+      </div>
+
+      <div class="support-wrap">
+        <a
+          class="coffee-btn"
+          href="https://www.buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function cleanText(text) {
+      return text.trim().replace(/\s+/g, " ");
+    }
+
+    function setStatus(message, isError = false) {
+      const status = document.getElementById("status");
+      status.textContent = message;
+      status.style.color = isError ? "#b42318" : "#2f6f44";
+    }
+
+    function uniquePush(arr, value) {
+      if (value && !arr.includes(value)) {
+        arr.push(value);
+      }
+    }
+
+    function addEmoji(text, emojiMode, emoji) {
+      if (emojiMode === "none") return text;
+      if (emojiMode === "light") return `${text} ${emoji}`;
+      return `${emoji} ${text} ${emoji}`;
+    }
+
+    function generateCaptions() {
+      const topic = cleanText(document.getElementById("topic").value);
+      const tone = document.getElementById("tone").value;
+      const platform = document.getElementById("platform").value;
+      const length = document.getElementById("length").value;
+      const emoji = document.getElementById("emoji").value;
+
+      if (!topic) {
+        document.getElementById("result").style.display = "none";
+        setStatus("Please enter a post topic.", true);
+        return;
+      }
+
+      const emojiMap = {
+        motivational: "🔥",
+        aesthetic: "✨",
+        business: "📈",
+        funny: "😂",
+        personal: "🤍"
+      };
+
+      const platformTags = {
+        instagram: "#instagram #contentcreator",
+        tiktok: "#tiktok #fyp",
+        facebook: "#socialmedia #post",
+        x: "#content #social"
+      };
+
+      const shortBase = {
+        motivational: [
+          `Small steps still move you forward.`,
+          `Building ${topic}, one day at a time.`,
+          `Progress over perfection. Always.`,
+          `This is your sign to keep going.`,
+          `Consistency is changing everything.`
+        ],
+        aesthetic: [
+          `A little moment from ${topic}.`,
+          `Soft light, clear mind, good energy.`,
+          `Just the vibe I needed today.`,
+          `Simple moments hit different.`,
+          `Currently in my ${topic} era.`
+        ],
+        business: [
+          `Working on ${topic} today.`,
+          `Small improvements create big results.`,
+          `Focused on better systems and better outcomes.`,
+          `Building something worth sharing.`,
+          `One more step forward in ${topic}.`
+        ],
+        funny: [
+          `Me pretending I totally have ${topic} under control.`,
+          `Current mood: trying my best with ${topic}.`,
+          `Not perfect, but definitely entertaining.`,
+          `This looked easier in my head.`,
+          `Another day, another dramatic update.`
+        ],
+        personal: [
+          `A real little moment from my day.`,
+          `This one felt important.`,
+          `Keeping it simple and honest.`,
+          `Just sharing a piece of today.`,
+          `Life lately: ${topic}.`
+        ]
+      };
+
+      const mediumBase = {
+        motivational: [
+          `Showing up for ${topic} even on the quiet days. That is where real progress starts.`,
+          `Not every step is big, but every step counts when you stay consistent with ${topic}.`,
+          `Still learning, still building, still moving forward with ${topic}.`,
+          `The goal is simple: keep going until the results catch up.`,
+          `A reminder that slow progress is still progress.`
+        ],
+        aesthetic: [
+          `There is something special about slowing down and enjoying small moments like this.`,
+          `Soft details, calm energy, and a little bit of beauty in the middle of the day.`,
+          `Some moments do not need much explanation. They just feel right.`,
+          `Keeping things simple, calm, and a little more intentional.`,
+          `A quiet moment around ${topic} that I wanted to keep.`
+        ],
+        business: [
+          `Behind every better result is a lot of quiet work, testing, and consistency.`,
+          `Building around ${topic} one practical step at a time.`,
+          `Growth usually looks simple from the outside and repetitive from the inside.`,
+          `Focused on creating better systems, cleaner execution, and stronger results.`,
+          `Improvement rarely feels dramatic while you are doing the work.`
+        ],
+        funny: [
+          `I would like to officially report that ${topic} is going exactly as chaotically as expected.`,
+          `Somehow this made sense in my head, and honestly that is enough for now.`,
+          `Trying to stay professional while everything around ${topic} has other plans.`,
+          `A small update from today’s episode of “we are figuring it out live.”`,
+          `Proof that effort and confusion can exist at the same time.`
+        ],
+        personal: [
+          `Just sharing a real moment from today because not everything needs to be polished.`,
+          `Lately I have been trying to enjoy things a little more and rush a little less.`,
+          `This is one of those small moments that probably means more than it looks.`,
+          `Trying to stay present, grateful, and a little more intentional.`,
+          `A simple reminder to appreciate where you are while you build what is next.`
+        ]
+      };
+
+      const longBase = {
+        motivational: [
+          `Some days with ${topic} feel exciting and some feel repetitive, but both matter. Real progress usually comes from staying consistent long enough to see the difference.`,
+          `I am learning that growth is rarely loud. Most of the time it looks like patience, repetition, and trusting the process even before the results are obvious.`,
+          `This is your reminder that you do not need perfect timing or perfect conditions. You just need to keep moving and let consistency do the heavy work.`,
+          `A lot of people only notice the outcome, but the real story is always in the daily effort behind it.`,
+          `Still building. Still learning. Still moving forward. That is more than enough for today.`
+        ],
+        aesthetic: [
+          `There is something beautiful about ordinary moments when you actually stop long enough to notice them. A little light, a little calm, and a small reminder to slow down.`,
+          `I think some of the best moments are the ones that do not try too hard. Just good energy, simple details, and a feeling you want to stay in a little longer.`,
+          `Not everything needs to be loud to matter. Some things are soft, simple, and still worth remembering.`,
+          `A quiet little frame from the day. Nothing dramatic, just a mood I wanted to keep.`,
+          `Trying to leave more space for calm, beauty, and small moments that make the day feel lighter.`
+        ],
+        business: [
+          `A lot of business progress looks boring in real time. Planning, testing, improving, repeating. But that is usually what creates results that actually last.`,
+          `Working on ${topic} today and reminding myself that good outcomes usually come from clear thinking and consistent action, not random bursts of effort.`,
+          `The longer I work on projects, the more I respect simple systems, clear priorities, and steady execution.`,
+          `Big results are often built in small, unglamorous steps that nobody notices at first.`,
+          `Trying to build smarter, not noisier. Better systems, better focus, better outcomes.`
+        ],
+        funny: [
+          `Today’s update: I approached ${topic} with confidence, mild confusion, and a level of optimism that was probably not fully supported by reality.`,
+          `At this point I am not saying everything is under control, but I am saying the situation is at least entertaining.`,
+          `Some days you execute the plan. Other days the plan turns into content. This is one of those days.`,
+          `A real behind-the-scenes moment of trying, guessing, adapting, and pretending it was intentional all along.`,
+          `Not perfect. Not polished. But definitely memorable.`
+        ],
+        personal: [
+          `Sharing this because I want to remember that real life is made of small moments too, not only milestones. Sometimes a simple moment says more than a big speech.`,
+          `Lately I have been trying to be more present and a little less rushed. This felt like one of those moments worth keeping.`,
+          `A quiet little reminder that not everything meaningful has to be dramatic. Some things are important because they are honest.`,
+          `Trying to appreciate where I am while still working toward what I want next.`,
+          `Just a real moment from life lately. Nothing huge, but still worth sharing.`
+        ]
+      };
+
+      let selectedBase = shortBase[tone];
+      if (length === "medium") selectedBase = mediumBase[tone];
+      if (length === "long") selectedBase = longBase[tone];
+
+      const captions = [];
+      const topicLine = topic.charAt(0).toUpperCase() + topic.slice(1);
+
+      selectedBase.forEach(item => {
+        let finalText = item.replace(/\$\{topic\}/g, topicLine);
+        finalText = addEmoji(finalText, emoji, emojiMap[tone]);
+
+        if (platform !== "x" && length !== "short") {
+          finalText += `\n\n${platformTags[platform]}`;
+        }
+
+        uniquePush(captions, finalText);
+      });
+
+      uniquePush(captions, addEmoji(`${topicLine}. That is the caption.`, emoji, emojiMap[tone]));
+      uniquePush(captions, addEmoji(`A little update from ${topic}.`, emoji, emojiMap[tone]));
+      uniquePush(captions, addEmoji(`Right now, it is all about ${topic}.`, emoji, emojiMap[tone]));
+      uniquePush(captions, addEmoji(`Documenting the journey, one post at a time.`, emoji, emojiMap[tone]));
+      uniquePush(captions, addEmoji(`Some progress, some lessons, and a lot of real life.`, emoji, emojiMap[tone]));
+
+      const finalCaptions = captions.slice(0, 10);
+
+      for (let i = 0; i < 10; i++) {
+        document.getElementById(`caption${i + 1}`).textContent = finalCaptions[i] || "";
+      }
+
+      document.getElementById("result").style.display = "block";
+      setStatus("Captions generated successfully.");
+    }
+
+    function copyText(id) {
+      const text = document.getElementById(id).textContent.trim();
+
+      if (!text) {
+        setStatus("Nothing to copy yet.", true);
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        setStatus("Copied to clipboard.");
+      }).catch(() => {
+        setStatus("Copy failed.", true);
+      });
+    }
+  </script>
 </body>
-
 </html>
