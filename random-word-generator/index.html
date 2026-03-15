@@ -1,34 +1,535 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Random Word Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Word Generator</title>
+  <meta name="description" content="Generate random words and word combinations for brainstorming, naming, writing, content ideas, and creative projects." />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #f5f5f5;
+      color: #222;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      padding: 28px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #111;
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: #555;
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.04s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .generate-btn {
+      background: #111;
+      color: #fff;
+    }
+
+    .generate-btn:hover {
+      background: #222;
+    }
+
+    .copy-all-btn {
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .copy-all-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .secondary-btn {
+      background: #e9ecef;
+      color: #111;
+    }
+
+    .secondary-btn:hover {
+      background: #dde2e6;
+    }
+
+    .status {
+      margin-top: 12px;
+      min-height: 20px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .result-box,
+    .history-box {
+      margin-top: 24px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 20px;
+      color: #111;
+    }
+
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .word-card {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .word-text {
+      font-size: 20px;
+      color: #111;
+      word-break: break-word;
+      flex: 1;
+    }
+
+    .copy-btn {
+      background: #0d6efd;
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .history-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .history-item {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-family: monospace;
+      font-size: 14px;
+      color: #222;
+      word-break: break-word;
+    }
+
+    .small {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .coffee-wrap {
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: #ffd400;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: opacity 0.2s ease, transform 0.04s ease;
+    }
+
+    .coffee-btn:hover {
+      opacity: 0.92;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .tool-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .grid,
+      .word-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .generate-btn,
+      .copy-all-btn,
+      .secondary-btn {
+        width: 100%;
+      }
+
+      .word-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .copy-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
+    <div class="tool-box">
+      <a class="back-link" href="../">⬅ Back to tools</a>
 
-<p><a href="../">⬅ Back to tools</a></p>
+      <h1>Random Word Generator</h1>
+      <p class="description">
+        Generate random words and word combinations for brainstorming, naming, writing, content ideas, and creative projects.
+      </p>
 
-<h1>Random Word Generator</h1>
+      <div class="grid">
+        <div class="field">
+          <label for="category">Category</label>
+          <select id="category">
+            <option value="random">Random</option>
+            <option value="business">Business</option>
+            <option value="creative">Creative</option>
+            <option value="tech">Tech</option>
+            <option value="positive">Positive</option>
+          </select>
+        </div>
 
-<button onclick="generate()">Generate Word</button>
+        <div class="field">
+          <label for="amount">Amount</label>
+          <select id="amount">
+            <option value="1">1 word</option>
+            <option value="5" selected>5 words</option>
+            <option value="10">10 words</option>
+          </select>
+        </div>
 
-<p id="word"></p>
+        <div class="field">
+          <label for="mode">Mode</label>
+          <select id="mode">
+            <option value="single">Single words</option>
+            <option value="combo">Word combinations</option>
+          </select>
+        </div>
 
-<script>
+        <div class="field">
+          <label for="comboSize">Words per combination</label>
+          <select id="comboSize">
+            <option value="2" selected>2 words</option>
+            <option value="3">3 words</option>
+          </select>
+        </div>
+      </div>
 
-const words = [
-"future","power","dream","success","focus",
-"growth","energy","vision","create","build",
-"momentum","clarity","innovation","progress","freedom"
-];
+      <div class="button-row">
+        <button class="generate-btn" onclick="generateWords()">Generate Words</button>
+        <button class="copy-all-btn" onclick="copyAll()">Copy All</button>
+        <button class="secondary-btn" onclick="clearHistory()">Clear History</button>
+      </div>
 
-function generate(){
-const w = words[Math.floor(Math.random()*words.length)];
-document.getElementById("word").innerText = w;
-}
+      <div class="status" id="status"></div>
 
-</script>
+      <div class="result-box">
+        <h2 class="section-title">Generated results</h2>
+        <div class="word-grid" id="wordGrid"></div>
+        <p class="small">
+          Tip: combinations are useful for brand names, project ideas, prompts, and brainstorming.
+        </p>
+      </div>
 
+      <div class="history-box">
+        <h2 class="section-title">History</h2>
+        <div class="history-list" id="historyList">
+          <div class="history-item">No generated words yet.</div>
+        </div>
+      </div>
+
+      <div class="coffee-wrap">
+        <a
+          class="coffee-btn"
+          href="https://buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const businessWords = [
+      "growth","profit","brand","market","value","strategy","sales","startup","network","vision",
+      "leader","scale","capital","venture","impact","client","trust","success","system","result",
+      "offer","plan","target","business","launch","agency","income","position","traffic","demand"
+    ];
+
+    const creativeWords = [
+      "dream","spark","canvas","story","color","shape","rhythm","light","motion","voice",
+      "create","design","imagine","art","idea","muse","style","texture","scene","sound",
+      "vision","craft","concept","theme","frame","script","pattern","poetry","flow","sketch"
+    ];
+
+    const techWords = [
+      "cloud","data","code","pixel","system","server","future","digital","logic","network",
+      "robot","binary","signal","device","crypto","engine","matrix","cyber","stack","app",
+      "build","deploy","smart","quantum","interface","script","node","kernel","stream","bot"
+    ];
+
+    const positiveWords = [
+      "focus","energy","freedom","clarity","progress","power","future","hope","momentum","success",
+      "joy","balance","purpose","strength","confidence","peace","optimism","belief","courage","wisdom",
+      "growth","calm","drive","vision","victory","trust","spark","glow","uplift","thrive"
+    ];
+
+    const randomWords = [
+      ...businessWords,
+      ...creativeWords,
+      ...techWords,
+      ...positiveWords,
+      "forest","river","stone","horizon","echo","rocket","bridge","circle","path","window",
+      "origin","planet","energy","build","shift","wave","north","storm","signal","field"
+    ];
+
+    let currentResults = [];
+    let historyList = [];
+
+    function getPool(category) {
+      if (category === "business") return businessWords;
+      if (category === "creative") return creativeWords;
+      if (category === "tech") return techWords;
+      if (category === "positive") return positiveWords;
+      return randomWords;
+    }
+
+    function randomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function setStatus(message) {
+      document.getElementById("status").textContent = message;
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(function () {
+        setStatus("Copied to clipboard.");
+      }).catch(function () {
+        setStatus("Copy failed. Try again.");
+      });
+    }
+
+    function generateSingleWord(pool) {
+      return randomItem(pool);
+    }
+
+    function generateCombination(pool, size) {
+      const parts = [];
+      for (let i = 0; i < size; i++) {
+        parts.push(randomItem(pool));
+      }
+      return parts.join(" ");
+    }
+
+    function renderResults(results) {
+      const grid = document.getElementById("wordGrid");
+      grid.innerHTML = "";
+
+      results.forEach(function (item) {
+        const card = document.createElement("div");
+        card.className = "word-card";
+
+        const text = document.createElement("div");
+        text.className = "word-text";
+        text.textContent = item;
+
+        const button = document.createElement("button");
+        button.className = "copy-btn";
+        button.type = "button";
+        button.textContent = "Copy";
+        button.onclick = function () {
+          copyToClipboard(item);
+        };
+
+        card.appendChild(text);
+        card.appendChild(button);
+        grid.appendChild(card);
+      });
+    }
+
+    function renderHistory() {
+      const historyBox = document.getElementById("historyList");
+      historyBox.innerHTML = "";
+
+      if (!historyList.length) {
+        const empty = document.createElement("div");
+        empty.className = "history-item";
+        empty.textContent = "No generated words yet.";
+        historyBox.appendChild(empty);
+        return;
+      }
+
+      historyList.forEach(function (entry) {
+        const item = document.createElement("div");
+        item.className = "history-item";
+        item.textContent = entry;
+        historyBox.appendChild(item);
+      });
+    }
+
+    function generateWords() {
+      const category = document.getElementById("category").value;
+      const amount = parseInt(document.getElementById("amount").value, 10);
+      const mode = document.getElementById("mode").value;
+      const comboSize = parseInt(document.getElementById("comboSize").value, 10);
+
+      const pool = getPool(category);
+      const results = [];
+
+      for (let i = 0; i < amount; i++) {
+        if (mode === "combo") {
+          results.push(generateCombination(pool, comboSize));
+        } else {
+          results.push(generateSingleWord(pool));
+        }
+      }
+
+      currentResults = results;
+      renderResults(currentResults);
+
+      historyList.unshift(currentResults.join(" | "));
+      if (historyList.length > 10) {
+        historyList.pop();
+      }
+      renderHistory();
+
+      setStatus("Generated " + currentResults.length + " result" + (currentResults.length > 1 ? "s." : "."));
+    }
+
+    function copyAll() {
+      if (!currentResults.length) {
+        setStatus("Generate words first.");
+        return;
+      }
+
+      copyToClipboard(currentResults.join("\n"));
+    }
+
+    function clearHistory() {
+      historyList = [];
+      renderHistory();
+      setStatus("History cleared.");
+    }
+  </script>
 </body>
 </html>
