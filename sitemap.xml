@@ -111,4 +111,15 @@
 <priority>0.8</priority>
 </url>
 
+  <url>
+<loc>https://tomaszczarniejewski-stack.github.io/tools/privacy.html</loc>
+</url>
+
+<url>
+<loc>https://tomaszczarniejewski-stack.github.io/tools/terms.html</loc>
+</url>
+
+<url>
+<loc>https://tomaszczarniejewski-stack.github.io/tools/contact.html</loc>
+</url>
 </urlset>
