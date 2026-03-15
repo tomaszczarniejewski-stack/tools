@@ -1,131 +1,614 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Random Number Generator</title>
-<meta name="description" content="Generate random numbers between a minimum and maximum value instantly.">
-<style>
-*{box-sizing:border-box}
-body{
-font-family:Arial,sans-serif;
-max-width:900px;
-margin:0 auto;
-padding:24px;
-background:#f7f7f7;
-color:#222
-}
-.box{
-background:#fff;
-padding:24px;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,.08)
-}
-h1{margin-top:0;font-size:32px}
-p{color:#444}
-.controls{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:16px
-}
-input,button{
-width:100%;
-padding:12px;
-font-size:16px;
-border:1px solid #ccc;
-border-radius:8px
-}
-button{
-margin-top:16px;
-background:#111;
-color:#fff;
-border:none;
-cursor:pointer
-}
-button:hover{background:#333}
-.result{
-margin-top:24px;
-font-size:40px;
-font-weight:bold;
-text-align:center;
-background:#f1f5f9;
-border:1px solid #dbe2ea;
-border-radius:10px;
-padding:20px
-}
-.history{
-margin-top:20px;
-font-family:monospace;
-font-size:14px;
-color:#444;
-word-break:break-word
-}
-a{
-color:#2563eb;
-text-decoration:none
-}
-a:hover{text-decoration:underline}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Number Generator</title>
+  <meta name="description" content="Generate random numbers with custom range, amount, duplicates, decimal options, sorting, and history." />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #f5f5f5;
+      color: #222;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .tool-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      padding: 28px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #111;
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: #555;
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 16px;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+    }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      background: #fff;
+      min-height: 52px;
+    }
+
+    .check-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: #111;
+      flex-shrink: 0;
+    }
+
+    .check-row span {
+      font-size: 15px;
+      color: #222;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.04s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .generate-btn {
+      background: #111;
+      color: #fff;
+    }
+
+    .generate-btn:hover {
+      background: #222;
+    }
+
+    .copy-all-btn {
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .copy-all-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .secondary-btn {
+      background: #e9ecef;
+      color: #111;
+    }
+
+    .secondary-btn:hover {
+      background: #dde2e6;
+    }
+
+    .status {
+      margin-top: 12px;
+      min-height: 20px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .result-box,
+    .history-box {
+      margin-top: 24px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 20px;
+      color: #111;
+    }
+
+    .main-result {
+      display: none;
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .main-result-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.1;
+      word-break: break-word;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .result-card {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .result-number {
+      font-family: monospace;
+      font-size: 20px;
+      color: #111;
+      word-break: break-word;
+      flex: 1;
+    }
+
+    .copy-btn {
+      background: #0d6efd;
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: #0b5ed7;
+    }
+
+    .history-content {
+      background: #fff;
+      border: 1px solid #dfe3e8;
+      border-radius: 14px;
+      padding: 14px;
+      font-family: monospace;
+      font-size: 14px;
+      color: #222;
+      word-break: break-word;
+      min-height: 54px;
+    }
+
+    .small {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .coffee-wrap {
+      margin-top: 26px;
+    }
+
+    .coffee-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: #ffd400;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: opacity 0.2s ease, transform 0.04s ease;
+    }
+
+    .coffee-btn:hover {
+      opacity: 0.92;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .tool-box {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .grid,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .generate-btn,
+      .copy-all-btn,
+      .secondary-btn {
+        width: 100%;
+      }
+
+      .result-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .copy-btn {
+        width: 100%;
+      }
+
+      .main-result-number {
+        font-size: 40px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page">
+    <div class="tool-box">
+      <a class="back-link" href="../">⬅ Back to tools</a>
 
-<div class="box">
+      <h1>Random Number Generator</h1>
+      <p class="description">
+        Generate random numbers with custom range, amount, duplicates, decimal settings, sorting, and history.
+      </p>
 
-<p><a href="../">⬅ Back to tools</a></p>
+      <div class="grid">
+        <div class="field">
+          <label for="min">Minimum value</label>
+          <input id="min" type="number" value="1" />
+        </div>
 
-<h1>Random Number Generator</h1>
-<p>Generate random numbers between a minimum and maximum value.</p>
+        <div class="field">
+          <label for="max">Maximum value</label>
+          <input id="max" type="number" value="100" />
+        </div>
 
-<div class="controls">
+        <div class="field">
+          <label for="amount">How many numbers</label>
+          <select id="amount">
+            <option value="1">1 number</option>
+            <option value="5" selected>5 numbers</option>
+            <option value="10">10 numbers</option>
+            <option value="20">20 numbers</option>
+          </select>
+        </div>
 
-<input id="min" type="number" value="1">
-<input id="max" type="number" value="100">
+        <div class="field">
+          <label for="numberType">Number type</label>
+          <select id="numberType" onchange="toggleDecimalOptions()">
+            <option value="integer" selected>Integers</option>
+            <option value="decimal">Decimals</option>
+          </select>
+        </div>
 
-</div>
+        <div class="field">
+          <label for="decimals">Decimal places</label>
+          <select id="decimals">
+            <option value="1">1 place</option>
+            <option value="2" selected>2 places</option>
+            <option value="3">3 places</option>
+            <option value="4">4 places</option>
+          </select>
+        </div>
 
-<button onclick="generate()">Generate Random Number</button>
+        <div class="field">
+          <label for="sortOrder">Sort results</label>
+          <select id="sortOrder">
+            <option value="generated">As generated</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
 
-<div class="result" id="result">-</div>
+        <div class="field">
+          <label>Duplicates</label>
+          <label class="check-row">
+            <input id="noDuplicates" type="checkbox" />
+            <span>No duplicates</span>
+          </label>
+        </div>
+      </div>
 
-<div class="history" id="history"></div>
+      <div class="button-row">
+        <button class="generate-btn" onclick="generateNumbers()">Generate Numbers</button>
+        <button class="copy-all-btn" onclick="copyAll()">Copy All</button>
+        <button class="secondary-btn" onclick="clearHistory()">Clear History</button>
+      </div>
 
-</div>
+      <div class="status" id="status"></div>
 
-<script>
+      <div class="result-box">
+        <h2 class="section-title">Generated results</h2>
 
-let historyList=[]
+        <div class="main-result" id="mainResult">
+          <div class="main-result-number" id="mainResultNumber">-</div>
+        </div>
 
-function generate(){
+        <div class="result-grid" id="resultGrid"></div>
 
-let min=parseInt(document.getElementById("min").value)
-let max=parseInt(document.getElementById("max").value)
+        <p class="small">
+          Tip: use “No duplicates” for simple draws, contests, or picking unique values from a range.
+        </p>
+      </div>
 
-if(isNaN(min)||isNaN(max)){
-alert("Enter valid numbers")
-return
-}
+      <div class="history-box">
+        <h2 class="section-title">History</h2>
+        <div class="history-content" id="historyContent">No generated numbers yet.</div>
+      </div>
 
-if(min>max){
-alert("Minimum cannot be greater than maximum")
-return
-}
+      <div class="coffee-wrap">
+        <a
+          class="coffee-btn"
+          href="https://buymeacoffee.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Support me on Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+  </div>
 
-let number=Math.floor(Math.random()*(max-min+1))+min
+  <script>
+    let historyList = [];
+    let currentResults = [];
 
-document.getElementById("result").textContent=number
+    function setStatus(message) {
+      document.getElementById("status").textContent = message;
+    }
 
-historyList.unshift(number)
+    function toggleDecimalOptions() {
+      const type = document.getElementById("numberType").value;
+      document.getElementById("decimals").disabled = type !== "decimal";
+      document.getElementById("noDuplicates").disabled = type !== "integer";
+      if (type !== "integer") {
+        document.getElementById("noDuplicates").checked = false;
+      }
+    }
 
-if(historyList.length>20){
-historyList.pop()
-}
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-document.getElementById("history").textContent="History: "+historyList.join(", ")
+    function randomDecimal(min, max, decimals) {
+      const value = Math.random() * (max - min) + min;
+      return Number(value.toFixed(decimals));
+    }
 
-}
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(function () {
+        setStatus("Copied to clipboard.");
+      }).catch(function () {
+        setStatus("Copy failed. Try again.");
+      });
+    }
 
-</script>
+    function renderResults(numbers) {
+      const mainResult = document.getElementById("mainResult");
+      const mainResultNumber = document.getElementById("mainResultNumber");
+      const resultGrid = document.getElementById("resultGrid");
 
+      resultGrid.innerHTML = "";
+
+      if (numbers.length === 1) {
+        mainResult.style.display = "block";
+        mainResultNumber.textContent = numbers[0];
+      } else {
+        mainResult.style.display = "none";
+      }
+
+      numbers.forEach(function (number) {
+        const card = document.createElement("div");
+        card.className = "result-card";
+
+        const text = document.createElement("div");
+        text.className = "result-number";
+        text.textContent = number;
+
+        const button = document.createElement("button");
+        button.className = "copy-btn";
+        button.type = "button";
+        button.textContent = "Copy";
+        button.onclick = function () {
+          copyToClipboard(String(number));
+        };
+
+        card.appendChild(text);
+        card.appendChild(button);
+        resultGrid.appendChild(card);
+      });
+    }
+
+    function renderHistory() {
+      const historyContent = document.getElementById("historyContent");
+
+      if (!historyList.length) {
+        historyContent.textContent = "No generated numbers yet.";
+        return;
+      }
+
+      historyContent.textContent = historyList.join(", ");
+    }
+
+    function generateNumbers() {
+      const min = Number(document.getElementById("min").value);
+      const max = Number(document.getElementById("max").value);
+      const amount = parseInt(document.getElementById("amount").value, 10);
+      const numberType = document.getElementById("numberType").value;
+      const decimals = parseInt(document.getElementById("decimals").value, 10);
+      const sortOrder = document.getElementById("sortOrder").value;
+      const noDuplicates = document.getElementById("noDuplicates").checked;
+
+      if (isNaN(min) || isNaN(max)) {
+        setStatus("Enter valid minimum and maximum values.");
+        return;
+      }
+
+      if (min > max) {
+        setStatus("Minimum cannot be greater than maximum.");
+        return;
+      }
+
+      if (numberType === "integer" && noDuplicates) {
+        const possibleCount = Math.floor(max) - Math.ceil(min) + 1;
+
+        if (!Number.isInteger(min) || !Number.isInteger(max)) {
+          setStatus("Use whole numbers if you want no duplicates.");
+          return;
+        }
+
+        if (possibleCount < amount) {
+          setStatus("Range is too small for that many unique numbers.");
+          return;
+        }
+      }
+
+      const results = [];
+
+      if (numberType === "integer") {
+        if (noDuplicates) {
+          const pool = [];
+          for (let i = min; i <= max; i++) {
+            pool.push(i);
+          }
+
+          for (let i = 0; i < amount; i++) {
+            const index = Math.floor(Math.random() * pool.length);
+            results.push(pool[index]);
+            pool.splice(index, 1);
+          }
+        } else {
+          for (let i = 0; i < amount; i++) {
+            results.push(randomInt(Math.ceil(min), Math.floor(max)));
+          }
+        }
+      } else {
+        for (let i = 0; i < amount; i++) {
+          results.push(randomDecimal(min, max, decimals));
+        }
+      }
+
+      let finalResults = results.slice();
+
+      if (sortOrder === "asc") {
+        finalResults.sort(function (a, b) { return a - b; });
+      } else if (sortOrder === "desc") {
+        finalResults.sort(function (a, b) { return b - a; });
+      }
+
+      currentResults = finalResults;
+      renderResults(currentResults);
+
+      historyList.unshift(finalResults.join(", "));
+      if (historyList.length > 20) {
+        historyList.pop();
+      }
+      renderHistory();
+
+      setStatus("Generated " + currentResults.length + " number" + (currentResults.length > 1 ? "s." : "."));
+    }
+
+    function copyAll() {
+      if (!currentResults.length) {
+        setStatus("Generate numbers first.");
+        return;
+      }
+
+      copyToClipboard(currentResults.join("\n"));
+    }
+
+    function clearHistory() {
+      historyList = [];
+      renderHistory();
+      setStatus("History cleared.");
+    }
+
+    toggleDecimalOptions();
+  </script>
 </body>
 </html>
